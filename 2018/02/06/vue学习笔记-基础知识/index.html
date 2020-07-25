@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>vue学习笔记(一)————基础知识 | lzh</title>
+  <meta name="description" content="前言学习vue的笔记，应该会试着写一个系列，目的还是加深印象，毕竟感觉自己的记忆力真的不ok,也是给自己的学习留下一点东西 创建vue实例和数据12345678var app &#x3D; new Vue(&amp;#123;	el:&#39;#app&#39;，&#x2F;&#x2F;指定挂载vue实例的元素，一般为id	data:&amp;#123;		&#x2F;&#x2F;数据		a:1	&amp;#125;	&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue学习笔记(一)————基础知识">
+<meta property="og:url" content="http://lizehongss.github.io/newBlog/2018/02/06/vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/index.html">
+<meta property="og:site_name" content="lzh">
+<meta property="og:description" content="前言学习vue的笔记，应该会试着写一个系列，目的还是加深印象，毕竟感觉自己的记忆力真的不ok,也是给自己的学习留下一点东西 创建vue实例和数据12345678var app &#x3D; new Vue(&amp;#123;	el:&#39;#app&#39;，&#x2F;&#x2F;指定挂载vue实例的元素，一般为id	data:&amp;#123;		&#x2F;&#x2F;数据		a:1	&amp;#125;	&amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-02-06T00:00:00.000Z">
+<meta property="article:modified_time" content="2020-07-25T12:35:54.160Z">
+<meta property="article:author" content="lizehong">
+<meta property="article:tag" content="vue">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://lizehongss.github.io/newBlog/2018/02/06/vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="lzh" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/newBlog/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/lizehongss" target="_blank">
+          <img class="img-circle img-rotate" src="/newBlog/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">lzh</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">前端工程师</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 广州</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/newBlog/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/newBlog/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/newBlog/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/newBlog/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/newBlog/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/newBlog/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/newBlog/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/lizehongss" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎您的到来!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/newBlog/categories/css/">css</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/newBlog/categories/vue/">vue</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/newBlog/categories/%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/">源码学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/newBlog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/newBlog/categories/%E9%9D%A2%E8%AF%95/">面试</a><span class="category-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/newBlog/tags/css/" rel="tag">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/newBlog/tags/element/" rel="tag">element</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/newBlog/tags/vue/" rel="tag">vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/newBlog/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/newBlog/tags/%E9%9D%A2%E8%AF%95/" rel="tag">面试</a><span class="tag-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/newBlog/tags/css/" style="font-size: 13px;">css</a> <a href="/newBlog/tags/element/" style="font-size: 13px;">element</a> <a href="/newBlog/tags/vue/" style="font-size: 13.5px;">vue</a> <a href="/newBlog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px;">算法</a> <a href="/newBlog/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 14px;">面试</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2020/04/">四月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2018/06/">六月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2018/03/">三月 2018</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2018/02/">二月 2018</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/newBlog/categories/%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/">源码学习</a>
+              </p>
+              <p class="item-title">
+                <a href="/newBlog/2020/04/20/element%E6%BA%90%E7%A0%81%E6%A0%B7%E5%BC%8F%E5%AD%A6%E4%B9%A0/" class="title">element源码样式学习</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-04-20T00:00:00.000Z" itemprop="datePublished">2020-04-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/newBlog/categories/css/">css</a>
+              </p>
+              <p class="item-title">
+                <a href="/newBlog/2018/06/23/CSS%E5%B8%83%E5%B1%80/" class="title">css布局</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-06-23T00:00:00.000Z" itemprop="datePublished">2018-06-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/newBlog/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/newBlog/2018/03/31/%E7%AE%97%E6%B3%953/" class="title">js算法3</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-03-31T00:00:00.000Z" itemprop="datePublished">2018-03-31</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/newBlog/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/newBlog/2018/03/23/%E7%AE%97%E6%B3%951/" class="title">js算法1</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-03-23T00:00:00.000Z" itemprop="datePublished">2018-03-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/newBlog/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/newBlog/2018/03/23/%E7%AE%97%E6%B3%952/" class="title">js算法2</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-03-23T00:00:00.000Z" itemprop="datePublished">2018-03-23</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-vue学习笔记-基础知识" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      vue学习笔记(一)————基础知识
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/newBlog/2018/02/06/vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="article-date">
+	  <time datetime="2018-02-06T00:00:00.000Z" itemprop="datePublished">2018-02-06</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/newBlog/categories/vue/">vue</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/newBlog/tags/vue/" rel="tag">vue</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/newBlog/2018/02/06/vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>学习vue的笔记，应该会试着写一个系列，目的还是加深印象，毕竟感觉自己的记忆力真的不ok,也是给自己的学习留下一点东西</p>
+<h1 id="创建vue实例和数据"><a href="#创建vue实例和数据" class="headerlink" title="创建vue实例和数据"></a>创建vue实例和数据</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var app &#x3D; new Vue(&#123;</span><br><span class="line">	el:&#39;#app&#39;，&#x2F;&#x2F;指定挂载vue实例的元素，一般为id</span><br><span class="line">	data:&#123;</span><br><span class="line">		&#x2F;&#x2F;数据</span><br><span class="line">		a:1</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#125;)</span><br></pre></td></tr></table></figure>
+<p>在html中使用来显示数据， <strong>是双向绑定的</strong> </p>
+<h1 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h1><p>vue 常用的生命周期钩子为</p>
+<pre><code>语法      |  简介 </code></pre><p>———      |  ————<br>created        | 实例创建完成后调用<br>mounted        | el挂载到实例上后调用<br>beforeDestroy  | 实例销毁之前调用</p>
+<p>用法示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ar app &#x3D; new Vue(&#123;</span><br><span class="line">	el:&#39;#app&#39;，&#x2F;&#x2F;指定挂载vue实例的元素，一般为id</span><br><span class="line">	data:&#123;</span><br><span class="line">		&#x2F;&#x2F;数据</span><br><span class="line">		a:1</span><br><span class="line">	&#125;</span><br><span class="line">	created: function()&#123;</span><br><span class="line">		&#x2F;&#x2F;函数</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#125;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h1><p> 过滤器应该写在filters中,主要对数据进行过滤，如格式化文本，字母全部大写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ar app &#x3D; new Vue(&#123;</span><br><span class="line">	el:&#39;#app&#39;,</span><br><span class="line">	data:&#123;</span><br><span class="line">	&#125;</span><br><span class="line">	filters:&#123;</span><br><span class="line">		b: function ()&#123;</span><br><span class="line">			&#x2F;&#x2F;函数</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>html中写法为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;a|b&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>过滤器也可以串联接收数据</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;a|b|c&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>#计算属性<br>计算属性应该写在computed中，应用在过长的逻辑运算</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;d&#125;&#125;</span><br><span class="line"></span><br><span class="line">ar app &#x3D; new Vue(&#123;</span><br><span class="line">	....</span><br><span class="line">	computed:</span><br><span class="line">	d:function()&#123;</span><br><span class="line">		return &#x2F;&#x2F;返回结果</span><br><span class="line">	&#125;</span><br><span class="line">	&#125;)</span><br></pre></td></tr></table></figure>
+<p><strong>注意:</strong></p>
+<ol>
+<li>计算属性不仅可以依赖当前Vue实例的数据，也可以依赖其它实例的数据</li>
+<li>计算属性是基于它的依赖缓存的，只要数据不改变，计算属性不更新</li>
+</ol>
+<h1 id="基本指令"><a href="#基本指令" class="headerlink" title="基本指令"></a>基本指令</h1><h2 id="v-bind"><a href="#v-bind" class="headerlink" title="v-bind"></a>v-bind</h2><p>动态更新HTML元素上的属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;a v-bind:href&#x3D;&quot;url&quot;&gt;&lt;&#x2F;a&gt;</span><br><span class="line"></span><br><span class="line">ar app &#x3D; new Vue(&#123;</span><br><span class="line">	...</span><br><span class="line">	data:&#123;</span><br><span class="line">		url:...</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#125;)</span><br></pre></td></tr></table></figure>
+<p>语法糖为： 如 <strong>：href=”url”</strong></p>
+<h2 id="v-on"><a href="#v-on" class="headerlink" title="v-on"></a>v-on</h2><p>绑定事件监听器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;button v-on:click&#x3D;&quot;a&quot;&gt;&lt;&#x2F;button&gt;</span><br><span class="line"></span><br><span class="line">ar app &#x3D; new Vue(&#123;</span><br><span class="line">	....</span><br><span class="line">	methods:&#123;</span><br><span class="line">		a: function()&#123;</span><br><span class="line">			&#x2F;&#x2F;函数</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">		&#125;)</span><br></pre></td></tr></table></figure>
+<p>在供click调用的方法，可以不加括号，可用$event访问原生DON事件，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">v-on:click&#x3D;&quot;a(mes,$event)&quot;</span><br></pre></td></tr></table></figure>
+<p>语法糖为@ 如 <strong>@click=”a”</strong><br>在vue中提供修饰符来实现各种事件方法的绑定，其中包括</p>
+<pre><code>语法      |  简介 </code></pre><p>———     |  —————-<br>@click.stop   | 阻止事件冒泡<br>@click.prevent| 提交事件不再重载页面<br>@click.once   | 只触发一次<br>@keyup.13     | 监听键盘事件，键值为13</p>
+<p>其中@keyup还提供其它键值的快捷名称，可在vue文档查找，<strong>如@keyup.down</strong></p>
+<h2 id="其它指令"><a href="#其它指令" class="headerlink" title="其它指令"></a>其它指令</h2><pre><code>语法      |  简介 </code></pre><p>———    |  —————-<br>v-html                  | 输出html<br>v-cloak                 | 在vue实例结束编译时从绑定的HTML元素上移除<br>v-once                  | 定义它的元素或组件只渲染一次<br>v-if  v-eles-if v-else  | 与if等相同，后加判断式<br>v-show                  | 改变元素的CSS属性display，false时会隐藏<br>v-for                   |与for类似，与in搭配使用</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://lizehongss.github.io/newBlog/2018/02/06/vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="vue学习笔记(一)————基础知识" target="_blank" rel="external">http://lizehongss.github.io/newBlog/2018/02/06/vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/lizehongss" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/newBlog/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/lizehongss" target="_blank"><span class="text-dark">lzh</span><small class="ml-1x">前端工程师</small></a></h3>
+        <div>简单生活</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/newBlog/2018/02/10/vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%BB%84%E4%BB%B6%20/" title="vue学习笔记(二)————组件"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/lizehongss" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/newBlog/js/plugin.min.js"></script>
+
+
+<script src="/newBlog/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/newBlog/',
+        CONTENT_URL: '/newBlog/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/newBlog/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

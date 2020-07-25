@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>js算法1 | lzh</title>
+  <meta name="description" content="js相关算法 传入四个正整数参数，返回最小的两个，代码如下：12345678910function sumTwoSmallestNumbers(numbers) &amp;#123;    var min&#x3D;Math.min.apply(Math,numbers); var filterResult&#x3D; numbers.filter((item)&#x3D;&gt;&amp;#123;    re">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js算法1">
+<meta property="og:url" content="http://lizehongss.github.io/newBlog/2018/03/23/%E7%AE%97%E6%B3%951/index.html">
+<meta property="og:site_name" content="lzh">
+<meta property="og:description" content="js相关算法 传入四个正整数参数，返回最小的两个，代码如下：12345678910function sumTwoSmallestNumbers(numbers) &amp;#123;    var min&#x3D;Math.min.apply(Math,numbers); var filterResult&#x3D; numbers.filter((item)&#x3D;&gt;&amp;#123;    re">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-03-23T00:00:00.000Z">
+<meta property="article:modified_time" content="2020-07-25T12:35:54.160Z">
+<meta property="article:author" content="lizehong">
+<meta property="article:tag" content="算法">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://lizehongss.github.io/newBlog/2018/03/23/%E7%AE%97%E6%B3%951/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="lzh" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/newBlog/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/lizehongss" target="_blank">
+          <img class="img-circle img-rotate" src="/newBlog/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">lzh</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">前端工程师</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 广州</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/newBlog/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/newBlog/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/newBlog/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/newBlog/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/newBlog/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/newBlog/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/newBlog/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/lizehongss" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎您的到来!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/newBlog/categories/css/">css</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/newBlog/categories/vue/">vue</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/newBlog/categories/%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/">源码学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/newBlog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/newBlog/categories/%E9%9D%A2%E8%AF%95/">面试</a><span class="category-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/newBlog/tags/css/" rel="tag">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/newBlog/tags/element/" rel="tag">element</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/newBlog/tags/vue/" rel="tag">vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/newBlog/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/newBlog/tags/%E9%9D%A2%E8%AF%95/" rel="tag">面试</a><span class="tag-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/newBlog/tags/css/" style="font-size: 13px;">css</a> <a href="/newBlog/tags/element/" style="font-size: 13px;">element</a> <a href="/newBlog/tags/vue/" style="font-size: 13.5px;">vue</a> <a href="/newBlog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px;">算法</a> <a href="/newBlog/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 14px;">面试</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2020/04/">四月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2018/06/">六月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2018/03/">三月 2018</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2018/02/">二月 2018</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/newBlog/categories/%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/">源码学习</a>
+              </p>
+              <p class="item-title">
+                <a href="/newBlog/2020/04/20/element%E6%BA%90%E7%A0%81%E6%A0%B7%E5%BC%8F%E5%AD%A6%E4%B9%A0/" class="title">element源码样式学习</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-04-20T00:00:00.000Z" itemprop="datePublished">2020-04-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/newBlog/categories/css/">css</a>
+              </p>
+              <p class="item-title">
+                <a href="/newBlog/2018/06/23/CSS%E5%B8%83%E5%B1%80/" class="title">css布局</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-06-23T00:00:00.000Z" itemprop="datePublished">2018-06-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/newBlog/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/newBlog/2018/03/31/%E7%AE%97%E6%B3%953/" class="title">js算法3</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-03-31T00:00:00.000Z" itemprop="datePublished">2018-03-31</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/newBlog/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/newBlog/2018/03/23/%E7%AE%97%E6%B3%951/" class="title">js算法1</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-03-23T00:00:00.000Z" itemprop="datePublished">2018-03-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/newBlog/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/newBlog/2018/03/23/%E7%AE%97%E6%B3%952/" class="title">js算法2</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-03-23T00:00:00.000Z" itemprop="datePublished">2018-03-23</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-算法1" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      js算法1
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/newBlog/2018/03/23/%E7%AE%97%E6%B3%951/" class="article-date">
+	  <time datetime="2018-03-23T00:00:00.000Z" itemprop="datePublished">2018-03-23</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/newBlog/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/newBlog/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/newBlog/2018/03/23/%E7%AE%97%E6%B3%951/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="js相关算法"><a href="#js相关算法" class="headerlink" title="js相关算法"></a>js相关算法</h1><ol>
+<li>传入四个正整数参数，返回最小的两个，代码如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function sumTwoSmallestNumbers(numbers) &#123;  </span><br><span class="line">  var min&#x3D;Math.min.apply(Math,numbers);</span><br><span class="line"> var filterResult&#x3D; numbers.filter((item)&#x3D;&gt;&#123;</span><br><span class="line">    return (item!&#x3D;min)</span><br><span class="line">  &#125;</span><br><span class="line">  )</span><br><span class="line">  var smin&#x3D;Math.min.apply(Math,filterResult);</span><br><span class="line">  return min+smin;</span><br><span class="line">  &#x2F;&#x2F;Code here</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+最优解(别人代码系列)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function sumTwoSmallestNumbers(numbers)&#123;  </span><br><span class="line">  numbers &#x3D; numbers.sort(function(a, b)&#123;return a - b; &#125;);</span><br><span class="line">  return numbers[0] + numbers[1];</span><br><span class="line">&#125;;</span><br><span class="line">&#x2F;&#x2F;使用排序解决。。。。</span><br></pre></td></tr></table></figure></li>
+<li>给定一个正整数n写成abcd …（a，b，c，d<br>…是数字）和一个正整数p，我们想要找到一个正整数k，如果存在的话，比如数字的总和对于p的连续幂的n等于k * n。换一种说法：<br>例如：（a ^ p + b ^（p + 1）+ c ^（p + 2）+ d ^（p + 3）+ …）= n * k<br>如果是这种情况，我们将返回K，如果不返回-1。<br>注：N，P将始终作为严格正整数给出。<br>代码如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function digPow(n, p)&#123;</span><br><span class="line">  &#x2F;&#x2F; ...</span><br><span class="line">  var s&#x3D;n.toString();</span><br><span class="line">  var sum &#x3D;0;</span><br><span class="line">  for(var i&#x3D;0;i&lt;s.length;i++)&#123;</span><br><span class="line">  sum+&#x3D;Math.pow(s[i],p);</span><br><span class="line">  p++;</span><br><span class="line">  &#125; </span><br><span class="line">  if(sum%n&#x3D;&#x3D;0) return sum&#x2F;n;</span><br><span class="line">  else return -1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+最优解(别人代码系列)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function digPow(n, p) &#123;</span><br><span class="line">  var x &#x3D; String(n).split(&quot;&quot;).reduce((s, d, i) &#x3D;&gt; s + Math.pow(d, p + i), 0)</span><br><span class="line">  return x % n ? -1 : x &#x2F; n</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;reduce中s为上一次调用回调函数时的返回值，或者初始值</span><br><span class="line">&#x2F;&#x2F;d为当前正在处理的数组元素</span><br><span class="line">&#x2F;&#x2F;i为当前数组元素下标</span><br><span class="line">&#x2F;&#x2F;初始值为0</span><br></pre></td></tr></table></figure></li>
+<li>找到n下面所有倍数的总和m，例子：</li>
+</ol>
+<ul>
+<li>sumMul(2, 9)   ==&gt; 2 + 4 + 6 + 8 = 20</li>
+<li>sumMul(3, 13)  ==&gt; 3 + 6 + 9 + 12 = 30</li>
+<li>sumMul(4, 123) ==&gt; 4 + 8 + 12 + … = 1860</li>
+<li>sumMul(4, -7)  ==&gt; “INVALID”<br>代码如下： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function sumMul(n,m)&#123;</span><br><span class="line">&#x2F;&#x2F;your idea here</span><br><span class="line">var sum&#x3D;0;</span><br><span class="line">var double&#x3D;1;</span><br><span class="line">var val&#x3D;n;</span><br><span class="line">while(val&lt;m)&#123;</span><br><span class="line">sum+&#x3D;val;</span><br><span class="line">double++;</span><br><span class="line">val&#x3D;n*double;</span><br><span class="line">&#125;</span><br><span class="line">if(sum&#x3D;&#x3D;0) return  &quot;INVALID&quot;;</span><br><span class="line">return sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+别人代码</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function sumMul(n,m)&#123;</span><br><span class="line">  if (n &gt;&#x3D; m) return &quot;INVALID&quot;;</span><br><span class="line"></span><br><span class="line">var sum &#x3D; 0;</span><br><span class="line">  for (var i &#x3D; n; i &lt; m; i+&#x3D;n) &#123;</span><br><span class="line">    sum +&#x3D; i;</span><br><span class="line">  &#125;</span><br><span class="line">  return sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>公差公式，示例如下：</li>
+</ol>
+<ul>
+<li>arithmetic_sequence_elements(1, 2, 5) == “1, 3, 5, 7, 9”<br>代码如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function arithmeticSequenceElements(a,r,n) &#123;</span><br><span class="line">  &#x2F;&#x2F;your code here</span><br><span class="line">  var arr &#x3D;[];</span><br><span class="line">  var i&#x3D;0;</span><br><span class="line">  while(arr.length&lt;n)&#123;</span><br><span class="line">  if(i&#x3D;&#x3D;0)&#123; arr[i]&#x3D;a&#125;</span><br><span class="line">  else arr[i]&#x3D;&#39; &#39;+a;</span><br><span class="line">    a&#x3D;a+r;</span><br><span class="line">    i++;</span><br><span class="line">      </span><br><span class="line">  &#125;</span><br><span class="line"> arr&#x3D;arr.toString();</span><br><span class="line">  return arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+别人代码系列:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function arithmeticSequenceElements(a,r,n) &#123;</span><br><span class="line">  var ret &#x3D; [a]</span><br><span class="line">  while (--n) ret.push(a+&#x3D;r);</span><br><span class="line">  return ret.join(&#39;, &#39;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="5">
+<li>去除！示例如下：</li>
+</ol>
+<ul>
+<li>remove(“Hi!”) == “Hi!”</li>
+<li>remove(“Hi!!!”) == “Hi!!!”</li>
+<li>remove(“!Hi”) == “Hi”</li>
+<li>remove(“!Hi!”) == “Hi!”</li>
+<li>remove(“Hi! Hi!”) == “Hi Hi!”</li>
+<li>remove(“Hi”) == “Hi”</li>
+</ul>
+<p>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function remove(s)&#123;</span><br><span class="line">  &#x2F;&#x2F;coding and coding....</span><br><span class="line"> var a&#x3D;&#x2F;!+[^!$]&#x2F;gm;</span><br><span class="line"> return s.replace(a,&quot; &quot;);</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;自己的想法，然后有两个没过。</span><br></pre></td></tr></table></figure>
+<p>别人代码系列：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function remove(s)&#123;</span><br><span class="line">  var a&#x3D;&#x2F;!+(?!!*$)&#x2F;g;</span><br><span class="line">  return s.replace(a, &#39;&#39;);</span><br><span class="line">&#125;</span><br><span class="line">总体思路是对，不匹配最后的！用零宽负向先行断言，要求接下来的字符不与!匹配</span><br></pre></td></tr></table></figure>
+<ol start="6">
+<li>返回最大和最小，示例如下：</li>
+</ol>
+<ul>
+<li>highAndLow(“1 2 3 4 5”); // return “5 1”</li>
+<li>highAndLow(“1 2 -3 4 5”); // return “5 -3”</li>
+<li>highAndLow(“1 9 3 4 -5”); // return “9 -5”</li>
+</ul>
+<p>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function highAndLow(numbers)&#123;</span><br><span class="line">  &#x2F;&#x2F; ...</span><br><span class="line">  var arr &#x3D;numbers.split(&#x2F;[\ ]+&#x2F;);</span><br><span class="line">    var arr&#x3D;arr.map(function(item)&#123;</span><br><span class="line">      return parseInt(item);</span><br><span class="line">    &#125;)</span><br><span class="line">    var max&#x3D;Math.max.apply(Math,arr);</span><br><span class="line">    var min&#x3D;Math.min.apply(Math,arr);</span><br><span class="line">  console.log(max);</span><br><span class="line">  return max.toString()+&quot; &quot;+min.toString();</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>别人代码 ：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function highAndLow(numbers)&#123;</span><br><span class="line">  numbers &#x3D; numbers.split(&#39; &#39;).map(Number);</span><br><span class="line">  return Math.max.apply(0, numbers) + &#39; &#39; + Math.min.apply(0, numbers);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://lizehongss.github.io/newBlog/2018/03/23/%E7%AE%97%E6%B3%951/" title="js算法1" target="_blank" rel="external">http://lizehongss.github.io/newBlog/2018/03/23/%E7%AE%97%E6%B3%951/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/lizehongss" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/newBlog/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/lizehongss" target="_blank"><span class="text-dark">lzh</span><small class="ml-1x">前端工程师</small></a></h3>
+        <div>简单生活</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/newBlog/2018/03/31/%E7%AE%97%E6%B3%953/" title="js算法3"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/newBlog/2018/03/23/%E7%AE%97%E6%B3%952/" title="js算法2"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/lizehongss" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/newBlog/js/plugin.min.js"></script>
+
+
+<script src="/newBlog/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/newBlog/',
+        CONTENT_URL: '/newBlog/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/newBlog/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

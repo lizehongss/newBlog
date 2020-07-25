@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>vue学习笔记(二)————组件 | lzh</title>
+  <meta name="description" content="前言主要是有关vue组件的笔记，然后也不想为了定blog而写blog,所以应该会写一些真的自己想记下来的东西，也希望可以尽量精简的写 组件用法需要注册才能使用组件，注册分为局部注册和全局注册，代码示例如下： 必须在实例注册，组件才可以使用 123456789101112&#x2F;&#x2F;全局注册Vue.component(&quot;组件名&quot;,&amp;#123;    &#x2F;&amp;#x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue学习笔记(二)————组件">
+<meta property="og:url" content="http://lizehongss.github.io/newBlog/2018/02/10/vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%BB%84%E4%BB%B6%20/index.html">
+<meta property="og:site_name" content="lzh">
+<meta property="og:description" content="前言主要是有关vue组件的笔记，然后也不想为了定blog而写blog,所以应该会写一些真的自己想记下来的东西，也希望可以尽量精简的写 组件用法需要注册才能使用组件，注册分为局部注册和全局注册，代码示例如下： 必须在实例注册，组件才可以使用 123456789101112&#x2F;&#x2F;全局注册Vue.component(&quot;组件名&quot;,&amp;#123;    &#x2F;&amp;#x">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-02-10T00:00:00.000Z">
+<meta property="article:modified_time" content="2020-07-25T12:35:54.160Z">
+<meta property="article:author" content="lizehong">
+<meta property="article:tag" content="vue">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://lizehongss.github.io/newBlog/2018/02/10/vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%BB%84%E4%BB%B6%20/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="lzh" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/newBlog/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/lizehongss" target="_blank">
+          <img class="img-circle img-rotate" src="/newBlog/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">lzh</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">前端工程师</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 广州</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/newBlog/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/newBlog/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/newBlog/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/newBlog/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/newBlog/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/newBlog/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/newBlog/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/lizehongss" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎您的到来!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/newBlog/categories/css/">css</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/newBlog/categories/vue/">vue</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/newBlog/categories/%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/">源码学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/newBlog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/newBlog/categories/%E9%9D%A2%E8%AF%95/">面试</a><span class="category-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/newBlog/tags/css/" rel="tag">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/newBlog/tags/element/" rel="tag">element</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/newBlog/tags/vue/" rel="tag">vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/newBlog/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/newBlog/tags/%E9%9D%A2%E8%AF%95/" rel="tag">面试</a><span class="tag-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/newBlog/tags/css/" style="font-size: 13px;">css</a> <a href="/newBlog/tags/element/" style="font-size: 13px;">element</a> <a href="/newBlog/tags/vue/" style="font-size: 13.5px;">vue</a> <a href="/newBlog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px;">算法</a> <a href="/newBlog/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 14px;">面试</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2020/04/">四月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2018/06/">六月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2018/03/">三月 2018</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2018/02/">二月 2018</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/newBlog/categories/%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/">源码学习</a>
+              </p>
+              <p class="item-title">
+                <a href="/newBlog/2020/04/20/element%E6%BA%90%E7%A0%81%E6%A0%B7%E5%BC%8F%E5%AD%A6%E4%B9%A0/" class="title">element源码样式学习</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-04-20T00:00:00.000Z" itemprop="datePublished">2020-04-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/newBlog/categories/css/">css</a>
+              </p>
+              <p class="item-title">
+                <a href="/newBlog/2018/06/23/CSS%E5%B8%83%E5%B1%80/" class="title">css布局</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-06-23T00:00:00.000Z" itemprop="datePublished">2018-06-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/newBlog/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/newBlog/2018/03/31/%E7%AE%97%E6%B3%953/" class="title">js算法3</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-03-31T00:00:00.000Z" itemprop="datePublished">2018-03-31</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/newBlog/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/newBlog/2018/03/23/%E7%AE%97%E6%B3%951/" class="title">js算法1</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-03-23T00:00:00.000Z" itemprop="datePublished">2018-03-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/newBlog/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/newBlog/2018/03/23/%E7%AE%97%E6%B3%952/" class="title">js算法2</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-03-23T00:00:00.000Z" itemprop="datePublished">2018-03-23</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-vue学习笔记-组件 " class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      vue学习笔记(二)————组件
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/newBlog/2018/02/10/vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%BB%84%E4%BB%B6%20/" class="article-date">
+	  <time datetime="2018-02-10T00:00:00.000Z" itemprop="datePublished">2018-02-10</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/newBlog/categories/vue/">vue</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/newBlog/tags/vue/" rel="tag">vue</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/newBlog/2018/02/10/vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%BB%84%E4%BB%B6%20/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>主要是有关vue组件的笔记，然后也不想为了定blog而写blog,所以应该会写一些真的自己想记下来的东西，也希望可以尽量精简的写</p>
+<h1 id="组件用法"><a href="#组件用法" class="headerlink" title="组件用法"></a>组件用法</h1><p>需要注册才能使用组件，注册分为局部注册和全局注册，代码示例如下：</p>
+<p><strong>必须在实例注册，组件才可以使用</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;全局注册</span><br><span class="line">Vue.component(&quot;组件名&quot;,&#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;选项</span><br><span class="line">    </span><br><span class="line">&#125;);</span><br><span class="line">&#x2F;&#x2F;局部注册</span><br><span class="line">var 组件名 &#x3D;&#123;</span><br><span class="line">    &#x2F;&#x2F;选项</span><br><span class="line">&#125;</span><br><span class="line">html模板如下：</span><br><span class="line">&lt;组件名&gt;&lt;&#x2F;组件名</span><br></pre></td></tr></table></figure>
+<h1 id="组件选项"><a href="#组件选项" class="headerlink" title="组件选项"></a>组件选项</h1><h2 id="template"><a href="#template" class="headerlink" title="template"></a>template</h2><p>temlplate后面是要渲染的内容，必须有一个元素包围它，代码如下：</p>
+<p><strong>注意v-show不能用在template中，可以使用v-if</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(&quot;组件名&quot;,&#123;</span><br><span class="line">template: &#39;&lt;div&gt;&lt;&#x2F;div&gt;&#39;;</span><br><span class="line">    </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="data"><a href="#data" class="headerlink" title="data"></a>data</h2><p>data的用法与实方法相同，不同的是要将数据return出去，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(&quot;组件名&quot;,&#123;</span><br><span class="line">.....</span><br><span class="line">data : function&#123;</span><br><span class="line">    return  &#123;</span><br><span class="line">        mws: &quot;text&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="props"><a href="#props" class="headerlink" title="props"></a>props</h2><p>props主要是用来接收来自父组件的数据，可以是字符串数组和对象<br><strong>注意数据是单向的，只能父组件传到子组件</strong><br>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">html:</span><br><span class="line"></span><br><span class="line">&lt;mytext message&#x3D;&quot;text&quot;&gt;&lt;&#x2F;mytext&gt;</span><br><span class="line"></span><br><span class="line">js：</span><br><span class="line">Vue.component(&quot;mytext&quot;,&#123;</span><br><span class="line">    props:[&#39;message&#39;]</span><br><span class="line">    </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>props的数据可以进行验证，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">props: &#123;</span><br><span class="line">    message : &#123;</span><br><span class="line">        type:Number， &#x2F;&#x2F;类型</span><br><span class="line">        default:&quot;&quot;text &#x2F;&#x2F;如果没有定义的默认值</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="wath"><a href="#wath" class="headerlink" title="wath"></a>wath</h2><p> 主要是用来监听props的值的改变，从而通知父组件或者更新props值<br> 代码如下<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">watch:&#123;</span><br><span class="line">    message: function(val)&#123;</span><br><span class="line">        &#x2F;&#x2F;当message发生改变时触发的函数 </span><br><span class="line">        &#x2F;&#x2F;val 为更新后的message值</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="组件通信"><a href="#组件通信" class="headerlink" title="组件通信"></a>组件通信</h1><h2 id="父组件向子组件通信"><a href="#父组件向子组件通信" class="headerlink" title="父组件向子组件通信"></a>父组件向子组件通信</h2><p>使用上面的props即可</p>
+<h2 id="子组件向父组件通信"><a href="#子组件向父组件通信" class="headerlink" title="子组件向父组件通信"></a>子组件向父组件通信</h2><p>使用自定义事件，子组件用$emit()来触发向父组件通信的事件代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">html:</span><br><span class="line">&lt;mytext @send&#x3D;&quot;handle&quot;&gt;&lt;&#x2F;mytext&gt;</span><br><span class="line">&#x2F;&#x2F;其中send为子组件发送过来的参数，为自定义事件的名称</span><br><span class="line">Vue.component(&quot;mytext&quot;,&#123;</span><br><span class="line">template:&#39;&lt;button @click&#x3D;&quot;hadles&quot;&gt;&#39;,</span><br><span class="line">methods:&#123;</span><br><span class="line">    hadles: function()&#123;</span><br><span class="line">        this.$emit(&#39;handle&#39;,数据);</span><br><span class="line">        &#x2F;&#x2F;第一个参数为事件名称，第二个为发送的数据</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><em>可以使用v-model来简化，不过个人感觉没有必要，所以不想写在这里做总结。。。。。。</em></p>
+<h2 id="非父子组件通信"><a href="#非父子组件通信" class="headerlink" title="非父子组件通信"></a>非父子组件通信</h2><p>在vue.js2.x中使用一个空的vu实例来作中介，组件把自定义事件名称和数据发送到这个空实例，其它实例或组件通过监听空实例的自定义事件来刷新数据<br>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var bus &#x3D;new Vue();</span><br><span class="line">bus.$emit(&#39;clicks&#39;,mes);</span><br><span class="line">bus.$on(&#39;clicks&#39;,function()&#123;&#125;);</span><br></pre></td></tr></table></figure>
+<p>补充：<br>当子组件较多时，可以用ref属性为组件指定一个索引名称：代码如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">html代码如下：</span><br><span class="line">&lt;mytext ref&#x3D;&quot;A&gt;&lt;&#x2F;mytext&gt;</span><br><span class="line">&#x2F;&#x2F;调用指定的子组件的message</span><br><span class="line">var msg&#x3D;this.$refs.comA.message</span><br></pre></td></tr></table></figure>
+<h1 id="slot"><a href="#slot" class="headerlink" title="slot"></a>slot</h1><p>slot是内容分发，用在将父组件的dom结构挂载，它与props,events触发事件构成组件的3个APi来源.<br><strong>slot的作用域是在父组件上</strong><br>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;mytext&gt;</span><br><span class="line">&lt;p&gt;&lt;&#x2F;p&gt;&#x2F;&#x2F;挂载内容 </span><br><span class="line">&lt;&#x2F;mytext&gt;</span><br><span class="line">Vue.component(&quot;mytext&quot;,&#123;</span><br><span class="line">template:&#39;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">    &lt;slot&gt;</span><br><span class="line">    &lt;p&gt;&lt;&#x2F;p&gt;&#x2F;&#x2F;没有内容时的默认内容</span><br><span class="line">    &lt;&#x2F;slot&gt;&#x2F;&#x2F;父组件的内容将挂载在slot里面</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&#39;</span><br><span class="line">    </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>可以给slot指定一个name，使用分发指定内容代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;mytext&gt;</span><br><span class="line">&lt;p slot&#x3D;&quot;one&quot;&gt;&lt;&#x2F;p&gt;&#x2F;&#x2F;挂载内容,slot为具名slot</span><br><span class="line">&lt;&#x2F;mytext&gt;</span><br><span class="line">Vue.component(&quot;mytext&quot;,&#123;</span><br><span class="line">template:&#39;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">    &lt;slot&gt;</span><br><span class="line">    &lt;p&gt;&lt;&#x2F;p&gt;&#x2F;&#x2F;没有内容时的默认内容</span><br><span class="line">    &lt;&#x2F;slot&gt;&#x2F;&#x2F;父组件的内容将挂载在slot里面</span><br><span class="line">    &lt;slot name&#x3D;&quot;one&quot;&gt;&#x2F;&#x2F;具名slot将分发在这里</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&#39;</span><br></pre></td></tr></table></figure>
+<p>也可以指定数据传递到父组件的挂载里，使用scope,代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;mytext&gt;</span><br><span class="line">&lt;p slot&#x3D;&quot;one&quot; scope&#x3D;&quot;props&quot;&gt;</span><br><span class="line">    &#123;&#123;props.msg&#125;&#125; &#x2F;&#x2F;显示子组件的msg</span><br><span class="line">&lt;&#x2F;p&gt;&#x2F;&#x2F;挂载内容,slot为具名slot,props为临时变量</span><br><span class="line">&lt;&#x2F;mytext&gt;</span><br><span class="line">Vue.component(&quot;mytext&quot;,&#123;</span><br><span class="line">template:&#39;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">    &lt;slot&gt;</span><br><span class="line">    &lt;p&gt;&lt;&#x2F;p&gt;&#x2F;&#x2F;没有内容时的默认内容</span><br><span class="line">    &lt;&#x2F;slot&gt;&#x2F;&#x2F;父组件的内容将挂载在slot里面</span><br><span class="line">    &lt;slot name&#x3D;&quot;one&quot; msg&#x3D;&quot;数据&quot;&gt;&#x2F;&#x2F;具名slot将分发在这里</span><br><span class="line">    &#x2F;&#x2F;msg为向父组件传递的数据</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&#39;</span><br></pre></td></tr></table></figure>
+<p>可以使用$slots访问分发的内容 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var header &#x3D;this.$slots.one;</span><br></pre></td></tr></table></figure>
+
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><pre><code>还有许多关于组件的高级用法，不过我不是大佬，等以后用到再写吧。写完收工睡觉</code></pre>
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://lizehongss.github.io/newBlog/2018/02/10/vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%BB%84%E4%BB%B6%20/" title="vue学习笔记(二)————组件" target="_blank" rel="external">http://lizehongss.github.io/newBlog/2018/02/10/vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%BB%84%E4%BB%B6%20/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/lizehongss" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/newBlog/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/lizehongss" target="_blank"><span class="text-dark">lzh</span><small class="ml-1x">前端工程师</small></a></h3>
+        <div>简单生活</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/newBlog/2018/03/22/%E9%9D%A2%E8%AF%951/" title="面试1"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/newBlog/2018/02/06/vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="vue学习笔记(一)————基础知识"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/lizehongss" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/newBlog/js/plugin.min.js"></script>
+
+
+<script src="/newBlog/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/newBlog/',
+        CONTENT_URL: '/newBlog/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/newBlog/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
