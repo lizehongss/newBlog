@@ -17,21 +17,21 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>面试2 | lzh</title>
-  <meta name="description" content="浏览器如何解析css  CSS选择器的解析是从右向左解析的。若从左向右的匹配，发现不符合规则，需要进行回溯，会损失很多性能。若从右向左匹配，先找到所有的最右节点，对于每一个节点，向上寻找其父节点直到找到根元素或满足条件的匹配规则，则结束这个分支的遍历。两种匹配规则的性能差别很大，是因为从右向左的匹配在第一步就筛选掉了大量的不符合条件的最右节点（叶子节点），而从左向右的匹配规则的性能都浪费在了失败">
+  <title>electron调用dll笔记 | lzh</title>
+  <meta name="description" content="electron安装相关依赖 electron调用dll需要安装node-gyp,用于编译node-ffi-napi,ref-arrray-di, ref-struct-di, ref-napi等库。node-gyp在window下运行需要python2.7环境和 Visual Studio Build Tools.(详情在这里)在这里可以使用 windows-build-tools进行安装，命令">
 <meta property="og:type" content="article">
-<meta property="og:title" content="面试2">
-<meta property="og:url" content="http://lizehongss.github.io/newBlog/2018/03/23/%E9%9D%A2%E8%AF%952/index.html">
+<meta property="og:title" content="electron调用dll笔记">
+<meta property="og:url" content="http://lizehongss.github.io/newBlog/2020/10/29/electron%E8%B0%83%E7%94%A8dll%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="lzh">
-<meta property="og:description" content="浏览器如何解析css  CSS选择器的解析是从右向左解析的。若从左向右的匹配，发现不符合规则，需要进行回溯，会损失很多性能。若从右向左匹配，先找到所有的最右节点，对于每一个节点，向上寻找其父节点直到找到根元素或满足条件的匹配规则，则结束这个分支的遍历。两种匹配规则的性能差别很大，是因为从右向左的匹配在第一步就筛选掉了大量的不符合条件的最右节点（叶子节点），而从左向右的匹配规则的性能都浪费在了失败">
+<meta property="og:description" content="electron安装相关依赖 electron调用dll需要安装node-gyp,用于编译node-ffi-napi,ref-arrray-di, ref-struct-di, ref-napi等库。node-gyp在window下运行需要python2.7环境和 Visual Studio Build Tools.(详情在这里)在这里可以使用 windows-build-tools进行安装，命令">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2018-03-23T00:00:00.000Z">
+<meta property="article:published_time" content="2020-10-29T00:00:00.000Z">
 <meta property="article:modified_time" content="2020-11-01T10:32:13.369Z">
 <meta property="article:author" content="lizehong">
-<meta property="article:tag" content="面试">
+<meta property="article:tag" content="electron dll">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://lizehongss.github.io/newBlog/2018/03/23/%E9%9D%A2%E8%AF%952/index.html">
+  <link rel="canonical" href="http://lizehongss.github.io/newBlog/2020/10/29/electron%E8%B0%83%E7%94%A8dll%E7%AC%94%E8%AE%B0/index.html">
   
     <link rel="alternate" href="/atom.xml" title="lzh" type="application/atom+xml">
   
@@ -330,14 +330,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-面试2" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-electron调用dll笔记" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      面试2
+      electron调用dll笔记
     </h1>
   
 
@@ -345,84 +345,56 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/newBlog/2018/03/23/%E9%9D%A2%E8%AF%952/" class="article-date">
-	  <time datetime="2018-03-23T00:00:00.000Z" itemprop="datePublished">2018-03-23</time>
+	<a href="/newBlog/2020/10/29/electron%E8%B0%83%E7%94%A8dll%E7%AC%94%E8%AE%B0/" class="article-date">
+	  <time datetime="2020-10-29T00:00:00.000Z" itemprop="datePublished">2020-10-29</time>
 	</a>
 </span>
         
   <span class="article-category">
     <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/newBlog/categories/%E9%9D%A2%E8%AF%95/">面试</a>
+    <a class="article-category-link" href="/newBlog/categories/electron/">electron</a>
   </span>
 
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/newBlog/tags/%E9%9D%A2%E8%AF%95/" rel="tag">面试</a>
+	<a class="article-tag-link" href="/newBlog/tags/electron-dll/" rel="tag">electron dll</a>
   </span>
 
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/newBlog/2018/03/23/%E9%9D%A2%E8%AF%952/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/newBlog/2020/10/29/electron%E8%B0%83%E7%94%A8dll%E7%AC%94%E8%AE%B0/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <ol>
-<li>浏览器如何解析css</li>
+        <h2 id="electron安装相关依赖"><a href="#electron安装相关依赖" class="headerlink" title="electron安装相关依赖"></a>electron安装相关依赖</h2><ol>
+<li>electron调用dll需要安装node-gyp,用于编译node-ffi-napi,ref-arrray-di, ref-struct-di, ref-napi等库。<br>node-gyp在window下运行需要python2.7环境和 Visual Studio Build Tools.(<a href="https://github.com/nodejs/node-gyp" target="_blank" rel="noopener">详情在这里</a>)<br>在这里可以使用 windows-build-tools进行安装，命令如下(<strong>注意需要管理员模式</strong>)：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --global --production windows-build-tools</span><br></pre></td></tr></table></figure></li>
+<li>为方便开发调用32位和64位dll,建议使用nvm管理node版本,<a href="https://github.com/coreybutler/nvm-windows/releases" target="_blank" rel="noopener">可以在这里下载安装</a></li>
 </ol>
-<p>CSS选择器的解析是从右向左解析的。若从左向右的匹配，发现不符合规则，需要进行回溯，会损失很多性能。若从右向左匹配，先找到所有的最右节点，对于每一个节点，向上寻找其父节点直到找到根元素或满足条件的匹配规则，则结束这个分支的遍历。两种匹配规则的性能差别很大，是因为从右向左的匹配在第一步就筛选掉了大量的不符合条件的最右节点（叶子节点），而从左向右的匹配规则的性能都浪费在了失败的查找上面。<br>而在 CSS 解析完毕后，需要将解析的结果与 DOM Tree 的内容一起进行分析建立一棵 Render Tree，最终用来进行绘图。在建立 Render Tree 时（WebKit 中的「Attachment」过程），浏览器就要为每个 DOM Tree 中的元素根据 CSS 的解析结果（Style Rules）来确定生成怎样的 Render Tree。</p>
-<ol start="2">
-<li>数组和对象的原生方法<br>数组方法有</li>
+<h2 id="关键库调用说明"><a href="#关键库调用说明" class="headerlink" title="关键库调用说明"></a>关键库调用说明</h2><p>ref-napi, ref-struct,ref-array,在下面引用的是TooTallNate原作者的仓库链接，因为说明文档更加具体和详细,但使用时建议使用node-ffi-napi仓库中的版本，因为它们能够在node 10.0 以上版本使用</p>
+<h3 id="node-ffi-napi"><a href="#node-ffi-napi" class="headerlink" title="node-ffi-napi"></a>node-ffi-napi</h3><p><a href="https://github.com/node-ffi-napi/node-ffi-napi" target="_blank" rel="noopener">node-ffi-napi</a>:用于使用js调用c++动态链接库(dll)，主要用法如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var ffi &#x3D; require(&#39;ffi-napi&#39;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 声明要调用的函数</span><br><span class="line">var libm &#x3D; ffi.Library(&#39;libm&#39;, &#123;</span><br><span class="line">  &#x2F;&#x2F;第一个参数为该函数的输出类型, 第二个参数为参数数组，定义该函数的传参类型</span><br><span class="line">  &#39;ceil&#39;: [ &#39;double&#39;, [ &#39;double&#39; ] ]</span><br><span class="line">&#125;);</span><br><span class="line">libm.ceil(1.5); &#x2F;&#x2F; 2</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/node-ffi/node-ffi/wiki/Node-FFI-Tutorial" target="_blank" rel="noopener">详细用法可以查看这里</a><br>其中需要注意的是，如果是调用相互动态链接的dll，需要调用window的keilDay32设置目录<br>如下所示:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const kernel32 &#x3D; new ffi.Library(&quot;kernel32&quot;, &#123;</span><br><span class="line">            SetDllDirectoryA: [&quot;bool&quot;, [&quot;string&quot;]]</span><br><span class="line">&#125;)</span><br><span class="line">let result &#x3D; kernel32.SetDllDirectoryA(path)</span><br></pre></td></tr></table></figure>
+<h3 id="ref-napi"><a href="#ref-napi" class="headerlink" title="ref-napi"></a>ref-napi</h3><p><a href="https://github.com/node-ffi-napi/ref-napi" target="_blank" rel="noopener">ref-napi</a>: 用于将node缓冲区的实例转换为指针，方便传参入dll函数进行调用,<a href="https://tootallnate.github.com/ref" target="_blank" rel="noopener">具体调用实例在这</a><br>重要类型调用如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 在Buffer区创建了一个4个字节的int类型内存空间并将指向该空间的指针赋值给outNumber,这样就可以直接将outNumber作为传参给C++函数，C++函数可以通过该指针赋值到内存区，js使用deref()函数可以拿到实际的值</span><br><span class="line">var outNumber &#x3D; ref.alloc(&#39;int&#39;); </span><br><span class="line">libmylibrary.manipulate_number(outNumber);</span><br><span class="line">var actualNumber &#x3D; outNumber.deref();</span><br></pre></td></tr></table></figure>
+<h3 id="ref-struct"><a href="#ref-struct" class="headerlink" title="ref-struct"></a>ref-struct</h3><p><a href="https://github.com/TooTallNate/ref-struct" target="_blank" rel="noopener">ref-struct</a>提供一个C++的struct接口在node缓冲区的实现，具体实现方法如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 定义一个Struct类型</span><br><span class="line">&#x2F;&#x2F; 引用node-ffi-napi中的版本</span><br><span class="line">var StructType &#x3D; require(&#39;ref-struct-di&#39;)(ref)</span><br><span class="line">let structText &#x3D;StructType(&#123;</span><br><span class="line">  x: ref.types.int,</span><br><span class="line">  y: ref.types.int,</span><br><span class="line">  width: ref.types.int,</span><br><span class="line">  height: ref.types.height</span><br><span class="line">&#125;)</span><br><span class="line">&#x2F;&#x2F; 在C++函数中声明, </span><br><span class="line">someDllMethod: [&#39;int&#39;, [ref.refType(structText)]],</span><br><span class="line">&#x2F;&#x2F; 如果是struct有传参默认值, 调用时如下:</span><br><span class="line">let hasValue &#x3D; new structText(&#123;</span><br><span class="line">  x: 0,</span><br><span class="line">  y: 0,</span><br><span class="line">  width: 0,</span><br><span class="line">  height: 0</span><br><span class="line">&#125;)</span><br><span class="line">someDllMethod(hasValue.ref())</span><br><span class="line">&#x2F;&#x2F; 如果要拿到回参的值，直接调用hasValue即可</span><br><span class="line">console.log(hasValue.x)</span><br></pre></td></tr></table></figure>
+<h3 id="ref-array"><a href="#ref-array" class="headerlink" title="ref-array"></a>ref-array</h3><p><a href="https://github.com/TooTallNate/ref-array" target="_blank" rel="noopener">ref-array</a>用于在node缓冲区实现一个C++的数组定义，用法如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 引用node-ffi-napi中的版本</span><br><span class="line">var ArrayType &#x3D; require(&#39;ref-array-di&#39;)(ref)</span><br><span class="line">&#x2F;&#x2F; 定义一个int类型，长度为5的数组类型</span><br><span class="line">let textArray &#x3D; ArrayType(ref.types.int, 5)</span><br></pre></td></tr></table></figure>
+<h3 id="其它特殊使用说明"><a href="#其它特殊使用说明" class="headerlink" title="其它特殊使用说明"></a>其它特殊使用说明</h3><ol>
+<li>如果C++需要传入一个类型为void的二级指针句柄，建议如下使用:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">someDllMethods: [&#39;long&#39;, [ref.refType(ref.refType(ref.types.void))]]</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 在使用时, 定义一个二级int型指针</span><br><span class="line">&#x2F;&#x2F; 这里如果使用type为void时，无法正确取值</span><br><span class="line">&#x2F;&#x2F; void indirection 为2</span><br><span class="line">let void &#x3D; ref.alloc(ref.refType(ref.types.int))</span><br><span class="line">&#x2F;&#x2F; 解析一次</span><br><span class="line">void.deref()</span><br><span class="line">&#x2F;&#x2F; 解析二次</span><br><span class="line">void.deref().deref()</span><br></pre></td></tr></table></figure></li>
+<li>c++ 内部使用GBK编码, 如果回参是一个有指定字节数的char数组,需要拿到这个数组的值，并使用<a href="https://www.npmjs.com/package/iconv-lite" target="_blank" rel="noopener">iconv-lite</a>将其解析。</li>
 </ol>
-<ul>
-<li>转换方法：toLocaleString(),toString(),valueOf()</li>
-<li>栈方法：push(),pop()</li>
-<li>队列方法 shift(),unshif()</li>
-<li>重排序方法 reverse() ,sort()</li>
-<li>操作方法 concat() slice() splice()</li>
-<li>位置方法 indexOf() lastIndexOf()</li>
-<li>迭代方法 ecery() filter() fotEach() map() some()</li>
-<li>归并方法 reduce() reduceRight()</li>
-</ul>
-<ol start="3">
-<li>如果需要手动写动画，你认为最小时间间隔是多久，为什么？</li>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; char数组在buffer区中的数据</span><br><span class="line">let textBuffer &#x3D; new Buffer.form([12,52,25,2,52])</span><br><span class="line">var iconv &#x3D; require(&quot;iconv-lite&quot;);</span><br><span class="line">str &#x3D; iconv.decode(textBuffer, &quot;GBK&quot;);</span><br></pre></td></tr></table></figure>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
+<li><a href="https://www.v2ex.com/t/474611" target="_blank" rel="noopener">node-ffi 食用指南（难吃</a></li>
+<li><a href="http://tootallnate.github.io/ref/" target="_blank" rel="noopener">ref文档</a></li>
+<li><a href="https://blog.csdn.net/zxl761303248/article/details/108051680" target="_blank" rel="noopener">electron对接Dll</a></li>
 </ol>
-<p>多数显示器默认频率是60Hz，即1秒刷新60次，所以理论上最小间隔为1/60＊1000ms ＝ 16.7ms。</p>
-<ol start="4">
-<li>作用域问题(专开坑)</li>
-<li>js数据类型并写出它们的内存图</li>
-</ol>
-<ul>
-<li>js数据类型：Undefined Null Boolean Number String Object</li>
-<li>JS中的基础数据类型，这些值都有固定的大小，往往都保存在栈内存中，由系统自动分配存储空间。我们可以直接操作保存在栈内存空间的值</li>
-<li>jS的引用数据类型，比如数组Array，它们值的大小是不固定的。引用数据类型的值是保存在堆内存中的对象。</li>
-</ul>
-<ol start="6">
-<li>null和undefine的区别</li>
-</ol>
-<p><a href="http://www.ruanyifeng.com/blog/2014/03/undefined-vs-null.html" target="_blank" rel="noopener">答案</a></p>
-<ol start="7">
-<li>为什么会出现浮动和什么时候需要清除浮动？清除浮动的方式</li>
-</ol>
-<ul>
-<li>父元素的高度无法被撑开，影响与父元素同级的元素</li>
-<li>与浮动元素同级的非浮动元素（内联元素）会跟随其后</li>
-<li>若非第一个元素浮动，则该元素之前的元素也需要浮动，否则会影响页面显示的结构。<br>方法：</li>
-<li>父级div定义height</li>
-<li>最后一个浮动元素后加空div标签 并添加样式clear:both。</li>
-<li>包含浮动元素的父标签添加样式overflow为hidden或auto。</li>
-<li>父级div定义zoom</li>
-</ul>
-<ol start="8">
-<li>:after和::after有什么区别，有什么作用</li>
-</ol>
-<ul>
-<li>作用 使得html更加语义化。有些时候，为了某些特定的展现，不得不添加用于辅助布局的无意义html元素，这两个伪元素能实际起到这种辅助布局的作用，而又不增加无意义纯布局html元素，所以html就更简洁更纯粹了。</li>
-<li>区别before/:after这种写法css2中就有，叫伪类；::befroe/::after这种写法是css3中的，叫伪元素，但两种写法的作用是一样的。后者无法兼容IE低版本，如果要求兼容IE低版本请使用前者。注：对于img和input元素两者都不起作用</li>
-</ul>
 
       
     </div>
@@ -432,7 +404,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://lizehongss.github.io/newBlog/2018/03/23/%E9%9D%A2%E8%AF%952/" title="面试2" target="_blank" rel="external">http://lizehongss.github.io/newBlog/2018/03/23/%E9%9D%A2%E8%AF%952/</a>
+      <a href="http://lizehongss.github.io/newBlog/2020/10/29/electron%E8%B0%83%E7%94%A8dll%E7%AC%94%E8%AE%B0/" title="electron调用dll笔记" target="_blank" rel="external">http://lizehongss.github.io/newBlog/2020/10/29/electron%E8%B0%83%E7%94%A8dll%E7%AC%94%E8%AE%B0/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -478,13 +450,9 @@
   
   <ul class="pager pull-left">
     
-    <li class="prev">
-      <a href="/newBlog/2018/03/23/%E7%AE%97%E6%B3%952/" title="js算法2"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
-    </li>
-    
     
     <li class="next">
-      <a href="/newBlog/2018/03/23/%E9%9D%A2%E8%AF%953/" title="面试3"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/newBlog/2020/04/20/element%E6%BA%90%E7%A0%81%E6%A0%B7%E5%BC%8F%E5%AD%A6%E4%B9%A0/" title="element源码样式学习"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
