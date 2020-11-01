@@ -26,7 +26,7 @@
 <meta property="og:description" content="浏览器如何解析css  CSS选择器的解析是从右向左解析的。若从左向右的匹配，发现不符合规则，需要进行回溯，会损失很多性能。若从右向左匹配，先找到所有的最右节点，对于每一个节点，向上寻找其父节点直到找到根元素或满足条件的匹配规则，则结束这个分支的遍历。两种匹配规则的性能差别很大，是因为从右向左的匹配在第一步就筛选掉了大量的不符合条件的最右节点（叶子节点），而从左向右的匹配规则的性能都浪费在了失败">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2018-03-23T00:00:00.000Z">
-<meta property="article:modified_time" content="2020-11-01T10:32:13.369Z">
+<meta property="article:modified_time" content="2020-11-01T10:36:03.009Z">
 <meta property="article:author" content="lizehong">
 <meta property="article:tag" content="面试">
 <meta name="twitter:card" content="summary">
