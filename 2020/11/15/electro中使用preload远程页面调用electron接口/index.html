@@ -17,21 +17,21 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>js算法1 | lzh</title>
-  <meta name="description" content="js相关算法 传入四个正整数参数，返回最小的两个，代码如下：12345678910function sumTwoSmallestNumbers(numbers) &amp;#123;    var min&#x3D;Math.min.apply(Math,numbers); var filterResult&#x3D; numbers.filter((item)&#x3D;&gt;&amp;#123;    re">
+  <title>electron中使用preload远程页面调用electron接口 | lzh</title>
+  <meta name="description" content="主要原理主要是通过electron中的preloa在本地中预先加载一个指定脚本js文件，这个文件可以使用node APIs调用electron中的相关接口如ipcRenderer等，所以在electron中使用远程网页的窗口中定义加载js文件，并开放webviewTag,就可以在预加载文件中通过定义window中的方法调用electron接口，然后在远程网页中直接调用预加载文件中定义的方法就可以实">
 <meta property="og:type" content="article">
-<meta property="og:title" content="js算法1">
-<meta property="og:url" content="http://lizehongss.github.io/newBlog/2018/03/23/%E7%AE%97%E6%B3%951/index.html">
+<meta property="og:title" content="electron中使用preload远程页面调用electron接口">
+<meta property="og:url" content="http://lizehongss.github.io/newBlog/2020/11/15/electro%E4%B8%AD%E4%BD%BF%E7%94%A8preload%E8%BF%9C%E7%A8%8B%E9%A1%B5%E9%9D%A2%E8%B0%83%E7%94%A8electron%E6%8E%A5%E5%8F%A3/index.html">
 <meta property="og:site_name" content="lzh">
-<meta property="og:description" content="js相关算法 传入四个正整数参数，返回最小的两个，代码如下：12345678910function sumTwoSmallestNumbers(numbers) &amp;#123;    var min&#x3D;Math.min.apply(Math,numbers); var filterResult&#x3D; numbers.filter((item)&#x3D;&gt;&amp;#123;    re">
+<meta property="og:description" content="主要原理主要是通过electron中的preloa在本地中预先加载一个指定脚本js文件，这个文件可以使用node APIs调用electron中的相关接口如ipcRenderer等，所以在electron中使用远程网页的窗口中定义加载js文件，并开放webviewTag,就可以在预加载文件中通过定义window中的方法调用electron接口，然后在远程网页中直接调用预加载文件中定义的方法就可以实">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2018-03-23T00:00:00.000Z">
+<meta property="article:published_time" content="2020-11-15T09:29:15.553Z">
 <meta property="article:modified_time" content="2020-11-15T09:29:15.553Z">
 <meta property="article:author" content="lizehong">
-<meta property="article:tag" content="算法">
+<meta property="article:tag" content="electron">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://lizehongss.github.io/newBlog/2018/03/23/%E7%AE%97%E6%B3%951/index.html">
+  <link rel="canonical" href="http://lizehongss.github.io/newBlog/2020/11/15/electro%E4%B8%AD%E4%BD%BF%E7%94%A8preload%E8%BF%9C%E7%A8%8B%E9%A1%B5%E9%9D%A2%E8%B0%83%E7%94%A8electron%E6%8E%A5%E5%8F%A3/index.html">
   
     <link rel="alternate" href="/atom.xml" title="lzh" type="application/atom+xml">
   
@@ -330,14 +330,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-算法1" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-electro中使用preload远程页面调用electron接口" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      js算法1
+      electron中使用preload远程页面调用electron接口
     </h1>
   
 
@@ -345,80 +345,38 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/newBlog/2018/03/23/%E7%AE%97%E6%B3%951/" class="article-date">
-	  <time datetime="2018-03-23T00:00:00.000Z" itemprop="datePublished">2018-03-23</time>
+	<a href="/newBlog/2020/11/15/electro%E4%B8%AD%E4%BD%BF%E7%94%A8preload%E8%BF%9C%E7%A8%8B%E9%A1%B5%E9%9D%A2%E8%B0%83%E7%94%A8electron%E6%8E%A5%E5%8F%A3/" class="article-date">
+	  <time datetime="2020-11-15T09:29:15.553Z" itemprop="datePublished">2020-11-15</time>
 	</a>
 </span>
         
   <span class="article-category">
     <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/newBlog/categories/%E7%AE%97%E6%B3%95/">算法</a>
+    <a class="article-category-link" href="/newBlog/categories/electron/">electron</a>
   </span>
 
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/newBlog/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a>
+	<a class="article-tag-link" href="/newBlog/tags/electron/" rel="tag">electron</a>
   </span>
 
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/newBlog/2018/03/23/%E7%AE%97%E6%B3%951/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/newBlog/2020/11/15/electro%E4%B8%AD%E4%BD%BF%E7%94%A8preload%E8%BF%9C%E7%A8%8B%E9%A1%B5%E9%9D%A2%E8%B0%83%E7%94%A8electron%E6%8E%A5%E5%8F%A3/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h1 id="js相关算法"><a href="#js相关算法" class="headerlink" title="js相关算法"></a>js相关算法</h1><ol>
-<li>传入四个正整数参数，返回最小的两个，代码如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function sumTwoSmallestNumbers(numbers) &#123;  </span><br><span class="line">  var min&#x3D;Math.min.apply(Math,numbers);</span><br><span class="line"> var filterResult&#x3D; numbers.filter((item)&#x3D;&gt;&#123;</span><br><span class="line">    return (item!&#x3D;min)</span><br><span class="line">  &#125;</span><br><span class="line">  )</span><br><span class="line">  var smin&#x3D;Math.min.apply(Math,filterResult);</span><br><span class="line">  return min+smin;</span><br><span class="line">  &#x2F;&#x2F;Code here</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-最优解(别人代码系列)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function sumTwoSmallestNumbers(numbers)&#123;  </span><br><span class="line">  numbers &#x3D; numbers.sort(function(a, b)&#123;return a - b; &#125;);</span><br><span class="line">  return numbers[0] + numbers[1];</span><br><span class="line">&#125;;</span><br><span class="line">&#x2F;&#x2F;使用排序解决。。。。</span><br></pre></td></tr></table></figure></li>
-<li>给定一个正整数n写成abcd …（a，b，c，d<br>…是数字）和一个正整数p，我们想要找到一个正整数k，如果存在的话，比如数字的总和对于p的连续幂的n等于k * n。换一种说法：<br>例如：（a ^ p + b ^（p + 1）+ c ^（p + 2）+ d ^（p + 3）+ …）= n * k<br>如果是这种情况，我们将返回K，如果不返回-1。<br>注：N，P将始终作为严格正整数给出。<br>代码如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function digPow(n, p)&#123;</span><br><span class="line">  &#x2F;&#x2F; ...</span><br><span class="line">  var s&#x3D;n.toString();</span><br><span class="line">  var sum &#x3D;0;</span><br><span class="line">  for(var i&#x3D;0;i&lt;s.length;i++)&#123;</span><br><span class="line">  sum+&#x3D;Math.pow(s[i],p);</span><br><span class="line">  p++;</span><br><span class="line">  &#125; </span><br><span class="line">  if(sum%n&#x3D;&#x3D;0) return sum&#x2F;n;</span><br><span class="line">  else return -1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-最优解(别人代码系列)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function digPow(n, p) &#123;</span><br><span class="line">  var x &#x3D; String(n).split(&quot;&quot;).reduce((s, d, i) &#x3D;&gt; s + Math.pow(d, p + i), 0)</span><br><span class="line">  return x % n ? -1 : x &#x2F; n</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;reduce中s为上一次调用回调函数时的返回值，或者初始值</span><br><span class="line">&#x2F;&#x2F;d为当前正在处理的数组元素</span><br><span class="line">&#x2F;&#x2F;i为当前数组元素下标</span><br><span class="line">&#x2F;&#x2F;初始值为0</span><br></pre></td></tr></table></figure></li>
-<li>找到n下面所有倍数的总和m，例子：</li>
+        <h2 id="主要原理"><a href="#主要原理" class="headerlink" title="主要原理"></a>主要原理</h2><p>主要是通过electron中的preloa在本地中预先加载一个指定脚本js文件，这个文件可以使用node APIs调用electron中的相关接口如ipcRenderer等，所以在electron中使用远程网页的窗口中定义加载js文件，并开放webviewTag,就可以在预加载文件中通过定义window中的方法调用electron接口，然后在远程网页中直接调用预加载文件中定义的方法就可以实现与electron的相关通信。主要实现过程如下:</p>
+<ol>
+<li>在BrowserWindow中定义如下：(<strong>注意preload的文件路径需要绝对路径</strong>)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">win &#x3D; new BrowserWindow(&#123;</span><br><span class="line">    webPreferences: &#123;</span><br><span class="line">        webviewTag: true,</span><br><span class="line">        perload: path.join(__dirname, &#39;.&#x2F;preload.js&#39;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+<li>在preload.js中定义相关事件，这里定义一个与electron主进程进行通信的方法<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; preload.js</span><br><span class="line">const &#123; ipcRenderer &#125; &#x3D; require(&quot;electron&quot;)</span><br><span class="line">window.senSomeToMain &#x3D; function () &#123;</span><br><span class="line">    ipcRenderer.send(&#39;senSomeTomain&#39;)</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 监听electron主进程返回</span><br><span class="line">ipcRenderer.on(&#39;returnSometh&#39;, (event, data) &#x3D;&gt; &#123;</span><br><span class="line">    &#x2F;&#x2F;该方法在远程网页中定义</span><br><span class="line">    window.getReturn(data)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+<li>在远程页面中的使用如下:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; index.html</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 与electron主进程通信</span><br><span class="line">window.sendSomeToMain()</span><br><span class="line">&#x2F;&#x2F; 定义返回信息的回调</span><br><span class="line">window.getReturn &#x3D; function (data) &#123;</span><br><span class="line">    console.log(data)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="主要用途"><a href="#主要用途" class="headerlink" title="主要用途"></a>主要用途</h2>方便网页资源部署在服务器，使远程网页可以通过本地的electron访问相关的硬件资源，如打印机等。也方便使网页开发功能业务和electron资源调用业务分开,使部署和开发相对简单。</li>
 </ol>
-<ul>
-<li>sumMul(2, 9)   ==&gt; 2 + 4 + 6 + 8 = 20</li>
-<li>sumMul(3, 13)  ==&gt; 3 + 6 + 9 + 12 = 30</li>
-<li>sumMul(4, 123) ==&gt; 4 + 8 + 12 + … = 1860</li>
-<li>sumMul(4, -7)  ==&gt; “INVALID”<br>代码如下： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function sumMul(n,m)&#123;</span><br><span class="line">&#x2F;&#x2F;your idea here</span><br><span class="line">var sum&#x3D;0;</span><br><span class="line">var double&#x3D;1;</span><br><span class="line">var val&#x3D;n;</span><br><span class="line">while(val&lt;m)&#123;</span><br><span class="line">sum+&#x3D;val;</span><br><span class="line">double++;</span><br><span class="line">val&#x3D;n*double;</span><br><span class="line">&#125;</span><br><span class="line">if(sum&#x3D;&#x3D;0) return  &quot;INVALID&quot;;</span><br><span class="line">return sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-别人代码</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function sumMul(n,m)&#123;</span><br><span class="line">  if (n &gt;&#x3D; m) return &quot;INVALID&quot;;</span><br><span class="line"></span><br><span class="line">var sum &#x3D; 0;</span><br><span class="line">  for (var i &#x3D; n; i &lt; m; i+&#x3D;n) &#123;</span><br><span class="line">    sum +&#x3D; i;</span><br><span class="line">  &#125;</span><br><span class="line">  return sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="4">
-<li>公差公式，示例如下：</li>
-</ol>
-<ul>
-<li>arithmetic_sequence_elements(1, 2, 5) == “1, 3, 5, 7, 9”<br>代码如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function arithmeticSequenceElements(a,r,n) &#123;</span><br><span class="line">  &#x2F;&#x2F;your code here</span><br><span class="line">  var arr &#x3D;[];</span><br><span class="line">  var i&#x3D;0;</span><br><span class="line">  while(arr.length&lt;n)&#123;</span><br><span class="line">  if(i&#x3D;&#x3D;0)&#123; arr[i]&#x3D;a&#125;</span><br><span class="line">  else arr[i]&#x3D;&#39; &#39;+a;</span><br><span class="line">    a&#x3D;a+r;</span><br><span class="line">    i++;</span><br><span class="line">      </span><br><span class="line">  &#125;</span><br><span class="line"> arr&#x3D;arr.toString();</span><br><span class="line">  return arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-别人代码系列:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function arithmeticSequenceElements(a,r,n) &#123;</span><br><span class="line">  var ret &#x3D; [a]</span><br><span class="line">  while (--n) ret.push(a+&#x3D;r);</span><br><span class="line">  return ret.join(&#39;, &#39;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<ol start="5">
-<li>去除！示例如下：</li>
-</ol>
-<ul>
-<li>remove(“Hi!”) == “Hi!”</li>
-<li>remove(“Hi!!!”) == “Hi!!!”</li>
-<li>remove(“!Hi”) == “Hi”</li>
-<li>remove(“!Hi!”) == “Hi!”</li>
-<li>remove(“Hi! Hi!”) == “Hi Hi!”</li>
-<li>remove(“Hi”) == “Hi”</li>
-</ul>
-<p>代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function remove(s)&#123;</span><br><span class="line">  &#x2F;&#x2F;coding and coding....</span><br><span class="line"> var a&#x3D;&#x2F;!+[^!$]&#x2F;gm;</span><br><span class="line"> return s.replace(a,&quot; &quot;);</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;自己的想法，然后有两个没过。</span><br></pre></td></tr></table></figure>
-<p>别人代码系列：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function remove(s)&#123;</span><br><span class="line">  var a&#x3D;&#x2F;!+(?!!*$)&#x2F;g;</span><br><span class="line">  return s.replace(a, &#39;&#39;);</span><br><span class="line">&#125;</span><br><span class="line">总体思路是对，不匹配最后的！用零宽负向先行断言，要求接下来的字符不与!匹配</span><br></pre></td></tr></table></figure>
-<ol start="6">
-<li>返回最大和最小，示例如下：</li>
-</ol>
-<ul>
-<li>highAndLow(“1 2 3 4 5”); // return “5 1”</li>
-<li>highAndLow(“1 2 -3 4 5”); // return “5 -3”</li>
-<li>highAndLow(“1 9 3 4 -5”); // return “9 -5”</li>
-</ul>
-<p>代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function highAndLow(numbers)&#123;</span><br><span class="line">  &#x2F;&#x2F; ...</span><br><span class="line">  var arr &#x3D;numbers.split(&#x2F;[\ ]+&#x2F;);</span><br><span class="line">    var arr&#x3D;arr.map(function(item)&#123;</span><br><span class="line">      return parseInt(item);</span><br><span class="line">    &#125;)</span><br><span class="line">    var max&#x3D;Math.max.apply(Math,arr);</span><br><span class="line">    var min&#x3D;Math.min.apply(Math,arr);</span><br><span class="line">  console.log(max);</span><br><span class="line">  return max.toString()+&quot; &quot;+min.toString();</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>别人代码 ：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function highAndLow(numbers)&#123;</span><br><span class="line">  numbers &#x3D; numbers.split(&#39; &#39;).map(Number);</span><br><span class="line">  return Math.max.apply(0, numbers) + &#39; &#39; + Math.min.apply(0, numbers);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -428,7 +386,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://lizehongss.github.io/newBlog/2018/03/23/%E7%AE%97%E6%B3%951/" title="js算法1" target="_blank" rel="external">http://lizehongss.github.io/newBlog/2018/03/23/%E7%AE%97%E6%B3%951/</a>
+      <a href="http://lizehongss.github.io/newBlog/2020/11/15/electro%E4%B8%AD%E4%BD%BF%E7%94%A8preload%E8%BF%9C%E7%A8%8B%E9%A1%B5%E9%9D%A2%E8%B0%83%E7%94%A8electron%E6%8E%A5%E5%8F%A3/" title="electron中使用preload远程页面调用electron接口" target="_blank" rel="external">http://lizehongss.github.io/newBlog/2020/11/15/electro%E4%B8%AD%E4%BD%BF%E7%94%A8preload%E8%BF%9C%E7%A8%8B%E9%A1%B5%E9%9D%A2%E8%B0%83%E7%94%A8electron%E6%8E%A5%E5%8F%A3/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -474,13 +432,9 @@
   
   <ul class="pager pull-left">
     
-    <li class="prev">
-      <a href="/newBlog/2018/03/31/%E7%AE%97%E6%B3%953/" title="js算法3"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
-    </li>
-    
     
     <li class="next">
-      <a href="/newBlog/2018/03/23/%E7%AE%97%E6%B3%952/" title="js算法2"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/newBlog/2020/10/29/electron%E8%B0%83%E7%94%A8dll%E7%AC%94%E8%AE%B0/" title="electron调用dll笔记"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
