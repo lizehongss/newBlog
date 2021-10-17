@@ -156,7 +156,7 @@ douban:
 # PV
 pv:
   busuanzi:
-    enable: false  # 不蒜子统计
+    enable: true  # 不蒜子统计
   leancloud:
     enable: false  # leancloud统计
     app_id: # leancloud <AppID>
@@ -195,7 +195,7 @@ profile:
   social:
     links:
       github: https://github.com/lizehongss
-      # weibo: http://weibo.com/cofess
+      Blog: https://juejin.cn/user/2348212566891831
       # twitter: https://twitter.com/iwebued
       # facebook: /
       # dribbble: /
@@ -215,7 +215,7 @@ profile:
   # My Personal Links
   links:
     Github: https://github.com/lizehongss
-    #Blog: http://blog.cofess.com
+    Blog: https://juejin.cn/user/2348212566891831
     #微博: http://weibo.com/cofess
     #花瓣: http://huaban.com/cofess
     #Behance: https://www.behance.net/cofess
