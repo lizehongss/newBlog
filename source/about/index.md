@@ -5,4 +5,4 @@ layout: about
 comments: false
 sidebar: custom
 ---
-个人详细介绍
+一个希望自己能够快乐，简单生活的前端工程师^_^

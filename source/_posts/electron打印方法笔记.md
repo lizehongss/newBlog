@@ -1,5 +1,5 @@
 ---
-title: Electrond打印方法笔记
+title: Electron打印方法笔记
 tags: electron
 categories: electron
 date: 2021/8/22
