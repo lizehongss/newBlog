@@ -17,18 +17,21 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>标签: 面试 | lzh</title>
-  <meta name="description" content="lzh的个人博客,主要为记录">
-<meta property="og:type" content="website">
-<meta property="og:title" content="lzh">
-<meta property="og:url" content="http://lizehongss.github.io/newBlog/tags/%E9%9D%A2%E8%AF%95/index.html">
+  <title>Electrond打印方法笔记 | lzh</title>
+  <meta name="description" content="前言主要是总结最近在工作所使用到的electron方法总结，总结的主要是静默打印的方法. webview打印 webview主要是electron提供的在一个独立的 frame 和进程里显示外部 web 内容的标签，详细介绍可以看这里.需要注意的是在electron&gt;&#x3D;5的版本里webview标签是禁用的，需要在主进程BrowserWindow里设置webviewTag为true启用:123">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Electrond打印方法笔记">
+<meta property="og:url" content="http://lizehongss.github.io/newBlog/2021/08/22/electron%E6%89%93%E5%8D%B0%E6%96%B9%E6%B3%95%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="lzh">
-<meta property="og:description" content="lzh的个人博客,主要为记录">
+<meta property="og:description" content="前言主要是总结最近在工作所使用到的electron方法总结，总结的主要是静默打印的方法. webview打印 webview主要是electron提供的在一个独立的 frame 和进程里显示外部 web 内容的标签，详细介绍可以看这里.需要注意的是在electron&gt;&#x3D;5的版本里webview标签是禁用的，需要在主进程BrowserWindow里设置webviewTag为true启用:123">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-08-22T00:00:00.000Z">
+<meta property="article:modified_time" content="2021-10-17T14:02:27.937Z">
 <meta property="article:author" content="lizehong">
+<meta property="article:tag" content="electron">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://lizehongss.github.io/newBlog/tags/%E9%9D%A2%E8%AF%95/index.html">
+  <link rel="canonical" href="http://lizehongss.github.io/newBlog/2021/08/22/electron%E6%89%93%E5%8D%B0%E6%96%B9%E6%B3%95%E7%AC%94%E8%AE%B0/index.html">
   
     <link rel="alternate" href="/atom.xml" title="lzh" type="application/atom+xml">
   
@@ -326,112 +329,151 @@
 </aside>
 
   
-  <main class="main" role="main">
-  <article class="content article article-tags post-type-list" itemscope="">
-    <header class="article-header">
-      <h1 itemprop="name" class="hidden-xs">标签: 面试</h1>
-      <p class="text-muted hidden-xs">共 3 篇文章</p>
-      <nav role="navigation" id="nav-main" class="okayNav">
-        <ul>
-          <li><a href="/newBlog/tags">All</a></li>
-          
-          <li><a href="/newBlog/tags/css/">css</a></li>
-          
-          <li><a href="/newBlog/tags/electron/">electron</a></li>
-          
-          <li><a href="/newBlog/tags/electron-dll/">electron dll</a></li>
-          
-          <li><a href="/newBlog/tags/element/">element</a></li>
-          
-          <li><a href="/newBlog/tags/vue/">vue</a></li>
-          
-          <li><a href="/newBlog/tags/算法/">算法</a></li>
-          
-          <li><a href="/newBlog/tags/面试/">面试</a></li>
-          
-        </ul>
-      </nav>
-    </header>
-    <!-- /header -->
-    <div class="article-body">
-      <div class="row">
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-electron打印方法笔记" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
         
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2018-03-23T00:00:00.000Z" itemprop="datePublished">2018-03-23</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/newBlog/2018/03/23/%E9%9D%A2%E8%AF%952/">面试2</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/newBlog/tags/%E9%9D%A2%E8%AF%95/" class="label label-default mb">面试</a>
-     
-     
-   </div>
-   
-</article>
+  
+    <h1 class="article-title" itemprop="name">
+      Electrond打印方法笔记
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/newBlog/2021/08/22/electron%E6%89%93%E5%8D%B0%E6%96%B9%E6%B3%95%E7%AC%94%E8%AE%B0/" class="article-date">
+	  <time datetime="2021-08-22T00:00:00.000Z" itemprop="datePublished">2021-08-22</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/newBlog/categories/electron/">electron</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/newBlog/tags/electron/" rel="tag">electron</a>
+  </span>
 
 
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2018-03-23T00:00:00.000Z" itemprop="datePublished">2018-03-23</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/newBlog/2018/03/23/%E9%9D%A2%E8%AF%953/">面试3</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/newBlog/tags/%E9%9D%A2%E8%AF%95/" class="label label-default mb">面试</a>
-     
-     
-   </div>
-   
-</article>
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
 
 
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2018-03-22T00:00:00.000Z" itemprop="datePublished">2018-03-22</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/newBlog/2018/03/22/%E9%9D%A2%E8%AF%951/">面试1</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/newBlog/tags/%E9%9D%A2%E8%AF%95/" class="label label-default mb">面试</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/newBlog/2021/08/22/electron%E6%89%93%E5%8D%B0%E6%96%B9%E6%B3%95%E7%AC%94%E8%AE%B0/#comments" class="article-comment-link">评论</a></span>
+        
       </div>
     </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>主要是总结最近在工作所使用到的electron方法总结，总结的主要是静默打印的方法.</p>
+<h1 id="webview打印"><a href="#webview打印" class="headerlink" title="webview打印"></a>webview打印</h1><ul>
+<li>webview主要是electron提供的在一个独立的 frame 和进程里显示外部 web 内容的标签，详细介绍可以<a href="https://www.electronjs.org/docs/api/webview-tag" target="_blank" rel="noopener">看这里</a>.需要注意的是在electron&gt;=5的版本里webview标签是禁用的，需要在主进程<code>BrowserWindow</code>里设置<code>webviewTag</code>为<code>true</code>启用:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mainWindow &#x3D; new BrowserWindow(&#123;</span><br><span class="line">    title: &#39;桌面应用程序&#39;,</span><br><span class="line">    webPreferences: </span><br><span class="line">        webviewTag: true</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
+<li>打印主要使用到是webview的isLoading()和print()方法，webview打印主要适用于打印远程的网页内容.在webview标签里设置好要打印的远程网页url，直接获取到webview元素并调用print方法即可打印.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;webview id&#x3D;&quot;webview&quot; src&#x3D;&quot;https:&#x2F;&#x2F;github.com&quot;&gt;&lt;&#x2F;webview&gt;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let webview &#x3D; document.getElementById(&#39;webview&#39;)</span><br><span class="line">webview.print(&#123;</span><br><span class="line">    silent: true, &#x2F;&#x2F; 是否静默打印</span><br><span class="line">    deviceName: &#39;print&#39; &#x2F;&#x2F; 打印机名称</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>关于打印机名称的获取可以在主进程中获取并通过IPC传输到渲染进程<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ipcMain.on(&#39;getPrintDeviceList&#39;, (event) &#x3D;&gt; &#123;</span><br><span class="line">    event.return.value &#x3D; mainwindow.webContents.getPrinters()</span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+<li>需要注意的是远程网页资源加载需要时间，这里最好使用webview.isLoading()确认页面资源加载完成后再调用打印方法， 具体调用如下:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">webview.addEventListener(&#39;dom-ready&#39;, checkCanPrint)</span><br><span class="line"></span><br><span class="line">function checkCanPrint() &#123;</span><br><span class="line">    &#x2F;&#x2F; 还在加载中，则setTimeout秒后再检查</span><br><span class="line">    if (webview.isLoading) &#123;</span><br><span class="line">    setTimeOut(() &#x3D;&gt; &#123;checkCanPrint&#125;, 1 * 1000)</span><br><span class="line">   &#125; else &#123;</span><br><span class="line">       webview.print() &#x2F;&#x2F; 打印</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="在主进程中调用webContents-print-打印"><a href="#在主进程中调用webContents-print-打印" class="headerlink" title="在主进程中调用webContents.print()打印"></a>在主进程中调用webContents.print()打印</h1></li>
+<li>如果需要打印渲染进程里的本地网页内容,可以在主进程中调用webContents.print()，在要打印的渲染进程页面中触发主进程调用打印.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; main.js</span><br><span class="line">ipcMain.on(&#39;print&#39;, (event, deviceName) &#x3D;&gt; &#123;</span><br><span class="line">    mainWindow.webContent.print( &#123;</span><br><span class="line">        silent: true,</span><br><span class="line">        deviceName: deviceName</span><br><span class="line">    &#125; )</span><br><span class="line">&#125;)</span><br><span class="line">&#x2F;&#x2F; print.js</span><br><span class="line">const &#123;ipcRenderer&#125; &#x3D; require(&#39;electron&#39;)</span><br><span class="line">ipcRender.send(&#39;print&#39;, deviceName)</span><br></pre></td></tr></table></figure></li>
+<li>使用webContents.print()打印时，与在浏览器使用window.onprint()一样，在css中可以使用媒体查询控制要打印的内容和样式<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;print.css</span><br><span class="line"></span><br><span class="line">@media print &#123;</span><br><span class="line"> .print-dom &#123;</span><br><span class="line">     display: block;</span><br><span class="line"> &#125;</span><br><span class="line"> .not-print-dom &#123;</span><br><span class="line">     display: none;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1>使用webview和webContents.print()方法打印是目前在业务使用的两种方法，网上文章其实好多，但在打印远程网页时如何确保网页内容加载完成再打印是这篇文章形成的主要原因。如果有其它更好的方法也希望各位大佬留言.</li>
+</ul>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://lizehongss.github.io/newBlog/2021/08/22/electron%E6%89%93%E5%8D%B0%E6%96%B9%E6%B3%95%E7%AC%94%E8%AE%B0/" title="Electrond打印方法笔记" target="_blank" rel="external">http://lizehongss.github.io/newBlog/2021/08/22/electron%E6%89%93%E5%8D%B0%E6%96%B9%E6%B3%95%E7%AC%94%E8%AE%B0/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/lizehongss" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/newBlog/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/lizehongss" target="_blank"><span class="text-dark">lzh</span><small class="ml-1x">前端工程师</small></a></h3>
+        <div>简单生活</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
   </article>
-   
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/newBlog/2021/10/17/electro%E4%B8%AD%E4%BD%BF%E7%94%A8preload%E8%BF%9C%E7%A8%8B%E9%A1%B5%E9%9D%A2%E8%B0%83%E7%94%A8electron%E6%8E%A5%E5%8F%A3/" title="electron中使用preload远程页面调用electron接口"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/newBlog/2020/10/29/electron%E8%B0%83%E7%94%A8dll%E7%AC%94%E8%AE%B0/" title="electron调用dll笔记"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -486,6 +528,39 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
 
 
 
