@@ -1,18 +1,59 @@
 ---
 title: vue-响应式原理
-date: 2019/5/15
+date: 2021/10/24
 categories: 
   - 源码学习
 tags:
   - vue
-  
 ---
-
-
-vue初始化调用_init方法 -> _init中会执行initState方法，对props,methods,data等属性初始化
-initProps()->调用deineReactive方法使其变成响应式
-initData()->调用observe方法使其变为响应式
-observe给对象添加getter和setter,用于依赖收集和派发更新
+# 通过object.defineProperty设置getter和setter
+vue初始化调用_init方法, 在init中会执行initState方法，对props,methods,data等属性进行初始化, 主要代码如下：
+```
+// 省略部分代码
+export function initState (vm: Component) {
+  vm._watchers = []
+  const opts = vm.$options
+  if (opts.props) initProps(vm, opts.props)
+  if (opts.methods) initMethods(vm, opts.methods)
+  if (opts.data) {
+    initData(vm)
+  } else {
+    observe(vm._data = {}, true /* asRootData */)
+  }
+  if (opts.computed) initComputed(vm, opts.computed)
+  if (opts.watch && opts.watch !== nativeWatch) {
+    initWatch(vm, opts.watch)
+  }
+}
+```
+其中主要方法作用如下：
+- initProps()调用deineReactive方法使其变成响应式。
+- initData()->调用observe方法使其变为响应式
+- observe()给对象添加getter和setter,用于依赖收集和派发更新。代码如下:
+```
+export function observe (value: any, asRootData: ?boolean): Observer | void {
+  if (!isObject(value) || value instanceof VNode) {
+    return
+  }
+  let ob: Observer | void
+  if (hasOwn(value, '__ob__') && value.__ob__ instanceof Observer) {
+    ob = value.__ob__
+  } else if (
+    shouldObserve &&
+    !isServerRendering() &&
+    (Array.isArray(value) || isPlainObject(value)) &&
+    Object.isExtensible(value) &&
+    !value._isVue
+  ) {
+    ob = new Observer(value)
+  }
+  if (asRootData && ob) {
+    ob.vmCount++
+  }
+  return ob
+}
+```
+主要是实例化Observer实现响应式, Observer的实现如下: 通过定义getter和setter实现
 ```
 export class Observer {
   value: any;
@@ -112,9 +153,9 @@ export function defineReactive (
   })
 }
 ```
-defineReactive的get方法 -> 依赖收集dep.depen()
-
-deep 管理Watch对象
+# 依赖收集和派发更新
+## 依赖收集
+- defineReactive的get方法会调用dep.depen()进行依赖收集，Dep类的主要作用是管理Watch对象
 ```
 export default class Dep {
   // target全局唯一 Watcher
@@ -150,14 +191,69 @@ export default class Dep {
   }
 }
 ```
-Wathcer
+- Watcher类的定义如下:
 ```
-this.deps = [] 
-this.newDeps = []
-//表示Wather实例持有的Dep实例，也就是订阅了多少dep
-```
-组件挂载时调用mountComponent函数，在mountComponent中实例化一个渲染Wathcer->实例化Wathcer时调用this.get()
-```
+let uid = 0
+export default class Watcher {
+  constructor (
+    vm: Component,
+    expOrFn: string | Function,
+    cb: Function,
+    options?: ?Object,
+    isRenderWatcher?: boolean
+  ) {
+    this.vm = vm
+    if (isRenderWatcher) {
+      vm._watcher = this
+    }
+    vm._watchers.push(this)
+    // options
+    if (options) {
+      this.deep = !!options.deep
+      this.user = !!options.user
+      this.computed = !!options.computed
+      this.sync = !!options.sync
+      this.before = options.before
+    } else {
+      this.deep = this.user = this.computed = this.sync = false
+    }
+    this.cb = cb
+    this.id = ++uid // uid for batching
+    this.active = true
+    this.dirty = this.computed // for computed watchers
+    this.deps = []
+    this.newDeps = []
+    this.depIds = new Set()
+    this.newDepIds = new Set()
+    this.expression = process.env.NODE_ENV !== 'production'
+      ? expOrFn.toString()
+      : ''
+    // parse expression for getter
+    if (typeof expOrFn === 'function') {
+      this.getter = expOrFn
+    } else {
+      this.getter = parsePath(expOrFn)
+      if (!this.getter) {
+        this.getter = function () {}
+        process.env.NODE_ENV !== 'production' && warn(
+          `Failed watching path: "${expOrFn}" ` +
+          'Watcher only accepts simple dot-delimited paths. ' +
+          'For full control, use a function instead.',
+          vm
+        )
+      }
+    }
+    if (this.computed) {
+      this.value = undefined
+      this.dep = new Dep()
+    } else {
+      this.value = this.get()
+    }
+  }
+
+  /**
+   * Evaluate the getter, and re-collect dependencies.
+   */
   get () {
     pushTarget(this)
     let value
@@ -165,8 +261,14 @@ this.newDeps = []
     try {
       value = this.getter.call(vm, vm)
     } catch (e) {
-      // ....
+      if (this.user) {
+        handleError(e, vm, `getter for watcher "${this.expression}"`)
+      } else {
+        throw e
+      }
     } finally {
+      // "touch" every property so they are all tracked as
+      // dependencies for deep watching
       if (this.deep) {
         traverse(value)
       }
@@ -175,16 +277,12 @@ this.newDeps = []
     }
     return value
   }
-```
-调用pushTarget(this)将要挂载的组件渲染Wather对象赋值给Dep.target -> 执行this.getter.call(vm,vm)->实际上是执行new Wathcer时传入的回调函数->执行updateComponent()
-```
-new Watcher(vm, updateComponent, //...)
-```
-updateComponent有对组件data数据的访问-> 触发defineReactive的get方法 -> 依赖收集dep.depen()->调用Dep.target.addDep(this)->实际是调用渲染Watcher实例中的addDep
-```
+
+  /**
+   * Add a dependency to this directive.
+   */
   addDep (dep: Dep) {
     const id = dep.id
-    // 保证同一数据不会被添加多次
     if (!this.newDepIds.has(id)) {
       this.newDepIds.add(id)
       this.newDeps.push(dep)
@@ -193,9 +291,76 @@ updateComponent有对组件data数据的访问-> 触发defineReactive的get方�
       }
     }
   }
+
+  /**
+   * Clean up for dependency collection.
+   */
+  cleanupDeps () {
+    let i = this.deps.length
+    while (i--) {
+      const dep = this.deps[i]
+      if (!this.newDepIds.has(dep.id)) {
+        dep.removeSub(this)
+      }
+    }
+    let tmp = this.depIds
+    this.depIds = this.newDepIds
+    this.newDepIds = tmp
+    this.newDepIds.clear()
+    tmp = this.deps
+    this.deps = this.newDeps
+    this.newDeps = tmp
+    this.newDeps.length = 0
+  }
+  // ...
+}
 ```
-将这个渲染Wather添加到在defineReactive中实例化的dep中的subs中,这就是整个依赖收集过程。
-set
+```
+this.deps = [] 
+this.newDeps = [] 
+//表示Wather实例持有的Dep实例，也就是订阅了多少dep
+```
+1. 组件挂载时会调用mountComponent函数，在mountComponent中实例化一个渲染Wathcer，而在实例化Wathcer时调用this.get()
+    ```
+      get () {
+        pushTarget(this)
+        let value
+        const vm = this.vm
+        try {
+          value = this.getter.call(vm, vm)
+        } catch (e) {
+          // ....
+        } finally {
+          if (this.deep) {
+            traverse(value)
+          }
+          popTarget()
+          this.cleanupDeps()
+        }
+        return value
+      }
+    ```
+2. 调用pushTarget(this)将要挂载的组件渲染Wather对象赋值给Dep.target -> 执行this.getter.call(vm,vm)，实际上是执行new Wathcer时传入的回调函数->执行updateComponent()
+    ```
+    new Watcher(vm, updateComponent, //...)
+    ```
+3. updateComponent有对组件data数据的访问-> 触发defineReactive的get方法 -> 依赖收集dep.depen()->调用Dep.target.addDep(this)->实际是调用渲染Watcher实例中的addDep
+    ```
+      addDep (dep: Dep) {
+        const id = dep.id
+        // 保证同一数据不会被添加多次
+        if (!this.newDepIds.has(id)) {
+          this.newDepIds.add(id)
+          this.newDeps.push(dep)
+          if (!this.depIds.has(id)) {
+            dep.addSub(this)
+          }
+        }
+      }
+    ```
+4. 将这个渲染Wather添加到在defineReactive中实例化的dep中的subs中,这就是整个依赖收集过程。
+## 派发更新
+- set时，派发更新的主要流程如下:
 ```
   set: function reactiveSetter (newVal) {
       const value = getter ? getter.call(obj) : val
@@ -209,8 +374,8 @@ set
       dep.notify()
     }
 ```
-observe(newVal)使新设置的值变成响应式的,
-dep.notify()通知所有订阅了这个dep的Wathcher对象-> dep.notify()调用Watcher的update()方法
+- observe(newVal)使新设置的值变成响应式的
+- dep.notify()通知所有订阅了这个dep的Wathcher对象-> dep.notify()调用Watcher的update()方法
 ```
   update () {
     if (this.computed) {
@@ -228,8 +393,8 @@ dep.notify()通知所有订阅了这个dep的Wathcher对象-> dep.notify()调用
     }
   }
 ```
-一般组件数据更新会调用queueWatcher(this)
-queueWathcer使用了队列，先把Wather添加到队列queue，在下个nextTick执行flushSchedulerQueue() -> 执行watcher.run()方法
+- 一般组件数据更新会调用queueWatcher(this)
+- queueWathcer使用了队列，先把Wather添加到队列queue，在下个nextTick执行flushSchedulerQueue() -> 执行watcher.run()方法
 ```
 run () {
   if (this.active) {
@@ -237,8 +402,8 @@ run () {
   }
 }
 ```
-run()方法执行->getAndInvoke(this.cb)传入回调函数->getAndInvoke判断满足新旧值不等->执行this.cb回调函数
-在渲染watcher中，this.cb为
+- run()方法执行->getAndInvoke(this.cb)传入回调函数->getAndInvoke判断满足新旧值不等->执行this.cb回调函数
+- 在渲染watcher中，this.cb为
 ```
 updateComponent = () => {
   vm._update(vm._render(), hydrating)
@@ -247,17 +412,17 @@ updateComponent = () => {
 所以当修改组件相关的响应式数据时会触发组件重新渲染
 
 
-computed实现
-Vue实例初始化时调用initComputed()->在initComputed()中为每一个计算属性getter创建computed Wather,传入{computed: true}->computed Wathcer初始化时持有一个dep实例,
-这个dep实例用来管理computed Wathcerupdate()时，要更新的订阅了这个dep的watcher, 如渲染watcher
+# computed实现
+- Vue实例初始化时调用initComputed()
+在initComputed()中为每一个计算属性getter创建**computed Wather**,**computed Wathcer**初始化时会持有一个dep实例,用来管理computed Wathcer. 当update()时，要更新订阅了这个dep的watcher。
 ```
   if (this.computed) {
     this.value = undefined
     this.dep = new Dep()
   }
 ```
-最后调用defineComputed()
-defineComputed()->调用Object.defineProperty为计算属性对应的key的getter和setter,一般setter为空，getter对应createComputedGetter(key)
+- 最后调用defineComputed()
+defineComputed()-->调用Object.defineProperty为计算属性设置对应的key的getter和setter,一般setter为空，getter对应createComputedGetter(key)
 ```
 function createComputedGetter (key) {
   return function computedGetter () {
@@ -305,7 +470,7 @@ this.getAndInvoke()主要是对比新旧值
   this.dirty = false
 ```
 
-watch的实现
+# watch的实现
 Vue实例初始化时->initWatch()->调用createWatcher(vm, key, handler[i])->返回vm.$watch(expOrFn, handler, options)
 $watch在执行stateMixin时定义
 实例化了Wathcer 
