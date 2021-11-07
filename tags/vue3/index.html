@@ -17,21 +17,18 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>vue相关原理面试题整理 | lzh</title>
-  <meta name="description" content="vue响应式原理实现主要通过Object.defineProperty实现，通过它对对象的属性进行getter和setter,从而实现访问和修改这个属性时，通过getter和setter实现依赖注入和派发更新。依赖注入和派发更新通过订阅-观察者模式实现，具体如下, 在访问属性时，通过getter给dep添加watcher类，setter时触发dep.notify()方法，使订阅了这个属性所实例化的">
-<meta property="og:type" content="article">
-<meta property="og:title" content="vue相关原理面试题整理">
-<meta property="og:url" content="http://lizehongss.github.io/newBlog/2019/08/04/vue-interview/index.html">
+  <title>标签: vue3 | lzh</title>
+  <meta name="description" content="lzh的个人博客,主要为记录">
+<meta property="og:type" content="website">
+<meta property="og:title" content="lzh">
+<meta property="og:url" content="http://lizehongss.github.io/newBlog/tags/vue3/index.html">
 <meta property="og:site_name" content="lzh">
-<meta property="og:description" content="vue响应式原理实现主要通过Object.defineProperty实现，通过它对对象的属性进行getter和setter,从而实现访问和修改这个属性时，通过getter和setter实现依赖注入和派发更新。依赖注入和派发更新通过订阅-观察者模式实现，具体如下, 在访问属性时，通过getter给dep添加watcher类，setter时触发dep.notify()方法，使订阅了这个属性所实例化的">
+<meta property="og:description" content="lzh的个人博客,主要为记录">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2019-08-04T00:00:00.000Z">
-<meta property="article:modified_time" content="2021-11-07T15:27:44.665Z">
 <meta property="article:author" content="lizehong">
-<meta property="article:tag" content="vue">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://lizehongss.github.io/newBlog/2019/08/04/vue-interview/index.html">
+  <link rel="canonical" href="http://lizehongss.github.io/newBlog/tags/vue3/index.html">
   
     <link rel="alternate" href="/atom.xml" title="lzh" type="application/atom+xml">
   
@@ -329,154 +326,68 @@
 </aside>
 
   
-  
-<main class="main" role="main">
-  <div class="content">
-  <article id="post-vue-interview" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <main class="main" role="main">
+  <article class="content article article-tags post-type-list" itemscope="">
+    <header class="article-header">
+      <h1 itemprop="name" class="hidden-xs">标签: vue3</h1>
+      <p class="text-muted hidden-xs">共 1 篇文章</p>
+      <nav role="navigation" id="nav-main" class="okayNav">
+        <ul>
+          <li><a href="/newBlog/tags">All</a></li>
+          
+          <li><a href="/newBlog/tags/css/">css</a></li>
+          
+          <li><a href="/newBlog/tags/electron/">electron</a></li>
+          
+          <li><a href="/newBlog/tags/electron-dll/">electron dll</a></li>
+          
+          <li><a href="/newBlog/tags/element/">element</a></li>
+          
+          <li><a href="/newBlog/tags/vue/">vue</a></li>
+          
+          <li><a href="/newBlog/tags/vue3/">vue3</a></li>
+          
+          <li><a href="/newBlog/tags/javaScript/">javaScript</a></li>
+          
+          <li><a href="/newBlog/tags/算法/">算法</a></li>
+          
+          <li><a href="/newBlog/tags/面试/">面试</a></li>
+          
+        </ul>
+      </nav>
+    </header>
+    <!-- /header -->
+    <div class="article-body">
+      <div class="row">
+        
+<div class="col-md-6">
     
-    <div class="article-header">
-      
-        
-  
-    <h1 class="article-title" itemprop="name">
-      vue相关原理面试题整理
-    </h1>
-  
-
-      
-      <div class="article-meta">
-        <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/newBlog/2019/08/04/vue-interview/" class="article-date">
-	  <time datetime="2019-08-04T00:00:00.000Z" itemprop="datePublished">2019-08-04</time>
-	</a>
-</span>
-        
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/newBlog/categories/%E9%9D%A2%E8%AF%95/">面试</a>
-  </span>
-
-        
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/newBlog/tags/vue/" rel="tag">vue</a>
-  </span>
-
-
-        
-	<span class="article-read hidden-xs">
-	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
-	    <span id="busuanzi_container_page_pv">
-			<span id="busuanzi_value_page_pv">0</span>
-		</span>
-	</span>
-
-
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/newBlog/2019/08/04/vue-interview/#comments" class="article-comment-link">评论</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="vue响应式原理实现"><a href="#vue响应式原理实现" class="headerlink" title="vue响应式原理实现"></a>vue响应式原理实现</h2><p>主要通过Object.defineProperty实现，通过它对对象的属性进行getter和setter,从而实现访问和修改这个属性时，通过getter和setter实现依赖注入和派发更新。依赖注入和派发更新通过订阅-观察者模式实现，具体如下, 在访问属性时，通过getter给dep添加watcher类，setter时触发dep.notify()方法，使订阅了这个属性所实例化的dep的所有Watcher触发update方法</p>
-<h2 id="vue监测数组变化"><a href="#vue监测数组变化" class="headerlink" title="vue监测数组变化"></a>vue监测数组变化</h2><p>vue为了监测数组的变化，重新实现了Array的原型方法，包括push,prop等方法,重写的方法会执行本身原有的逻辑，对能增加数组本身长度的方法获取到插入的值，成一个响应式对象，并且再调用 ob.dep.notify() 手动触发依赖通知</p>
-<h2 id="nextTick实现原理"><a href="#nextTick实现原理" class="headerlink" title="nextTick实现原理"></a>nextTick实现原理</h2><p>在下次 DOM 更新循环结束之后执行延迟回调。nextTick主要使用了宏任务和微任务。根据执行环境分别尝试采用<br>PromiseMutationObserversetImmediate如果以上都不行则采用setTimeout<br>定义了一个异步方法，多次调用nextTick会将方法存入队列中，通过这个异步方法清空当前队列。</p>
-<h1 id="Vue的生命周期"><a href="#Vue的生命周期" class="headerlink" title="Vue的生命周期"></a>Vue的生命周期</h1><p>主要有created, mounted, updated, destory等， created时Vue实例并没有挂载，无法访问到组件的data,method，mountd是组件开始挂载能访问到data,method等数据,当组件DOM更新时触发update，组件销毁时触发destory</p>
-<h2 id="computed和watcher"><a href="#computed和watcher" class="headerlink" title="computed和watcher"></a>computed和watcher</h2><p>computed是计算属性，计算组件中data的值返回一个结果,当data的值改变时，计算属性的结果值也会改变<br>wather用来监听data数据的变化</p>
-<h2 id="组件中的data为什么是一个函数"><a href="#组件中的data为什么是一个函数" class="headerlink" title="组件中的data为什么是一个函数"></a>组件中的data为什么是一个函数</h2><p>一个组件被复用多次的话，也就会创建多个实例。本质上，这些实例用的都是同一个构造函数。如果data是对象的话，对象属于引用类型，会影响到所有的实例。所以为了保证组件不同的实例之间data不冲突，data必须是一个函数。</p>
-<h2 id="v-model的原理"><a href="#v-model的原理" class="headerlink" title="v-model的原理"></a>v-model的原理</h2><p>v-model本质上是一个语法糖,当表单元素上使用时，实质上是分别定义了data数据和input事件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input v-bind&#x3D;&quot;message&quot; v-on:input&#x3D;&quot;message &#x3D; $event.targe.value&quot; &gt;</span><br></pre></td></tr></table></figure>
-<p>在组件上使用时同上,不过事件input通过子组件$emit触发</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;child :value&#x3D;&quot;message&quot; @input&#x3D;&quot;message&#x3D;arguments[0]&quot;&gt;&lt;&#x2F;child&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Vue事件绑定原理"><a href="#Vue事件绑定原理" class="headerlink" title="Vue事件绑定原理"></a>Vue事件绑定原理</h2><p>Vue事件绑定分为原生事件和自定义事件，原生事件本质上还是通过addEvent和removeEvent实现, 自定义事件，Vue会维护一个事件总线，当组件绑定自定义事件时，通过$on push到事件总线，当通过$emit调用时，在事件总线中查找并触发事件</p>
-<p>##　Vue模版编译原理<br>将Vue模板通过编译生成AST(一种用JavaScript对象的形式来描述整个模板),再对AST进行优化，主要是对数据不会改变的节点标记为静态节点，最后生成render函数</p>
-<p>##　Vue2.x的diff算法<br>diff算法主要判断vnode和oldVnode生成新的Vnode节点，主要过程如下:<br>同级比较，再比较子节点<br>先判断一方有子节点一方没有子节点的情况(如果新的children没有子节点，将旧的子节点移除)<br>比较都有子节点的情况(核心diff)<br>递归比较子节点<br>Vue2的核心Diff算法采用了双端比较的算法，同时从新旧children的两端开始进行比较，借助key值找到可复用的节点，再进行相关操作。相比React的Diff算法，同样情况下可以减少移动节点次数，减少不必要的性能损耗，更加的优雅。</p>
-<p>##　虚拟Dom以及key属性<br>在浏览器中对DOM操作是很昂贵的。频繁的操作DOM，会产生一定的性能问题，Virtual DOM本质就是用一个原生的JS对象去描述一个DOM节点。是对真实DOM的一层抽象。<br>「key的作用是尽可能的复用 DOM 元素。」<br>新旧 children 中的节点只有顺序是不同的时候，最佳的操作应该是通过移动元素的位置来达到更新的目的。<br>需要在新旧 children 的节点中保存映射关系，以便能够在旧 children 的节点中找到可复用的节点。key也就是children中节点的唯一标识。</p>
-<h2 id="组件通信"><a href="#组件通信" class="headerlink" title="组件通信"></a>组件通信</h2><p>父子组件通过$parnet和$refs来访问数据，兄弟组件主要通过Vuex和实现一个 Event Bus</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var Event&#x3D;new Vue();</span><br><span class="line">Event.$emit(事件名,数据);</span><br><span class="line">Event.$on(事件名,data &#x3D;&gt; &#123;&#125;);</span><br></pre></td></tr></table></figure>
-
-<p>##　hash路由和history路由实现原理<br>hash模式的原理是 onhashchange 事件，可以在 window 对象上监听这个事件<br>history实际采用了HTML5中提供的API来实现，主要有history.pushState()和history.replaceState()。</p>
-
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
-  <ul class="post-copyright list-unstyled">
-    
-    <li class="post-copyright-link hidden-xs">
-      <strong>本文链接：</strong>
-      <a href="http://lizehongss.github.io/newBlog/2019/08/04/vue-interview/" title="vue相关原理面试题整理" target="_blank" rel="external">http://lizehongss.github.io/newBlog/2019/08/04/vue-interview/</a>
-    </li>
-    
-    <li class="post-copyright-license">
-      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
-    </li>
-  </ul>
-</blockquote>
-
-
-<div class="panel panel-default panel-badger">
+<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
   <div class="panel-body">
-    <figure class="media">
-      <div class="media-left">
-        <a href="https://github.com/lizehongss" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="/newBlog/images/avatar.jpg" class="img-rounded w-full" alt="">
-        </a>
-      </div>
-      <div class="media-body">
-        <h3 class="media-heading"><a href="https://github.com/lizehongss" target="_blank"><span class="text-dark">lzh</span><small class="ml-1x">前端工程师</small></a></h3>
-        <div>简单生活</div>
-      </div>
-    </figure>
-  </div>
+     <div class="article-meta">
+       <time datetime="2021-11-07T00:00:00.000Z" itemprop="datePublished">2021-11-07</time>
+     </div>
+     <h3 class="article-title" itemprop="name">
+       <a class="article-link" href="/newBlog/2021/11/07/vue3%20%E5%B7%A5%E5%85%B7%E5%87%BD%E6%95%B0%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/">vue3 工具函数源码学习</a>
+     </h3>
+   </div>
+   
+   <div class="panel-footer">
+     
+      <a href="/newBlog/tags/vue3/" class="label label-default mb">vue3</a>
+     
+     
+   </div>
+   
+</article>
+
+
 </div>
 
-
+      </div>
     </div>
   </article>
-  
-    
-  <section id="comments">
-  	
-      <div id="vcomments"></div>
-    
-  </section>
-
-
-  
-</div>
-
-  <nav class="bar bar-footer clearfix" data-stick-bottom>
-  <div class="bar-inner">
-  
-  <ul class="pager pull-left">
-    
-    <li class="prev">
-      <a href="/newBlog/2020/04/20/element%E6%BA%90%E7%A0%81%E6%A0%B7%E5%BC%8F%E5%AD%A6%E4%B9%A0/" title="element源码样式学习"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
-    </li>
-    
-    
-    <li class="next">
-      <a href="/newBlog/2019/05/15/vue%E6%95%B0%E6%8D%AE%E9%A9%B1%E5%8A%A8/" title="vue数据驱动原理"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
-    </li>
-    
-    
-  </ul>
-  
-  
-  
-  <div class="bar-right">
-    
-    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
-    
-  </div>
-  </div>
-</nav>
-  
-
-
+   
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -531,39 +442,6 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
-
-   
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-
-
-   
-    
-  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/valine"></script>
-  <script type="text/javascript">
-  var GUEST = ['nick', 'mail', 'link'];
-  var meta = 'nick,mail,link';
-  meta = meta.split(',').filter(function(item) {
-    return GUEST.indexOf(item) > -1;
-  });
-  new Valine({
-    el: '#vcomments',
-    verify: false,
-    notify: false,
-    appId: '',
-    appKey: '',
-    placeholder: 'Just go go',
-    avatar: 'mm',
-    meta: meta,
-    pageSize: '10' || 10,
-    visitor: false
-  });
-  </script>
-
-     
 
 
 

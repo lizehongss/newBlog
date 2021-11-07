@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>vue3 工具函数源码学习 | lzh</title>
+  <meta name="description" content="vue3工具函数目录结构vue3工具函数所在目录如下所示 1vue-nex&#x2F;packages&#x2F;shared&#x2F;src src目录下有以下文件:​其中index.ts是入口文件，其它文件在index.ts中引入， index中定义了常用的工具函数 1234567891011121314import &amp;#123; makeMap &amp;#125; from &#39;.&amp;#x2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue3 工具函数源码学习">
+<meta property="og:url" content="http://lizehongss.github.io/newBlog/2021/11/07/vue3%20%E5%B7%A5%E5%85%B7%E5%87%BD%E6%95%B0%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="lzh">
+<meta property="og:description" content="vue3工具函数目录结构vue3工具函数所在目录如下所示 1vue-nex&#x2F;packages&#x2F;shared&#x2F;src src目录下有以下文件:​其中index.ts是入口文件，其它文件在index.ts中引入， index中定义了常用的工具函数 1234567891011121314import &amp;#123; makeMap &amp;#125; from &#39;.&amp;#x2">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/1022616/1635670732893-e86882a3-292d-4b84-b787-9bc1c4ac4a77.png#clientId=uf59860a1-0cb7-4&from=paste&height=301&id=u8ebe0df7&margin=%5Bobject%20Object%5D&name=image.png&originHeight=301&originWidth=447&originalType=binary&ratio=1&size=19079&status=done&style=none&taskId=ue3e0b117-2885-4ec7-a0c7-8e2c3370b55&width=447">
+<meta property="article:published_time" content="2021-11-07T00:00:00.000Z">
+<meta property="article:modified_time" content="2021-11-07T15:27:44.665Z">
+<meta property="article:author" content="lizehong">
+<meta property="article:tag" content="vue3">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2021/png/1022616/1635670732893-e86882a3-292d-4b84-b787-9bc1c4ac4a77.png#clientId=uf59860a1-0cb7-4&from=paste&height=301&id=u8ebe0df7&margin=%5Bobject%20Object%5D&name=image.png&originHeight=301&originWidth=447&originalType=binary&ratio=1&size=19079&status=done&style=none&taskId=ue3e0b117-2885-4ec7-a0c7-8e2c3370b55&width=447">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://lizehongss.github.io/newBlog/2021/11/07/vue3%20%E5%B7%A5%E5%85%B7%E5%87%BD%E6%95%B0%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="lzh" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/newBlog/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/lizehongss" target="_blank">
+          <img class="img-circle img-rotate" src="/newBlog/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">lzh</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">前端工程师</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 广州</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/newBlog/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/newBlog/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/newBlog/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/newBlog/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/newBlog/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/newBlog/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/newBlog/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/lizehongss" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://juejin.cn/user/2348212566891831" target="_blank" title="Blog" data-toggle=tooltip data-placement=top><i class="icon icon-Blog"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎您的来访!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/newBlog/categories/css/">css</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/newBlog/categories/electron/">electron</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/newBlog/categories/javaScript/">javaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/newBlog/categories/vue/">vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/newBlog/categories/%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/">源码学习</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/newBlog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/newBlog/categories/%E9%9D%A2%E8%AF%95/">面试</a><span class="category-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/newBlog/tags/css/" rel="tag">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/newBlog/tags/electron/" rel="tag">electron</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/newBlog/tags/electron-dll/" rel="tag">electron dll</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/newBlog/tags/element/" rel="tag">element</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/newBlog/tags/javaScript/" rel="tag">javaScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/newBlog/tags/vue/" rel="tag">vue</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/newBlog/tags/vue3/" rel="tag">vue3</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/newBlog/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/newBlog/tags/%E9%9D%A2%E8%AF%95/" rel="tag">面试</a><span class="tag-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/newBlog/tags/css/" style="font-size: 13px;">css</a> <a href="/newBlog/tags/electron/" style="font-size: 13.33px;">electron</a> <a href="/newBlog/tags/electron-dll/" style="font-size: 13px;">electron dll</a> <a href="/newBlog/tags/element/" style="font-size: 13px;">element</a> <a href="/newBlog/tags/javaScript/" style="font-size: 13px;">javaScript</a> <a href="/newBlog/tags/vue/" style="font-size: 14px;">vue</a> <a href="/newBlog/tags/vue3/" style="font-size: 13px;">vue3</a> <a href="/newBlog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 13.67px;">算法</a> <a href="/newBlog/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 13.67px;">面试</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2021/11/">十一月 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2021/10/">十月 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2021/08/">八月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2020/09/">九月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2020/04/">四月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2019/08/">八月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2018/06/">六月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2018/03/">三月 2018</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2018/02/">二月 2018</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/newBlog/categories/electron/">electron</a>
+              </p>
+              <p class="item-title">
+                <a href="/newBlog/2021/11/07/electro%E4%B8%AD%E4%BD%BF%E7%94%A8preload%E8%BF%9C%E7%A8%8B%E9%A1%B5%E9%9D%A2%E8%B0%83%E7%94%A8electron%E6%8E%A5%E5%8F%A3/" class="title">electron中使用preload远程页面调用electron接口</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-11-07T15:27:44.665Z" itemprop="datePublished">2021-11-07</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/newBlog/categories/vue/">vue</a>
+              </p>
+              <p class="item-title">
+                <a href="/newBlog/2021/11/07/vue3%20%E5%B7%A5%E5%85%B7%E5%87%BD%E6%95%B0%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/" class="title">vue3 工具函数源码学习</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-11-07T00:00:00.000Z" itemprop="datePublished">2021-11-07</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/newBlog/categories/%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/">源码学习</a>
+              </p>
+              <p class="item-title">
+                <a href="/newBlog/2021/10/24/vue-%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/" class="title">vue-响应式原理</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-10-24T00:00:00.000Z" itemprop="datePublished">2021-10-24</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/newBlog/categories/javaScript/">javaScript</a>
+              </p>
+              <p class="item-title">
+                <a href="/newBlog/2021/10/17/%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E7%AC%94%E8%AE%B0/" class="title">构造函数笔记</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-10-17T00:00:00.000Z" itemprop="datePublished">2021-10-17</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/newBlog/categories/electron/">electron</a>
+              </p>
+              <p class="item-title">
+                <a href="/newBlog/2021/08/22/electron%E6%89%93%E5%8D%B0%E6%96%B9%E6%B3%95%E7%AC%94%E8%AE%B0/" class="title">Electron打印方法笔记</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-08-22T00:00:00.000Z" itemprop="datePublished">2021-08-22</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-vue3 工具函数源码学习" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      vue3 工具函数源码学习
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/newBlog/2021/11/07/vue3%20%E5%B7%A5%E5%85%B7%E5%87%BD%E6%95%B0%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/" class="article-date">
+	  <time datetime="2021-11-07T00:00:00.000Z" itemprop="datePublished">2021-11-07</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/newBlog/categories/vue/">vue</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/newBlog/tags/vue3/" rel="tag">vue3</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/newBlog/2021/11/07/vue3%20%E5%B7%A5%E5%85%B7%E5%87%BD%E6%95%B0%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="vue3工具函数目录结构"><a href="#vue3工具函数目录结构" class="headerlink" title="vue3工具函数目录结构"></a>vue3工具函数目录结构</h2><p>vue3工具函数所在目录如下所示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue-nex&#x2F;packages&#x2F;shared&#x2F;src</span><br></pre></td></tr></table></figure>
+<p>src目录下有以下文件:<strong>​</strong><br><img src="https://cdn.nlark.com/yuque/0/2021/png/1022616/1635670732893-e86882a3-292d-4b84-b787-9bc1c4ac4a77.png#clientId=uf59860a1-0cb7-4&from=paste&height=301&id=u8ebe0df7&margin=%5Bobject%20Object%5D&name=image.png&originHeight=301&originWidth=447&originalType=binary&ratio=1&size=19079&status=done&style=none&taskId=ue3e0b117-2885-4ec7-a0c7-8e2c3370b55&width=447" alt="image.png"><br>其中index.ts是入口文件，其它文件在index.ts中引入， index中定义了常用的工具函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import &#123; makeMap &#125; from &#39;.&#x2F;makeMap&#39;</span><br><span class="line"></span><br><span class="line">export &#123; makeMap &#125;</span><br><span class="line">export * from &#39;.&#x2F;patchFlags&#39;</span><br><span class="line">export * from &#39;.&#x2F;shapeFlags&#39;</span><br><span class="line">export * from &#39;.&#x2F;slotFlags&#39;</span><br><span class="line">export * from &#39;.&#x2F;globalsWhitelist&#39;</span><br><span class="line">export * from &#39;.&#x2F;codeframe&#39;</span><br><span class="line">export * from &#39;.&#x2F;normalizeProp&#39;</span><br><span class="line">export * from &#39;.&#x2F;domTagConfig&#39;</span><br><span class="line">export * from &#39;.&#x2F;domAttrConfig&#39;</span><br><span class="line">export * from &#39;.&#x2F;escapeHtml&#39;</span><br><span class="line">export * from &#39;.&#x2F;looseEqual&#39;</span><br><span class="line">export * from &#39;.&#x2F;toDisplayString&#39;</span><br></pre></td></tr></table></figure>
+<h2 id="主要工具函数解析"><a href="#主要工具函数解析" class="headerlink" title="主要工具函数解析"></a>主要工具函数解析</h2><p>这里主要学习理解index里的工具函数，部分源码和解析如下:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> EMPTY_OBJ: &#123; readonly [key: string]: any &#125; = __DEV__</span><br><span class="line">  ? <span class="built_in">Object</span>.freeze(&#123;&#125;)</span><br><span class="line">  : &#123;&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> EMPTY_ARR = __DEV__ ? <span class="built_in">Object</span>.freeze([]) : []</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> NOOP = <span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>EMPTY_OBJ和EMPTY_ARR都使用<strong>Object.freeze()</strong>, 它的作用是冻结一个对象，使其不能被修改。</p>
+</li>
+<li><p>EMPTY_OBJ和EMPTY_ARR返回一个空对象和空数组，并且在开发环境是被冻结， 主要作用应该是在开发环境修改空对象时使其报错明显。</p>
+</li>
+<li><p>NOOP返回一个空函数，方便判断和压缩代码，每个地方都写 ()=&gt; {} 明显代码量会增多</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> NO = <span class="function"><span class="params">()</span> =&gt;</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> onRE = <span class="regexp">/^on[^a-z]/</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> isOn = <span class="function">(<span class="params">key: string</span>) =&gt;</span> onRE.test(key)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> isModelListener = <span class="function">(<span class="params">key: string</span>) =&gt;</span> key.startsWith(<span class="string">'onUpdate:'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> extend = <span class="built_in">Object</span>.assign</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> remove = <span class="xml"><span class="tag">&lt;<span class="name">T</span>&gt;</span>(arr: T[], el: T) =&gt; &#123;</span></span><br><span class="line"><span class="xml">  const i = arr.indexOf(el)</span></span><br><span class="line"><span class="xml">  if (i &gt; -1) &#123;</span></span><br><span class="line"><span class="xml">    arr.splice(i, 1)</span></span><br><span class="line"><span class="xml">  &#125;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>NO 返回false，主要也是压缩代码量</p>
+</li>
+<li><p>isOn 判断通过正则判断字符串是否是on开头，并且on 后首字母不是小写字母，如 <strong>onReg</strong></p>
+</li>
+<li><p>isModelListener 通过判断字符串是否是<strong>onUpdate:</strong> 开头</p>
+</li>
+<li><p>extend 提供<strong>Object.assign</strong>方法的缩写， 应该主要也是为了压缩代码</p>
+</li>
+<li><p>remove 通过<strong>splice方法</strong>删除数组中的一项，传入数组和索引</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> hasOwnProperty = <span class="built_in">Object</span>.prototype.hasOwnProperty</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> hasOwn = (</span><br><span class="line">  val: object,</span><br><span class="line">  key: string | symbol</span><br><span class="line">): key is keyof <span class="keyword">typeof</span> val =&gt; hasOwnProperty.call(val, key)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> isArray = <span class="built_in">Array</span>.isArray</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> isMap = (val: unknown): val is <span class="built_in">Map</span>&lt;any, any&gt; =&gt;</span><br><span class="line">  toTypeString(val) === <span class="string">'[object Map]'</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> isSet = (val: unknown): val is <span class="built_in">Set</span>&lt;any&gt; =&gt;</span><br><span class="line">  toTypeString(val) === <span class="string">'[object Set]'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> isDate = (val: unknown): val is <span class="built_in">Date</span> =&gt; val <span class="keyword">instanceof</span> <span class="built_in">Date</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> isFunction = (val: unknown): val is <span class="built_in">Function</span> =&gt;</span><br><span class="line">  <span class="keyword">typeof</span> val === <span class="string">'function'</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> isString = (val: unknown): val is string =&gt; <span class="keyword">typeof</span> val === <span class="string">'string'</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> isSymbol = (val: unknown): val is symbol =&gt; <span class="keyword">typeof</span> val === <span class="string">'symbol'</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> isObject = (val: unknown): val is Record&lt;any, any&gt; =&gt;</span><br><span class="line">  val !== <span class="literal">null</span> &amp;&amp; <span class="keyword">typeof</span> val === <span class="string">'object'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> isPromise = &lt;T = any&gt;(val: unknown): val is Promise&lt;T&gt; =&gt; &#123;</span><br><span class="line">  return isObject(val) &amp;&amp; isFunction(val.then) &amp;&amp; isFunction(val.catch)</span><br><span class="line">&#125;</span><br><span class="line">export const objectToString = Object.prototype.toString</span><br><span class="line">export const toTypeString = (value: unknown): string =&gt;</span><br><span class="line">  objectToString.call(value)</span><br></pre></td></tr></table></figure>
+<p>上述的主要函数的主要作用都是判断是否为ES的某一些内置类型</p>
+</li>
+<li><p>hasOwn 通过Object.prototype.hasOwnProerty判断对象本身是否有key对应的属性</p>
+</li>
+<li><p>isArray 通过Array.isArray方法判断,使用instanceof判断并不准确</p>
+</li>
+<li><p>isMap isSet通过Object.prototype.toString判断是否为<strong>Map</strong>,<strong>Set</strong></p>
+</li>
+<li><p>isDate 通过instanceof判断</p>
+</li>
+<li><p>isFunction, isString,isSymbol,isObject通过<strong>typeof判断</strong></p>
+</li>
+<li><p>isPromise通过val是否为对象，then和catch是否为函数判断</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> toRawType = (value: unknown): <span class="function"><span class="params">string</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// extract "RawType" from strings like "[object RawType]"</span></span><br><span class="line">  <span class="keyword">return</span> toTypeString(value).slice(<span class="number">8</span>, <span class="number">-1</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> isPlainObject = (val: unknown): val is object =&gt;</span><br><span class="line">  toTypeString(val) === <span class="string">'[object Object]'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> isIntegerKey = <span class="function">(<span class="params">key: unknown</span>) =&gt;</span></span><br><span class="line">  isString(key) &amp;&amp;</span><br><span class="line">  key !== <span class="string">'NaN'</span> &amp;&amp;</span><br><span class="line">  key[<span class="number">0</span>] !== <span class="string">'-'</span> &amp;&amp;</span><br><span class="line">  <span class="string">''</span> + <span class="built_in">parseInt</span>(key, <span class="number">10</span>) === key</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> isReservedProp = <span class="comment">/*#__PURE__*/</span> makeMap(</span><br><span class="line">  <span class="comment">// the leading comma is intentional so empty string "" is also included</span></span><br><span class="line">  <span class="string">',key,ref,'</span> +</span><br><span class="line">    <span class="string">'onVnodeBeforeMount,onVnodeMounted,'</span> +</span><br><span class="line">    <span class="string">'onVnodeBeforeUpdate,onVnodeUpdated,'</span> +</span><br><span class="line">    <span class="string">'onVnodeBeforeUnmount,onVnodeUnmounted'</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> cacheStringFunction = <span class="xml"><span class="tag">&lt;<span class="name">T</span> <span class="attr">extends</span> (<span class="attr">str:</span> <span class="attr">string</span>) =&gt;</span> string&gt;(fn: T): T =&gt; &#123;</span></span><br><span class="line">  const cache: Record&lt;string, string&gt; = Object.create(null)</span><br><span class="line">  return ((str: string) =&gt; &#123;</span><br><span class="line">    const hit = cache[str]</span><br><span class="line">    return hit || (cache[str] = fn(str))</span><br><span class="line">  &#125;) as any</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>toRawType截取toTypeString中的一部分，主要是_string,object_这些，如[object Set]返回Set</p>
+</li>
+<li><p>isPlainObject 判断是不是纯粹的对象， 如isPlainObject([]) // false</p>
+</li>
+<li><p>isIntegerKey 判断是不是数字型的字符串key值</p>
+</li>
+<li><p>cacheStringFunction 缓存函数， 实现一个单例</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> camelizeRE = <span class="regexp">/-(\w)/g</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@private</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> camelize = cacheStringFunction((str: string): <span class="function"><span class="params">string</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> str.replace(camelizeRE, (_, c) =&gt; (c ? c.toUpperCase() : <span class="string">''</span>))</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> hyphenateRE = <span class="regexp">/\B([A-Z])/g</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@private</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> hyphenate = cacheStringFunction(<span class="function">(<span class="params">str: string</span>) =&gt;</span></span><br><span class="line">  str.replace(hyphenateRE, <span class="string">'-$1'</span>).toLowerCase()</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@private</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> capitalize = cacheStringFunction(</span><br><span class="line">  (str: string) =&gt; str.charAt(<span class="number">0</span>).toUpperCase() + str.slice(<span class="number">1</span>)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@private</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> toHandlerKey = cacheStringFunction(<span class="function">(<span class="params">str: string</span>) =&gt;</span></span><br><span class="line">  str ? <span class="string">`on<span class="subst">$&#123;capitalize(str)&#125;</span>`</span> : <span class="string">``</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>上述函数都使用<strong>cacheStringFunction函数</strong>包裹，确保返回第一次所创建的那唯一的一个实例。</p>
+</li>
+<li><p>camelize 连字符 - 转驼峰， 将on-click中的-c匹配并替换为C</p>
+</li>
+<li><p>hyphenate 将驼峰转连字符， 将onClick中的C匹配到并替换为-C再通过toLowerCase转为小写</p>
+</li>
+<li><p>capitalize 首字母大写</p>
+</li>
+<li><p>toHandlerKey将click转化onClick这种</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// compare whether a value has changed, accounting for NaN.</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> hasChanged = (value: any, <span class="attr">oldValue</span>: any): <span class="function"><span class="params">boolean</span> =&gt;</span></span><br><span class="line">  !<span class="built_in">Object</span>.is(value, oldValue)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> invokeArrayFns = <span class="function">(<span class="params">fns: <span class="built_in">Function</span>[], arg?: any</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; fns.length; i++) &#123;</span><br><span class="line">    fns[i](arg)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> def = <span class="function">(<span class="params">obj: object, key: string | symbol, value: any</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">Object</span>.defineProperty(obj, key, &#123;</span><br><span class="line">    configurable: <span class="literal">true</span>,</span><br><span class="line">    enumerable: <span class="literal">false</span>,</span><br><span class="line">    value</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> toNumber = (val: any): <span class="function"><span class="params">any</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> n = <span class="built_in">parseFloat</span>(val)</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">isNaN</span>(n) ? val : n</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>hasChanged: 通过<strong>Object.is()</strong>判断两个值是否严格相等</p>
+</li>
+<li><p>invokeArrayFns：执行数组里的函数</p>
+</li>
+<li><p>def: 定义对象属性，使其可删除和不可枚举</p>
+</li>
+<li><p>toNumber : 将值转换为数字</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> _globalThis: any</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> getGlobalThis = (): <span class="function"><span class="params">any</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    _globalThis ||</span><br><span class="line">    (_globalThis =</span><br><span class="line">      <span class="keyword">typeof</span> globalThis !== <span class="string">'undefined'</span></span><br><span class="line">        ? globalThis</span><br><span class="line">        : <span class="keyword">typeof</span> self !== <span class="string">'undefined'</span></span><br><span class="line">        ? self</span><br><span class="line">        : <span class="keyword">typeof</span> <span class="built_in">window</span> !== <span class="string">'undefined'</span></span><br><span class="line">        ? <span class="built_in">window</span></span><br><span class="line">        : <span class="keyword">typeof</span> global !== <span class="string">'undefined'</span></span><br><span class="line">        ? global</span><br><span class="line">        : &#123;&#125;)</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>getGlobalThis: 获取全局 this 指向, 依次查找__globalThis, self ,window, global</p>
+</li>
+</ul>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://lizehongss.github.io/newBlog/2021/11/07/vue3%20%E5%B7%A5%E5%85%B7%E5%87%BD%E6%95%B0%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/" title="vue3 工具函数源码学习" target="_blank" rel="external">http://lizehongss.github.io/newBlog/2021/11/07/vue3%20%E5%B7%A5%E5%85%B7%E5%87%BD%E6%95%B0%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/lizehongss" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/newBlog/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/lizehongss" target="_blank"><span class="text-dark">lzh</span><small class="ml-1x">前端工程师</small></a></h3>
+        <div>简单生活</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/newBlog/2021/11/07/electro%E4%B8%AD%E4%BD%BF%E7%94%A8preload%E8%BF%9C%E7%A8%8B%E9%A1%B5%E9%9D%A2%E8%B0%83%E7%94%A8electron%E6%8E%A5%E5%8F%A3/" title="electron中使用preload远程页面调用electron接口"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/newBlog/2021/10/24/vue-%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/" title="vue-响应式原理"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/lizehongss" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://juejin.cn/user/2348212566891831" target="_blank" title="Blog" data-toggle=tooltip data-placement=top><i class="icon icon-Blog"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/newBlog/js/plugin.min.js"></script>
+
+
+<script src="/newBlog/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/newBlog/',
+        CONTENT_URL: '/newBlog/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/newBlog/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
