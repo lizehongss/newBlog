@@ -2,7 +2,7 @@
 title: electron调用dll笔记
 tags:  electron dll
 categories: electron
-date: 2020/09/29
+date: 2021/09/29
 ---
 ## electron安装相关依赖
 1. electron调用dll需要安装node-gyp,用于编译node-ffi-napi,ref-arrray-di, ref-struct-di, ref-napi等库。
