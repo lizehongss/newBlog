@@ -17,18 +17,23 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>归档: 2019/8 | lzh</title>
-  <meta name="description" content="lzh的个人博客,主要为记录">
-<meta property="og:type" content="website">
-<meta property="og:title" content="lzh">
-<meta property="og:url" content="http://lizehongss.github.io/newBlog/archives/2019/08/index.html">
+  <title>vue3.2是怎么发布vue-release的 | lzh</title>
+  <meta name="description" content="相关源码文件及依赖vue3 跟发布相关的文件主要目录如下: 1vue-next&#x2F;scripts&#x2F;release.js 所使用到的引入依赖如下： 12345678const args &#x3D; require(&#39;minimist&#39;)(process.argv.slice(2))const fs &#x3D; require(&#39;fs&#39;)const path &#x3D; require(&#39;path&#39;)const chalk &#x3D;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue3.2是怎么发布vue-release的">
+<meta property="og:url" content="http://lizehongss.github.io/newBlog/2021/12/02/%E7%AC%AC%E4%B8%89%E6%9C%9F%20_%20vue%203.2%20%E6%98%AF%E6%80%8E%E4%B9%88%E5%8F%91%E5%B8%83%E7%9A%84%20vue-release/index.html">
 <meta property="og:site_name" content="lzh">
-<meta property="og:description" content="lzh的个人博客,主要为记录">
+<meta property="og:description" content="相关源码文件及依赖vue3 跟发布相关的文件主要目录如下: 1vue-next&#x2F;scripts&#x2F;release.js 所使用到的引入依赖如下： 12345678const args &#x3D; require(&#39;minimist&#39;)(process.argv.slice(2))const fs &#x3D; require(&#39;fs&#39;)const path &#x3D; require(&#39;path&#39;)const chalk &#x3D;">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2021/12/ee6e02c0e482ff2c.png">
+<meta property="article:published_time" content="2021-12-02T00:00:00.000Z">
+<meta property="article:modified_time" content="2021-12-02T15:21:11.357Z">
 <meta property="article:author" content="lizehong">
+<meta property="article:tag" content="vue3">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s3.bmp.ovh/imgs/2021/12/ee6e02c0e482ff2c.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://lizehongss.github.io/newBlog/archives/2019/08/index.html">
+  <link rel="canonical" href="http://lizehongss.github.io/newBlog/2021/12/02/%E7%AC%AC%E4%B8%89%E6%9C%9F%20_%20vue%203.2%20%E6%98%AF%E6%80%8E%E4%B9%88%E5%8F%91%E5%B8%83%E7%9A%84%20vue-release/index.html">
   
     <link rel="alternate" href="/atom.xml" title="lzh" type="application/atom+xml">
   
@@ -328,48 +333,183 @@
   
   
 <main class="main" role="main">
-  	<article class="content article article-archives article-type-list" itemscope="">
-	    <header class="article-header">
-	      <h1 itemprop="title">归档: 2019/8</h1>
-	      <p class="text-muted">共 1 篇文章</p>
-	    </header>
-	    <div class="article-body">
-	      
-  
-  
+  <div class="content">
+  <article id="post-第三期 _ vue 3.2 是怎么发布的 vue-release" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
-    
+    <div class="article-header">
       
+        
+  
+    <h1 class="article-title" itemprop="name">
+      vue3.2是怎么发布vue-release的
+    </h1>
+  
+
       
-      <section class="panel panel-default b-no">
-        <div class="panel-heading" role="tab">
-          <h3 class="panel-title">
-            <a data-toggle="collapse" href="#collapse2019" aria-expanded="true">
-              <i class="icon icon-calendar-plus text-active"></i><i class="icon icon-calendar-minus text"></i>
-              2019
-            </a>
-            <!-- <a href="/newBlog/archives/2019" class="archive-year">2019</a> -->
-          </h3>
-        </div>
-        <div id="collapse2019" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2019">
-        <div class="panel-body">
-          <div class="collection">
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/newBlog/2021/12/02/%E7%AC%AC%E4%B8%89%E6%9C%9F%20_%20vue%203.2%20%E6%98%AF%E6%80%8E%E4%B9%88%E5%8F%91%E5%B8%83%E7%9A%84%20vue-release/" class="article-date">
+	  <time datetime="2021-12-02T00:00:00.000Z" itemprop="datePublished">2021-12-02</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/newBlog/categories/%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/">源码学习</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/newBlog/tags/vue3/" rel="tag">vue3</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/newBlog/2021/12/02/%E7%AC%AC%E4%B8%89%E6%9C%9F%20_%20vue%203.2%20%E6%98%AF%E6%80%8E%E4%B9%88%E5%8F%91%E5%B8%83%E7%9A%84%20vue-release/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 569(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="相关源码文件及依赖"><a href="#相关源码文件及依赖" class="headerlink" title="相关源码文件及依赖"></a>相关源码文件及依赖</h1><p>vue3 跟发布相关的文件主要目录如下:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue-next/scripts/release.js</span><br></pre></td></tr></table></figure>
+<p>所使用到的引入依赖如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> args = <span class="built_in">require</span>(<span class="string">'minimist'</span>)(process.argv.slice(<span class="number">2</span>))</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"><span class="keyword">const</span> chalk = <span class="built_in">require</span>(<span class="string">'chalk'</span>)</span><br><span class="line"><span class="keyword">const</span> semver = <span class="built_in">require</span>(<span class="string">'semver'</span>)</span><br><span class="line"><span class="keyword">const</span> currentVersion = <span class="built_in">require</span>(<span class="string">'../package.json'</span>).version</span><br><span class="line"><span class="keyword">const</span> &#123; prompt &#125; = <span class="built_in">require</span>(<span class="string">'enquirer'</span>)</span><br><span class="line"><span class="keyword">const</span> execa = <span class="built_in">require</span>(<span class="string">'execa'</span>)</span><br></pre></td></tr></table></figure>
+<p>各依赖作用如下</p>
+<ul>
+<li><p><a href="https://github.com/substack/minimist" target="_blank" rel="noopener">minimist</a> 主要是获取命令行参数, 这里会将所有的命令行参数添加进args对象中</p>
+</li>
+<li><p>fs, path 都是node常用的自带模块，主要是操作文件和路径</p>
+</li>
+<li><p><a href="https://github.com/chalk/chalk" target="_blank" rel="noopener">chalk</a> 主要用于终端美化</p>
+</li>
+<li><p><a href="https://www.npmjs.cn/misc/semver/" target="_blank" rel="noopener">semver</a> 主要作用是对版本校验比较</p>
+</li>
+<li><p>currentVersion 获取当前package.jsonr的version信息</p>
+</li>
+<li><p><a href="https://github.com/enquirer/enquirer" target="_blank" rel="noopener">enquirer</a>: 主要用来创建命令行交互式询问用户输入，这里引用的prompt给用户提供输入，选择等功能</p>
+</li>
+<li><p><a href="https://github.com/sindresorhus/execa" target="_blank" rel="noopener">execa</a>: 主要是用来执行命令行命令<br><a name="VR10z"></a></p>
+<h1 id="主要流程"><a href="#主要流程" class="headerlink" title="主要流程"></a>主要流程</h1><p><a name="U5zw5"></a></p>
+<h2 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h2><p><img src="https://s3.bmp.ovh/imgs/2021/12/ee6e02c0e482ff2c.png" alt="vue3发布流程图.drawio (1).png"><br><a name="ddal6"></a></p>
+<h2 id="重要函数分析"><a href="#重要函数分析" class="headerlink" title="重要函数分析"></a>重要函数分析</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> inc = <span class="function"><span class="params">i</span> =&gt;</span> semver.inc(currentVersion, i, preId)</span><br><span class="line"><span class="keyword">const</span> bin = <span class="function"><span class="params">name</span> =&gt;</span> path.resolve(__dirname, <span class="string">'../node_modules/.bin/'</span> + name)</span><br><span class="line"><span class="keyword">const</span> run = <span class="function">(<span class="params">bin, args, opts = &#123;&#125;</span>) =&gt;</span></span><br><span class="line">  execa(bin, args, &#123; <span class="attr">stdio</span>: <span class="string">'inherit'</span>, ...opts &#125;)</span><br><span class="line"><span class="keyword">const</span> dryRun = <span class="function">(<span class="params">bin, args, opts = &#123;&#125;</span>) =&gt;</span></span><br><span class="line">  <span class="built_in">console</span>.log(chalk.blue(<span class="string">`[dryrun] <span class="subst">$&#123;bin&#125;</span> <span class="subst">$&#123;args.join(<span class="string">' '</span>)&#125;</span>`</span>), opts)</span><br><span class="line"><span class="keyword">const</span> runIfNotDry = isDryRun ? dryRun : run</span><br><span class="line"><span class="keyword">const</span> getPkgRoot = <span class="function"><span class="params">pkg</span> =&gt;</span> path.resolve(__dirname, <span class="string">'../packages/'</span> + pkg)</span><br><span class="line"><span class="keyword">const</span> step = <span class="function"><span class="params">msg</span> =&gt;</span> <span class="built_in">console</span>.log(chalk.cyan(msg))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>inc</strong>函数主要是通过semver库的inc方法生成一个版本号,如：semver.inc(‘3.2.4’, ‘prerelease’, ‘beta’) =&gt; 3.2.5-beta.0</p>
+</li>
+<li><p><strong>bin</strong>函数主要使用是传入name，返回node_modules/.bin/${name} ,方便获取 node_modules/.bin/ 目录下的命令</p>
+</li>
+<li><p><strong>run</strong>函数主要通过execa执行命令行命令, 如: run(‘yarn’, [‘build’, ‘–release’]) =&gt; yarn build –release</p>
+</li>
+<li><p><strong>dryRun</strong>函数是空跑命令， 通过console.log打印传入的命令，方便调试</p>
+</li>
+<li><p><strong>runIfNotDry</strong>通过一开始用户传入的命令行参数<strong>isDryRun</strong>来判断是空跑还是真的执行命令</p>
+</li>
+<li><p><strong>getPKgRoot</strong>获取包路径</p>
+</li>
+<li><p><strong>step函数</strong>通过chalk打印传入的信息<br><a name="o8UBA"></a></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>大致明白了Vue3是如何发布包的，整个流程其实也可以应用在公司前端项目的发布中，例如通过输入的版本号修改pack.json信息，自动执行git命令，校验版本号等。<br><a name="Le0Dk"></a></p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1></li>
+<li><p><a href="https://juejin.cn/post/6997943192851054606#heading-24" target="_blank" rel="noopener">Vue 3.2 发布了，那尤雨溪是怎么发布 Vue.js 的？</a></p>
+</li>
+<li><p><a href="https://www.yuque.com/ruochuan12/notice/p2" target="_blank" rel="noopener">第二期 | vue3 工具函数 | 源码共读公告【必看】</a>​</p>
+</li>
+</ul>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://lizehongss.github.io/newBlog/2021/12/02/%E7%AC%AC%E4%B8%89%E6%9C%9F%20_%20vue%203.2%20%E6%98%AF%E6%80%8E%E4%B9%88%E5%8F%91%E5%B8%83%E7%9A%84%20vue-release/" title="vue3.2是怎么发布vue-release的" target="_blank" rel="external">http://lizehongss.github.io/newBlog/2021/12/02/第三期 _ vue 3.2 是怎么发布的 vue-release/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/lizehongss" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/newBlog/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/lizehongss" target="_blank"><span class="text-dark">lzh</span><small class="ml-1x">前端工程师</small></a></h3>
+        <div>简单生活</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/newBlog/2021/12/02/electro%E4%B8%AD%E4%BD%BF%E7%94%A8preload%E8%BF%9C%E7%A8%8B%E9%A1%B5%E9%9D%A2%E8%B0%83%E7%94%A8electron%E6%8E%A5%E5%8F%A3/" title="electron中使用preload远程页面调用electron接口"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
     
     
-<a href="/newBlog/2019/08/04/vue-interview/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2019-08-04T00:00:00.000Z" itemprop="datePublished">2019-08-04</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> vue相关原理面试题整理
-</a>
-
-
+    <li class="next">
+      <a href="/newBlog/2021/11/07/vue3%20%E5%B7%A5%E5%85%B7%E5%87%BD%E6%95%B0%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/" title="vue3 工具函数源码学习"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
   
   
-    </div></div></div></section>
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
   
 
-	    </div>
-  	</article>
-  	 	
+
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -424,6 +564,39 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
 
 
 
