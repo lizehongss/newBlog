@@ -33,7 +33,7 @@ site:
     url: ../images/logo.png
   title: lzh # 页面title
   favicon: /favicon.ico
-  board: <p>欢迎您的来访!</p> # 站点公告
+  board: <p>欢迎您的到来!</p> # 站点公告
   copyright: false # 底部版权信息
 
 # config
@@ -188,7 +188,7 @@ profile:
   gravatar: # Gravatar email address, if you enable Gravatar, your avatar config will be overriden
   author: lzh
   author_title: 前端工程师
-  author_description: 简单生活
+  author_description: 努力工作，简单生活
   location: 广州
   follow: https://github.com/lizehongss
   # Social Links
@@ -209,13 +209,15 @@ profile:
     #Gulp: ★★★☆☆
     Javascript: ★★★☆☆
     HTML+CSS: ★★★☆☆
+    Electron: ★★★☆☆
     #Bootstrap: ★★★☆☆
     #ThinkPHP: ★★★☆☆
     #平面设计: ★★★☆☆
   # My Personal Links
   links:
     Github: https://github.com/lizehongss
-    Blog: https://juejin.cn/user/2348212566891831
+    掘金: https://juejin.cn/user/2348212566891831
+    语雀: https://www.yuque.com/lzhlzh
     #微博: http://weibo.com/cofess
     #花瓣: http://huaban.com/cofess
     #Behance: https://www.behance.net/cofess
