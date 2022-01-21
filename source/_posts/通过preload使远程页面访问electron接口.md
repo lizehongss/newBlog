@@ -1,8 +1,8 @@
 ---
-title: electron中使用preload远程页面调用electron接口
+title: 使用preload远程页面调用electron接口
 tags: electron
 categories: electron
-data: 2020/11/15
+date: 2020/10/15
 ---
 ## 主要原理
 主要是通过electron中的preloa在本地中预先加载一个指定脚本js文件，这个文件可以使用node APIs调用electron中的相关接口如ipcRenderer等，所以在electron中使用远程网页的窗口中定义加载js文件，并开放webviewTag,就可以在预加载文件中通过定义window中的方法调用electron接口，然后在远程网页中直接调用预加载文件中定义的方法就可以实现与electron的相关通信。主要实现过程如下:
