@@ -1,9 +1,26 @@
 <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <% var profile = theme.profile || {}; %>
+  <% var brandTitle = theme.site.title || config.title; %>
+  <% var brandSubtitle = config.subtitle || profile.author_title; %>
   <div class="slimContent">
     <div class="navbar-header">
+      <div class="mobile-brand visible-xs-block">
+        <a class="mobile-brand-link" href="<%- url_for('/') %>">
+          <% if (theme.profile && theme.profile.enabled) { %>
+          <span class="mobile-brand-avatar">
+            <img src="<%= (profile.gravatar ? gravatar(profile.gravatar, 128) : url_for(profile.avatar)) %>" width="80" height="80" alt="<%= profile.author || brandTitle %>">
+          </span>
+          <% } %>
+          <span class="mobile-brand-copy">
+            <span class="mobile-brand-title"><%= brandTitle %></span>
+            <% if (brandSubtitle) { %>
+            <span class="mobile-brand-subtitle"><%= brandSubtitle %></span>
+            <% } %>
+          </span>
+        </a>
+      </div>
       <% if(theme.profile && theme.profile.enabled) { %>
-      <% var profile = theme.profile; %>
-      <div class="profile-block text-center">
+      <div class="profile-block text-center hidden-xs">
         <a id="avatar" href="<%= profile.follow %>" target="_blank">
           <img class="img-circle img-rotate" src="<%= ( profile.gravatar ? gravatar(profile.gravatar, 128) : url_for(profile.avatar)) %>" width="200" height="200">
         </a>
