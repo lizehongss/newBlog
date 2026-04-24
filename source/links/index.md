@@ -1,6 +1,5 @@
 ---
 title: 友情链接
-layout: links
+type: link
 comments: true
-sidebar: none
 ---

@@ -1,13 +1,13 @@
 # newBlog
 
-基于 `Hexo 4` 的个人博客项目，当前使用主题 `pure`，并在其基础上做了移动端样式优化。
+基于 `Hexo 5` 的个人博客项目，当前使用主题 `Butterfly`。
 
 ## 技术栈
 
-- `Hexo 4.2.1`
-- `EJS` 模板
-- `CSS`
-- `hexo-theme-pure`
+- `Hexo 5.4.2`
+- `Pug` 模板
+- `Stylus` 样式
+- `hexo-theme-butterfly`
 
 ## 本地开发
 
@@ -53,7 +53,7 @@ npm run build
 npm run server   # 本地预览
 npm run build    # 生成静态文件
 npm run clean    # 清理缓存
-npm run deploy   # 部署（当前仓库未配置 deploy）
+npm run deploy   # 部署到 GitHub Pages（需要先配置 deploy）
 ```
 
 ## 项目结构
@@ -69,7 +69,11 @@ newBlog/
 │   ├── tags/                # 标签页
 │   └── _data/               # 页面数据
 ├── themes/
-│   └── pure/
+│   ├── butterfly/          # 当前主题
+│   │   ├── _config.yml      # 主题默认配置
+│   │   ├── layout/          # Pug 模板
+│   │   └── source/          # 主题静态资源
+│   └── pure/               # 旧主题，当前不再启用
 │       ├── _config.yml      # 主题配置
 │       ├── layout/          # EJS 模板
 │       └── source/
@@ -177,18 +181,18 @@ tags:
 
 顶部/侧边导航来自主题配置：
 
-- [themes/pure/_config.yml](/Users/zehong.li/newBlog/themes/pure/_config.yml:1)
+- [_config.butterfly.yml](/Users/zehong.li/newBlog/_config.butterfly.yml:1)
 
 对应字段：
 
 ```yml
 menu:
-  Home: .
-  Archives: archives
-  Categories: categories
-  Tags: tags
-  Links: links
-  About: about
+  首页: / || fas fa-home
+  归档: /archives/ || fas fa-archive
+  分类: /categories/ || fas fa-folder-open
+  标签: /tags/ || fas fa-tags
+  友链: /links/ || fas fa-link
+  关于: /about/ || fas fa-user
 ```
 
 如果你新增了页面，也可以在这里补一个菜单入口。
@@ -197,10 +201,10 @@ menu:
 
 项目中有一些页面数据放在：
 
-- `source/_data/links.yml`
+- `source/_data/link.yml`
 - `source/_data/gallery.yml`
 
-如果后续要维护友链、图库这类内容，优先改这里的数据文件。
+Butterfly 友链页读取 `source/_data/link.yml`；旧 `pure` 主题使用过的 `links.yml` 可以保留作参考。
 
 ### 修改内容后的推荐流程
 
@@ -216,7 +220,15 @@ npm run server
 
 ## 主题与样式修改
 
-当前主题为 `pure`，主要入口如下：
+当前主题为 `Butterfly`，项目级主题配置在：
+
+- [_config.butterfly.yml](/Users/zehong.li/newBlog/_config.butterfly.yml:1)
+
+当前主题源码位于：
+
+- [themes/butterfly/](/Users/zehong.li/newBlog/themes/butterfly/_config.yml:1)
+
+旧的 `pure` 主题文件仍保留在仓库中，主要入口如下：
 
 - 主题配置：[\_config.yml](/Users/zehong.li/newBlog/themes/pure/_config.yml:1)
 - 页面骨架：[layout.ejs](/Users/zehong.li/newBlog/themes/pure/layout/layout.ejs:1)
@@ -228,19 +240,18 @@ npm run server
 
 建议：
 
-- 尽量把新增样式写在 `themes/pure/source/css/custom.css`
-- 除非必要，不要直接大改 `style.css`
-- 模板结构调整优先改 `themes/pure/layout/`
+- 优先改 `_config.butterfly.yml` 做主题配置，不要直接修改 `themes/butterfly/_config.yml`
+- 如果只是调导航、侧栏、搜索、封面图、评论等开关，基本都在 `_config.butterfly.yml`
+- 如果需要深度改模板，再修改 `themes/butterfly/layout/`
 
 ## 当前已做的 UI 调整
 
 本轮已完成的重点改动：
 
-- 移动端头部改为更适合手机浏览的布局
-- 修复首页首篇内容被头部遮挡的问题
-- 优化移动端导航菜单展示
-- 优化首页文章卡片的标题、摘要和信息密度
-- 重做分页为更简洁的 `上一页 / 当前页 / 下一页` 样式
+- 主题已从 `pure` 切换到 `Butterfly`
+- 新增项目级 Butterfly 配置
+- 调整分类、标签、友链等页面 front-matter 以适配 Butterfly
+- 保留旧 `pure` 主题文件，便于后续参考或回退
 
 ## 部署说明
 

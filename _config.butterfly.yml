@@ -1,0 +1,146 @@
+# Butterfly theme overrides for this blog.
+
+nav:
+  logo:
+  display_title: true
+  display_post_title: true
+  fixed: false
+
+menu:
+  首页: / || fas fa-home
+  归档: /archives/ || fas fa-archive
+  分类: /categories/ || fas fa-folder-open
+  标签: /tags/ || fas fa-tags
+  友链: /links/ || fas fa-link
+  关于: /about/ || fas fa-user
+
+favicon: /favicon.ico
+
+avatar:
+  img: /images/avatar.jpg
+  effect: false
+
+disable_top_img: true
+default_top_img: false
+index_img: false
+archive_img: false
+tag_img: false
+category_img: false
+footer_img: false
+background:
+
+cover:
+  index_enable: false
+  aside_enable: false
+  archives_enable: false
+  default_cover:
+
+subtitle:
+  enable: true
+  effect: false
+  sub:
+    - 简单生活
+
+index_layout: 4
+index_post_content:
+  method: 3
+  length: 180
+
+post_meta:
+  page:
+    date_type: created
+    date_format: date
+    categories: true
+    tags: true
+    label: true
+  post:
+    position: left
+    date_type: both
+    date_format: date
+    categories: true
+    tags: true
+    label: true
+
+aside:
+  enable: true
+  hide: false
+  button: true
+  mobile: false
+  position: right
+  display:
+    archive: true
+    tag: true
+    category: true
+  card_author:
+    enable: true
+    description: 努力工作，简单生活
+    button:
+      enable: true
+      icon: fab fa-github
+      text: GitHub
+      link: https://github.com/lizehongss
+  card_announcement:
+    enable: true
+    content: 欢迎您的到来!
+  card_recent_post:
+    enable: true
+    limit: 5
+    sort: date
+  card_categories:
+    enable: true
+    limit: 8
+  card_tags:
+    enable: true
+    limit: 40
+    color: false
+  card_archives:
+    enable: true
+    type: monthly
+    format: MMMM YYYY
+    order: -1
+    limit: 8
+  card_webinfo:
+    enable: true
+
+social:
+  fab fa-github: https://github.com/lizehongss || GitHub || '#24292e'
+
+wordcount:
+  enable: true
+  post_wordcount: true
+  min2read: true
+  total_wordcount: true
+
+busuanzi:
+  site_uv: true
+  site_pv: true
+  page_pv: true
+
+search:
+  use: local_search
+  placeholder: 搜索
+  local_search:
+    preload: false
+    top_n_per_article: 1
+    unescape: false
+    pagination:
+      enable: false
+      hitsPerPage: 8
+
+share:
+  use:
+
+comments:
+  use:
+
+post_copyright:
+  enable: false
+
+footer:
+  owner:
+    enable: true
+    since: 2018
+  copyright:
+    enable: true
+    version: false
+  custom_text:
