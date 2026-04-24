@@ -1,628 +1,208 @@
-<!DOCTYPE html>
-<html lang=zh>
-<head>
-  <meta charset="utf-8">
-  
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-  <meta name="renderer" content="webkit">
-  <meta http-equiv="Cache-Control" content="no-transform" />
-  <meta http-equiv="Cache-Control" content="no-siteapp" />
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="format-detection" content="telephone=no,email=no,adress=no">
-  <!-- Color theme for statusbar -->
-  <meta name="theme-color" content="#000000" />
-  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
-  <meta http-equiv="window-target" content="_top" />
-  
-  
-  <title>vue-响应式原理 | lzh</title>
-  <meta name="description" content="通过object.defineProperty设置getter和settervue初始化调用_init方法, 在init中会执行initState方法，对props,methods,data等属性进行初始化, 主要代码如下： 12345678910111213141516&#x2F;&#x2F; 省略部分代码export function initState (vm: Component) &amp;#1">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>vue-响应式原理 | lzh</title><meta name="author" content="lizehong"><meta name="copyright" content="lizehong"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="通过object.defineProperty设置getter和settervue初始化调用_init方法, 在init中会执行initState方法，对props,methods,data等属性进行初始化, 主要代码如下： 12345678910111213141516&#x2F;&#x2F; 省略部分代码export function initState (vm: Component) &amp;#123;  vm._w">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vue-响应式原理">
 <meta property="og:url" content="http://lizehongss.github.io/newBlog/2021/10/24/vue-%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/index.html">
 <meta property="og:site_name" content="lzh">
-<meta property="og:description" content="通过object.defineProperty设置getter和settervue初始化调用_init方法, 在init中会执行initState方法，对props,methods,data等属性进行初始化, 主要代码如下： 12345678910111213141516&#x2F;&#x2F; 省略部分代码export function initState (vm: Component) &amp;#1">
+<meta property="og:description" content="通过object.defineProperty设置getter和settervue初始化调用_init方法, 在init中会执行initState方法，对props,methods,data等属性进行初始化, 主要代码如下： 12345678910111213141516&#x2F;&#x2F; 省略部分代码export function initState (vm: Component) &amp;#123;  vm._w">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://lizehongss.github.io/newBlog/images/avatar.jpg">
 <meta property="article:published_time" content="2021-10-23T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-04-21T06:36:46.108Z">
+<meta property="article:modified_time" content="2021-10-23T16:00:00.000Z">
 <meta property="article:author" content="lizehong">
 <meta property="article:tag" content="vue">
 <meta name="twitter:card" content="summary">
-  <!-- Canonical links -->
-  <link rel="canonical" href="http://lizehongss.github.io/newBlog/2021/10/24/vue-%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/index.html">
-  
-    <link rel="alternate" href="/atom.xml" title="lzh" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-  
-  
-<link rel="stylesheet" href="/newBlog/css/style.css">
-
-  
-<link rel="stylesheet" href="/newBlog/css/custom.css">
-
-  
-  
-  
-  
-<meta name="generator" content="Hexo 4.2.1"></head>
-
-
-<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
-  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-  
-  
-  
-  <div class="slimContent">
-    <div class="navbar-header">
-      <div class="mobile-brand visible-xs-block">
-        <a class="mobile-brand-link" href="/newBlog/">
-          
-          <span class="mobile-brand-avatar">
-            <img src="/newBlog/images/avatar.jpg" width="80" height="80" alt="lzh">
-          </span>
-          
-          <span class="mobile-brand-copy">
-            <span class="mobile-brand-title">lzh</span>
-            
-            <span class="mobile-brand-subtitle">简单生活</span>
-            
-          </span>
-        </a>
-      </div>
+<meta name="twitter:image" content="http://lizehongss.github.io/newBlog/images/avatar.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "vue-响应式原理",
+  "url": "http://lizehongss.github.io/newBlog/2021/10/24/vue-%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/",
+  "image": "http://lizehongss.github.io/newBlog/images/avatar.jpg",
+  "datePublished": "2021-10-23T16:00:00.000Z",
+  "dateModified": "2021-10-23T16:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "lizehong",
+      "url": "http://lizehongss.github.io/newBlog"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/newBlog/favicon.ico"><link rel="canonical" href="http://lizehongss.github.io/newBlog/2021/10/24/vue-%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/newBlog/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
       
-      <div class="profile-block text-center hidden-xs">
-        <a id="avatar" href="https://github.com/lizehongss" target="_blank">
-          <img class="img-circle img-rotate" src="/newBlog/images/avatar.jpg" width="200" height="200">
-        </a>
-        <h2 id="name" class="hidden-xs hidden-sm">lzh</h2>
-        <h3 id="title" class="hidden-xs hidden-sm hidden-md">前端工程师</h3>
-        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 广州</small>
-      </div>
-      
-      <div class="search" id="search-form-wrap">
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
 
-    <form class="search-form sidebar-form">
-        <div class="input-group">
-            <input type="text" class="search-form-input form-control" placeholder="搜索" />
-            <span class="input-group-btn">
-                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
-            </span>
-        </div>
-    </form>
-    <div class="ins-search">
-  <div class="ins-search-mask"></div>
-  <div class="ins-search-container">
-    <div class="ins-input-wrapper">
-      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
-      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-    </div>
-    <div class="ins-section-wrapper">
-      <div class="ins-section-container"></div>
-    </div>
-  </div>
-</div>
-
-
-</div>
-      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-    </div>
-    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
-      <ul class="nav navbar-nav main-nav ">
-        
-        
-        <li class="menu-item menu-item-home">
-          <a href="/newBlog/.">
-            
-            <i class="icon icon-home-fill"></i>
-            
-            <span class="menu-title">首页</span>
-          </a>
-        </li>
-        
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/newBlog/archives">
-            
-            <i class="icon icon-archives-fill"></i>
-            
-            <span class="menu-title">归档</span>
-          </a>
-        </li>
-        
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/newBlog/categories">
-            
-            <i class="icon icon-folder"></i>
-            
-            <span class="menu-title">分类</span>
-          </a>
-        </li>
-        
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/newBlog/tags">
-            
-            <i class="icon icon-tags"></i>
-            
-            <span class="menu-title">标签</span>
-          </a>
-        </li>
-        
-        
-        <li class="menu-item menu-item-repository">
-          <a href="/newBlog/repository">
-            
-            <i class="icon icon-project"></i>
-            
-            <span class="menu-title">项目</span>
-          </a>
-        </li>
-        
-        
-        <li class="menu-item menu-item-links">
-          <a href="/newBlog/links">
-            
-            <i class="icon icon-friendship"></i>
-            
-            <span class="menu-title">友链</span>
-          </a>
-        </li>
-        
-        
-        <li class="menu-item menu-item-about">
-          <a href="/newBlog/about">
-            
-            <i class="icon icon-cup-fill"></i>
-            
-            <span class="menu-title">关于</span>
-          </a>
-        </li>
-        
-      </ul>
-      
-	
-    <ul class="social-links">
-    	
-        <li><a href="https://github.com/lizehongss" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
-        
-        <li><a href="https://juejin.cn/user/2348212566891831" target="_blank" title="Juejin" data-toggle=tooltip data-placement=top><i class="icon icon-juejin"></i></a></li>
-        
-    </ul>
-
-    </nav>
-  </div>
-</header>
-
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
   
-    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
-  <div class="slimContent">
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
     
-      <div class="widget">
-    <h3 class="widget-title">公告</h3>
-    <div class="widget-body">
-        <div id="board">
-            <div class="content">
-                <p>欢迎您的到来!</p>
-            </div>
-        </div>
-    </div>
-</div>
-
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
     
       
-  <div class="widget">
-    <h3 class="widget-title">分类</h3>
-    <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/newBlog/categories/css/">css</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/newBlog/categories/electron/">electron</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/newBlog/categories/javaScript/">javaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/newBlog/categories/vue/">vue</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/newBlog/categories/vue%E7%BB%84%E4%BB%B6/">vue组件</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/newBlog/categories/%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/">源码学习</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/newBlog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/newBlog/categories/%E9%9D%A2%E8%AF%95/">面试</a><span class="category-list-count">4</span></li></ul>
-    </div>
-  </div>
-
-
-    
-      
-  <div class="widget">
-    <h3 class="widget-title">标签</h3>
-    <div class="widget-body">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/newBlog/tags/css/" rel="tag">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/newBlog/tags/electron/" rel="tag">electron</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/newBlog/tags/electron-dll/" rel="tag">electron dll</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/newBlog/tags/element/" rel="tag">element</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/newBlog/tags/javaScript/" rel="tag">javaScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/newBlog/tags/vue/" rel="tag">vue</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/newBlog/tags/vue3/" rel="tag">vue3</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/newBlog/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/newBlog/tags/%E9%9D%A2%E8%AF%95/" rel="tag">面试</a><span class="tag-list-count">3</span></li></ul>
-    </div>
-  </div>
-
-
-    
-      
-  <div class="widget">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget-body tagcloud">
-      <a href="/newBlog/tags/css/" style="font-size: 13px;">css</a> <a href="/newBlog/tags/electron/" style="font-size: 13.33px;">electron</a> <a href="/newBlog/tags/electron-dll/" style="font-size: 13px;">electron dll</a> <a href="/newBlog/tags/element/" style="font-size: 13px;">element</a> <a href="/newBlog/tags/javaScript/" style="font-size: 13px;">javaScript</a> <a href="/newBlog/tags/vue/" style="font-size: 14px;">vue</a> <a href="/newBlog/tags/vue3/" style="font-size: 13.33px;">vue3</a> <a href="/newBlog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 13.67px;">算法</a> <a href="/newBlog/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 13.67px;">面试</a>
-    </div>
-  </div>
-
-    
-      
-  <div class="widget">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2022/02/">二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2022/01/">一月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2021/11/">十一月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2021/10/">十月 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2021/08/">八月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2020/04/">四月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2019/08/">八月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2018/06/">六月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2018/03/">三月 2018</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/newBlog/archives/2018/02/">二月 2018</a><span class="archive-list-count">2</span></li></ul>
-    </div>
-  </div>
-
-
-    
-      
-  <div class="widget">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget-body">
-      <ul class="recent-post-list list-unstyled no-thumbnail">
-        
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/newBlog/categories/%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/">源码学习</a>
-              </p>
-              <p class="item-title">
-                <a href="/newBlog/2022/02/01/vue-router%E6%BA%90%E7%A0%81%E7%AE%80%E8%A6%81%E5%88%86%E6%9E%90/" class="title">vue-router源码简要分析</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2022-01-31T16:00:00.000Z" itemprop="datePublished">2022-02-01</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/newBlog/categories/vue%E7%BB%84%E4%BB%B6/">vue组件</a>
-              </p>
-              <p class="item-title">
-                <a href="/newBlog/2022/01/21/PDF%E5%B1%95%E7%A4%BA%E4%B8%8E%E5%90%88%E6%88%90Vue%E7%BB%84%E4%BB%B6(lz-pdf-merage)/" class="title">PDF展示与合成Vue组件(lz-pdf-merage)</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2022-01-20T16:00:00.000Z" itemprop="datePublished">2022-01-21</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/newBlog/categories/%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/">源码学习</a>
-              </p>
-              <p class="item-title">
-                <a href="/newBlog/2021/12/02/%E7%AC%AC%E4%B8%89%E6%9C%9F%20_%20vue%203.2%20%E6%98%AF%E6%80%8E%E4%B9%88%E5%8F%91%E5%B8%83%E7%9A%84%20vue-release/" class="title">vue3.2是怎么发布vue-release的</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2021-12-01T16:00:00.000Z" itemprop="datePublished">2021-12-02</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/newBlog/categories/%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/">源码学习</a>
-              </p>
-              <p class="item-title">
-                <a href="/newBlog/2021/11/07/vue3%20%E5%B7%A5%E5%85%B7%E5%87%BD%E6%95%B0%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/" class="title">vue3 工具函数源码学习</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2021-11-06T16:00:00.000Z" itemprop="datePublished">2021-11-07</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/newBlog/categories/%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/">源码学习</a>
-              </p>
-              <p class="item-title">
-                <a href="/newBlog/2021/10/24/vue-%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/" class="title">vue-响应式原理</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2021-10-23T16:00:00.000Z" itemprop="datePublished">2021-10-24</time>
-              </p>
-            </div>
-          </li>
-          
-      </ul>
-    </div>
-  </div>
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
   
-
-    
-  </div>
-</aside>
-
-  
-  
-<main class="main" role="main">
-  <div class="content">
-  <article id="post-vue-响应式原理" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
-        
-  
-    <h1 class="article-title" itemprop="name">
-      vue-响应式原理
-    </h1>
-  
-
-      
-      <div class="article-meta">
-        <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/newBlog/2021/10/24/vue-%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/" class="article-date">
-	  <time datetime="2021-10-23T16:00:00.000Z" itemprop="datePublished">2021-10-24</time>
-	</a>
-</span>
-        
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/newBlog/categories/%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/">源码学习</a>
-  </span>
-
-        
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/newBlog/tags/vue/" rel="tag">vue</a>
-  </span>
-
-
-        
-	<span class="article-read hidden-xs">
-	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
-	    <span id="busuanzi_container_page_pv">
-			<span id="busuanzi_value_page_pv">0</span>
-		</span>
-	</span>
-
-
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/newBlog/2021/10/24/vue-%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/#comments" class="article-comment-link">评论</a></span>
-        
-	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2.5k(字)</span>
-	
-	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 12(分)</span>
-	
-
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h1 id="通过object-defineProperty设置getter和setter"><a href="#通过object-defineProperty设置getter和setter" class="headerlink" title="通过object.defineProperty设置getter和setter"></a>通过object.defineProperty设置getter和setter</h1><p>vue初始化调用_init方法, 在init中会执行initState方法，对props,methods,data等属性进行初始化, 主要代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 省略部分代码</span><br><span class="line">export function initState (vm: Component) &#123;</span><br><span class="line">  vm._watchers &#x3D; []</span><br><span class="line">  const opts &#x3D; vm.$options</span><br><span class="line">  if (opts.props) initProps(vm, opts.props)</span><br><span class="line">  if (opts.methods) initMethods(vm, opts.methods)</span><br><span class="line">  if (opts.data) &#123;</span><br><span class="line">    initData(vm)</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    observe(vm._data &#x3D; &#123;&#125;, true &#x2F;* asRootData *&#x2F;)</span><br><span class="line">  &#125;</span><br><span class="line">  if (opts.computed) initComputed(vm, opts.computed)</span><br><span class="line">  if (opts.watch &amp;&amp; opts.watch !&#x3D;&#x3D; nativeWatch) &#123;</span><br><span class="line">    initWatch(vm, opts.watch)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/newBlog/',
+  algolia: undefined,
+  localSearch: {"path":"/newBlog/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'vue-响应式原理',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/newBlog/atom.xml" title="lzh" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/newBlog/images/avatar.jpg" onerror="this.onerror=null;this.src='/newBlog/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/newBlog/archives/"><div class="headline">文章</div><div class="length-num">21</div></a><a href="/newBlog/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/newBlog/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/newBlog/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/newBlog/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/newBlog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/newBlog/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/newBlog/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/newBlog/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/newBlog/"><span class="site-name">lzh</span></a><a class="nav-page-title" href="/newBlog/"><span class="site-name">vue-响应式原理</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/newBlog/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/newBlog/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/newBlog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/newBlog/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/newBlog/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/newBlog/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">vue-响应式原理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-10-23T16:00:00.000Z" title="发表于 2021-10-24 00:00:00">2021-10-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-10-23T16:00:00.000Z" title="更新于 2021-10-24 00:00:00">2021-10-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/newBlog/categories/%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/">源码学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>11分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h1 id="通过object-defineProperty设置getter和setter"><a href="#通过object-defineProperty设置getter和setter" class="headerlink" title="通过object.defineProperty设置getter和setter"></a>通过object.defineProperty设置getter和setter</h1><p>vue初始化调用_init方法, 在init中会执行initState方法，对props,methods,data等属性进行初始化, 主要代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 省略部分代码</span><br><span class="line">export function initState (vm: Component) &#123;</span><br><span class="line">  vm._watchers = []</span><br><span class="line">  const opts = vm.$options</span><br><span class="line">  if (opts.props) initProps(vm, opts.props)</span><br><span class="line">  if (opts.methods) initMethods(vm, opts.methods)</span><br><span class="line">  if (opts.data) &#123;</span><br><span class="line">    initData(vm)</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    observe(vm._data = &#123;&#125;, true /* asRootData */)</span><br><span class="line">  &#125;</span><br><span class="line">  if (opts.computed) initComputed(vm, opts.computed)</span><br><span class="line">  if (opts.watch &amp;&amp; opts.watch !== nativeWatch) &#123;</span><br><span class="line">    initWatch(vm, opts.watch)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>其中主要方法作用如下：</p>
 <ul>
 <li>initProps()调用deineReactive方法使其变成响应式。</li>
 <li>initData()-&gt;调用observe方法使其变为响应式</li>
-<li>observe()给对象添加getter和setter,用于依赖收集和派发更新。代码如下:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">export function observe (value: any, asRootData: ?boolean): Observer | void &#123;</span><br><span class="line">  if (!isObject(value) || value instanceof VNode) &#123;</span><br><span class="line">    return</span><br><span class="line">  &#125;</span><br><span class="line">  let ob: Observer | void</span><br><span class="line">  if (hasOwn(value, &#39;__ob__&#39;) &amp;&amp; value.__ob__ instanceof Observer) &#123;</span><br><span class="line">    ob &#x3D; value.__ob__</span><br><span class="line">  &#125; else if (</span><br><span class="line">    shouldObserve &amp;&amp;</span><br><span class="line">    !isServerRendering() &amp;&amp;</span><br><span class="line">    (Array.isArray(value) || isPlainObject(value)) &amp;&amp;</span><br><span class="line">    Object.isExtensible(value) &amp;&amp;</span><br><span class="line">    !value._isVue</span><br><span class="line">  ) &#123;</span><br><span class="line">    ob &#x3D; new Observer(value)</span><br><span class="line">  &#125;</span><br><span class="line">  if (asRootData &amp;&amp; ob) &#123;</span><br><span class="line">    ob.vmCount++</span><br><span class="line">  &#125;</span><br><span class="line">  return ob</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-主要是实例化Observer实现响应式, Observer的实现如下: 通过定义getter和setter实现<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">export class Observer &#123;</span><br><span class="line">  value: any;</span><br><span class="line">  dep: Dep;</span><br><span class="line">  vmCount: number; </span><br><span class="line">  constructor (value: any) &#123;</span><br><span class="line">    this.value &#x3D; value</span><br><span class="line">  &#x2F;&#x2F; 实例化Dep对象，Dep是一个订阅者，用来存放Watcher观察者对象</span><br><span class="line">    this.dep &#x3D; new Dep()</span><br><span class="line">    this.vmCount &#x3D; 0</span><br><span class="line">    &#x2F;&#x2F; 添加 this.__ob__ &#x3D; value</span><br><span class="line">    def(value, &#39;__ob__&#39;, this)</span><br><span class="line">    if (Array.isArray(value)) &#123;</span><br><span class="line">      const augment &#x3D; hasProto</span><br><span class="line">        ? protoAugment</span><br><span class="line">        : copyAugment</span><br><span class="line">      augment(value, arrayMethods, arrayKeys)</span><br><span class="line">      this.observeArray(value)</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      this.walk(value)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F; 遍历对象的 key 调用 defineReactive</span><br><span class="line">  walk (obj: Object) &#123;</span><br><span class="line">    const keys &#x3D; Object.keys(obj)</span><br><span class="line">    for (let i &#x3D; 0; i &lt; keys.length; i++) &#123;</span><br><span class="line">      defineReactive(obj, keys[i])</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F; 遍历数组调用observe</span><br><span class="line">  observeArray (items: Array&lt;any&gt;) &#123;</span><br><span class="line">    for (let i &#x3D; 0, l &#x3D; items.length; i &lt; l; i++) &#123;</span><br><span class="line">      observe(items[i])</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-definReactive定义一个响应式对象<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">export function defineReactive (</span><br><span class="line">  obj: Object,</span><br><span class="line">  key: string,</span><br><span class="line">  val: any,</span><br><span class="line">  customSetter?: ?Function,</span><br><span class="line">  shallow?: boolean</span><br><span class="line">) &#123;</span><br><span class="line">  &#x2F;&#x2F; 实例化Dep对象</span><br><span class="line">  const dep &#x3D; new Dep()</span><br><span class="line">  const property &#x3D; Object.getOwnPropertyDescriptor(obj, key)</span><br><span class="line">  if (property &amp;&amp; property.configurable &#x3D;&#x3D;&#x3D; false) &#123;</span><br><span class="line">    return</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; cater for pre-defined getter&#x2F;setters</span><br><span class="line">  const getter &#x3D; property &amp;&amp; property.get</span><br><span class="line">  const setter &#x3D; property &amp;&amp; property.set</span><br><span class="line">  if ((!getter || setter) &amp;&amp; arguments.length &#x3D;&#x3D;&#x3D; 2) &#123;</span><br><span class="line">    val &#x3D; obj[key]</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F; 对子对象递归调用</span><br><span class="line">  let childOb &#x3D; !shallow &amp;&amp; observe(val)</span><br><span class="line">  &#x2F;&#x2F;给对象添加getter和setter</span><br><span class="line">  Object.defineProperty(obj, key, &#123;</span><br><span class="line">    enumerable: true,</span><br><span class="line">    configurable: true,</span><br><span class="line">    get: function reactiveGetter () &#123;</span><br><span class="line">      const value &#x3D; getter ? getter.call(obj) : val</span><br><span class="line">      if (Dep.target) &#123;</span><br><span class="line">        dep.depend()</span><br><span class="line">        if (childOb) &#123;</span><br><span class="line">          childOb.dep.depend()</span><br><span class="line">          if (Array.isArray(value)) &#123;</span><br><span class="line">            dependArray(value)</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      return value</span><br><span class="line">    &#125;,</span><br><span class="line">    set: function reactiveSetter (newVal) &#123;</span><br><span class="line">      const value &#x3D; getter ? getter.call(obj) : val</span><br><span class="line">      &#x2F;* eslint-disable no-self-compare *&#x2F;</span><br><span class="line">      if (newVal &#x3D;&#x3D;&#x3D; value || (newVal !&#x3D;&#x3D; newVal &amp;&amp; value !&#x3D;&#x3D; value)) &#123;</span><br><span class="line">        return</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;* eslint-enable no-self-compare *&#x2F;</span><br><span class="line">      if (process.env.NODE_ENV !&#x3D;&#x3D; &#39;production&#39; &amp;&amp; customSetter) &#123;</span><br><span class="line">        customSetter()</span><br><span class="line">      &#125;</span><br><span class="line">      if (setter) &#123;</span><br><span class="line">        setter.call(obj, newVal)</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        val &#x3D; newVal</span><br><span class="line">      &#125;</span><br><span class="line">      childOb &#x3D; !shallow &amp;&amp; observe(newVal)</span><br><span class="line">      dep.notify()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li>observe()给对象添加getter和setter,用于依赖收集和派发更新。代码如下:<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">export function observe (value: any, asRootData: ?boolean): Observer | void &#123;</span><br><span class="line">  if (!isObject(value) || value instanceof VNode) &#123;</span><br><span class="line">    return</span><br><span class="line">  &#125;</span><br><span class="line">  let ob: Observer | void</span><br><span class="line">  if (hasOwn(value, &#x27;__ob__&#x27;) &amp;&amp; value.__ob__ instanceof Observer) &#123;</span><br><span class="line">    ob = value.__ob__</span><br><span class="line">  &#125; else if (</span><br><span class="line">    shouldObserve &amp;&amp;</span><br><span class="line">    !isServerRendering() &amp;&amp;</span><br><span class="line">    (Array.isArray(value) || isPlainObject(value)) &amp;&amp;</span><br><span class="line">    Object.isExtensible(value) &amp;&amp;</span><br><span class="line">    !value._isVue</span><br><span class="line">  ) &#123;</span><br><span class="line">    ob = new Observer(value)</span><br><span class="line">  &#125;</span><br><span class="line">  if (asRootData &amp;&amp; ob) &#123;</span><br><span class="line">    ob.vmCount++</span><br><span class="line">  &#125;</span><br><span class="line">  return ob</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+主要是实例化Observer实现响应式, Observer的实现如下: 通过定义getter和setter实现<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">export class Observer &#123;</span><br><span class="line">  value: any;</span><br><span class="line">  dep: Dep;</span><br><span class="line">  vmCount: number; </span><br><span class="line">  constructor (value: any) &#123;</span><br><span class="line">    this.value = value</span><br><span class="line">  // 实例化Dep对象，Dep是一个订阅者，用来存放Watcher观察者对象</span><br><span class="line">    this.dep = new Dep()</span><br><span class="line">    this.vmCount = 0</span><br><span class="line">    // 添加 this.__ob__ = value</span><br><span class="line">    def(value, &#x27;__ob__&#x27;, this)</span><br><span class="line">    if (Array.isArray(value)) &#123;</span><br><span class="line">      const augment = hasProto</span><br><span class="line">        ? protoAugment</span><br><span class="line">        : copyAugment</span><br><span class="line">      augment(value, arrayMethods, arrayKeys)</span><br><span class="line">      this.observeArray(value)</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      this.walk(value)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  // 遍历对象的 key 调用 defineReactive</span><br><span class="line">  walk (obj: Object) &#123;</span><br><span class="line">    const keys = Object.keys(obj)</span><br><span class="line">    for (let i = 0; i &lt; keys.length; i++) &#123;</span><br><span class="line">      defineReactive(obj, keys[i])</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  // 遍历数组调用observe</span><br><span class="line">  observeArray (items: Array&lt;any&gt;) &#123;</span><br><span class="line">    for (let i = 0, l = items.length; i &lt; l; i++) &#123;</span><br><span class="line">      observe(items[i])</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+definReactive定义一个响应式对象<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">export function defineReactive (</span><br><span class="line">  obj: Object,</span><br><span class="line">  key: string,</span><br><span class="line">  val: any,</span><br><span class="line">  customSetter?: ?Function,</span><br><span class="line">  shallow?: boolean</span><br><span class="line">) &#123;</span><br><span class="line">  // 实例化Dep对象</span><br><span class="line">  const dep = new Dep()</span><br><span class="line">  const property = Object.getOwnPropertyDescriptor(obj, key)</span><br><span class="line">  if (property &amp;&amp; property.configurable === false) &#123;</span><br><span class="line">    return</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // cater for pre-defined getter/setters</span><br><span class="line">  const getter = property &amp;&amp; property.get</span><br><span class="line">  const setter = property &amp;&amp; property.set</span><br><span class="line">  if ((!getter || setter) &amp;&amp; arguments.length === 2) &#123;</span><br><span class="line">    val = obj[key]</span><br><span class="line">  &#125;</span><br><span class="line">  // 对子对象递归调用</span><br><span class="line">  let childOb = !shallow &amp;&amp; observe(val)</span><br><span class="line">  //给对象添加getter和setter</span><br><span class="line">  Object.defineProperty(obj, key, &#123;</span><br><span class="line">    enumerable: true,</span><br><span class="line">    configurable: true,</span><br><span class="line">    get: function reactiveGetter () &#123;</span><br><span class="line">      const value = getter ? getter.call(obj) : val</span><br><span class="line">      if (Dep.target) &#123;</span><br><span class="line">        dep.depend()</span><br><span class="line">        if (childOb) &#123;</span><br><span class="line">          childOb.dep.depend()</span><br><span class="line">          if (Array.isArray(value)) &#123;</span><br><span class="line">            dependArray(value)</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      return value</span><br><span class="line">    &#125;,</span><br><span class="line">    set: function reactiveSetter (newVal) &#123;</span><br><span class="line">      const value = getter ? getter.call(obj) : val</span><br><span class="line">      /* eslint-disable no-self-compare */</span><br><span class="line">      if (newVal === value || (newVal !== newVal &amp;&amp; value !== value)) &#123;</span><br><span class="line">        return</span><br><span class="line">      &#125;</span><br><span class="line">      /* eslint-enable no-self-compare */</span><br><span class="line">      if (process.env.NODE_ENV !== &#x27;production&#x27; &amp;&amp; customSetter) &#123;</span><br><span class="line">        customSetter()</span><br><span class="line">      &#125;</span><br><span class="line">      if (setter) &#123;</span><br><span class="line">        setter.call(obj, newVal)</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        val = newVal</span><br><span class="line">      &#125;</span><br><span class="line">      childOb = !shallow &amp;&amp; observe(newVal)</span><br><span class="line">      dep.notify()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="依赖收集和派发更新"><a href="#依赖收集和派发更新" class="headerlink" title="依赖收集和派发更新"></a>依赖收集和派发更新</h1><h2 id="依赖收集"><a href="#依赖收集" class="headerlink" title="依赖收集"></a>依赖收集</h2></li>
-<li>defineReactive的get方法会调用dep.depen()进行依赖收集，Dep类的主要作用是管理Watch对象<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">export default class Dep &#123;</span><br><span class="line">  &#x2F;&#x2F; target全局唯一 Watcher</span><br><span class="line">  static target: ?Watcher;</span><br><span class="line">  id: number;</span><br><span class="line">  subs: Array&lt;Watcher&gt;;</span><br><span class="line"></span><br><span class="line">  constructor () &#123;</span><br><span class="line">    this.id &#x3D; uid++</span><br><span class="line">    this.subs &#x3D; []</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F; 在 subs中添加Watcher，也就是添加属性发生改变时，要通知的watcher</span><br><span class="line">  addSub (sub: Watcher) &#123;</span><br><span class="line">    this.subs.push(sub)</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F; 移除Wathcer</span><br><span class="line">  removeSub (sub: Watcher) &#123;</span><br><span class="line">    remove(this.subs, sub)</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F; 依赖收集</span><br><span class="line">  depend () &#123;</span><br><span class="line">    if (Dep.target) &#123;</span><br><span class="line">      Dep.target.addDep(this)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F; 通知Watcher更新，也就是派发更新</span><br><span class="line">  notify () &#123;</span><br><span class="line">    &#x2F;&#x2F; stabilize the subscriber list first</span><br><span class="line">    const subs &#x3D; this.subs.slice()</span><br><span class="line">    for (let i &#x3D; 0, l &#x3D; subs.length; i &lt; l; i++) &#123;</span><br><span class="line">      subs[i].update()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>Watcher类的定义如下:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line">let uid &#x3D; 0</span><br><span class="line">export default class Watcher &#123;</span><br><span class="line">  constructor (</span><br><span class="line">    vm: Component,</span><br><span class="line">    expOrFn: string | Function,</span><br><span class="line">    cb: Function,</span><br><span class="line">    options?: ?Object,</span><br><span class="line">    isRenderWatcher?: boolean</span><br><span class="line">  ) &#123;</span><br><span class="line">    this.vm &#x3D; vm</span><br><span class="line">    if (isRenderWatcher) &#123;</span><br><span class="line">      vm._watcher &#x3D; this</span><br><span class="line">    &#125;</span><br><span class="line">    vm._watchers.push(this)</span><br><span class="line">    &#x2F;&#x2F; options</span><br><span class="line">    if (options) &#123;</span><br><span class="line">      this.deep &#x3D; !!options.deep</span><br><span class="line">      this.user &#x3D; !!options.user</span><br><span class="line">      this.computed &#x3D; !!options.computed</span><br><span class="line">      this.sync &#x3D; !!options.sync</span><br><span class="line">      this.before &#x3D; options.before</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      this.deep &#x3D; this.user &#x3D; this.computed &#x3D; this.sync &#x3D; false</span><br><span class="line">    &#125;</span><br><span class="line">    this.cb &#x3D; cb</span><br><span class="line">    this.id &#x3D; ++uid &#x2F;&#x2F; uid for batching</span><br><span class="line">    this.active &#x3D; true</span><br><span class="line">    this.dirty &#x3D; this.computed &#x2F;&#x2F; for computed watchers</span><br><span class="line">    this.deps &#x3D; []</span><br><span class="line">    this.newDeps &#x3D; []</span><br><span class="line">    this.depIds &#x3D; new Set()</span><br><span class="line">    this.newDepIds &#x3D; new Set()</span><br><span class="line">    this.expression &#x3D; process.env.NODE_ENV !&#x3D;&#x3D; &#39;production&#39;</span><br><span class="line">      ? expOrFn.toString()</span><br><span class="line">      : &#39;&#39;</span><br><span class="line">    &#x2F;&#x2F; parse expression for getter</span><br><span class="line">    if (typeof expOrFn &#x3D;&#x3D;&#x3D; &#39;function&#39;) &#123;</span><br><span class="line">      this.getter &#x3D; expOrFn</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      this.getter &#x3D; parsePath(expOrFn)</span><br><span class="line">      if (!this.getter) &#123;</span><br><span class="line">        this.getter &#x3D; function () &#123;&#125;</span><br><span class="line">        process.env.NODE_ENV !&#x3D;&#x3D; &#39;production&#39; &amp;&amp; warn(</span><br><span class="line">          &#96;Failed watching path: &quot;$&#123;expOrFn&#125;&quot; &#96; +</span><br><span class="line">          &#39;Watcher only accepts simple dot-delimited paths. &#39; +</span><br><span class="line">          &#39;For full control, use a function instead.&#39;,</span><br><span class="line">          vm</span><br><span class="line">        )</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if (this.computed) &#123;</span><br><span class="line">      this.value &#x3D; undefined</span><br><span class="line">      this.dep &#x3D; new Dep()</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      this.value &#x3D; this.get()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  &#x2F;**</span><br><span class="line">   * Evaluate the getter, and re-collect dependencies.</span><br><span class="line">   *&#x2F;</span><br><span class="line">  get () &#123;</span><br><span class="line">    pushTarget(this)</span><br><span class="line">    let value</span><br><span class="line">    const vm &#x3D; this.vm</span><br><span class="line">    try &#123;</span><br><span class="line">      value &#x3D; this.getter.call(vm, vm)</span><br><span class="line">    &#125; catch (e) &#123;</span><br><span class="line">      if (this.user) &#123;</span><br><span class="line">        handleError(e, vm, &#96;getter for watcher &quot;$&#123;this.expression&#125;&quot;&#96;)</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        throw e</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; finally &#123;</span><br><span class="line">      &#x2F;&#x2F; &quot;touch&quot; every property so they are all tracked as</span><br><span class="line">      &#x2F;&#x2F; dependencies for deep watching</span><br><span class="line">      if (this.deep) &#123;</span><br><span class="line">        traverse(value)</span><br><span class="line">      &#125;</span><br><span class="line">      popTarget()</span><br><span class="line">      this.cleanupDeps()</span><br><span class="line">    &#125;</span><br><span class="line">    return value</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  &#x2F;**</span><br><span class="line">   * Add a dependency to this directive.</span><br><span class="line">   *&#x2F;</span><br><span class="line">  addDep (dep: Dep) &#123;</span><br><span class="line">    const id &#x3D; dep.id</span><br><span class="line">    if (!this.newDepIds.has(id)) &#123;</span><br><span class="line">      this.newDepIds.add(id)</span><br><span class="line">      this.newDeps.push(dep)</span><br><span class="line">      if (!this.depIds.has(id)) &#123;</span><br><span class="line">        dep.addSub(this)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  &#x2F;**</span><br><span class="line">   * Clean up for dependency collection.</span><br><span class="line">   *&#x2F;</span><br><span class="line">  cleanupDeps () &#123;</span><br><span class="line">    let i &#x3D; this.deps.length</span><br><span class="line">    while (i--) &#123;</span><br><span class="line">      const dep &#x3D; this.deps[i]</span><br><span class="line">      if (!this.newDepIds.has(dep.id)) &#123;</span><br><span class="line">        dep.removeSub(this)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    let tmp &#x3D; this.depIds</span><br><span class="line">    this.depIds &#x3D; this.newDepIds</span><br><span class="line">    this.newDepIds &#x3D; tmp</span><br><span class="line">    this.newDepIds.clear()</span><br><span class="line">    tmp &#x3D; this.deps</span><br><span class="line">    this.deps &#x3D; this.newDeps</span><br><span class="line">    this.newDeps &#x3D; tmp</span><br><span class="line">    this.newDeps.length &#x3D; 0</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F; ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">this.deps &#x3D; [] </span><br><span class="line">this.newDeps &#x3D; [] </span><br><span class="line">&#x2F;&#x2F;表示Wather实例持有的Dep实例，也就是订阅了多少dep</span><br></pre></td></tr></table></figure></li>
+<li>defineReactive的get方法会调用dep.depen()进行依赖收集，Dep类的主要作用是管理Watch对象<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">export default class Dep &#123;</span><br><span class="line">  // target全局唯一 Watcher</span><br><span class="line">  static target: ?Watcher;</span><br><span class="line">  id: number;</span><br><span class="line">  subs: Array&lt;Watcher&gt;;</span><br><span class="line"></span><br><span class="line">  constructor () &#123;</span><br><span class="line">    this.id = uid++</span><br><span class="line">    this.subs = []</span><br><span class="line">  &#125;</span><br><span class="line">  // 在 subs中添加Watcher，也就是添加属性发生改变时，要通知的watcher</span><br><span class="line">  addSub (sub: Watcher) &#123;</span><br><span class="line">    this.subs.push(sub)</span><br><span class="line">  &#125;</span><br><span class="line">  // 移除Wathcer</span><br><span class="line">  removeSub (sub: Watcher) &#123;</span><br><span class="line">    remove(this.subs, sub)</span><br><span class="line">  &#125;</span><br><span class="line">  // 依赖收集</span><br><span class="line">  depend () &#123;</span><br><span class="line">    if (Dep.target) &#123;</span><br><span class="line">      Dep.target.addDep(this)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  // 通知Watcher更新，也就是派发更新</span><br><span class="line">  notify () &#123;</span><br><span class="line">    // stabilize the subscriber list first</span><br><span class="line">    const subs = this.subs.slice()</span><br><span class="line">    for (let i = 0, l = subs.length; i &lt; l; i++) &#123;</span><br><span class="line">      subs[i].update()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>Watcher类的定义如下:<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line">let uid = 0</span><br><span class="line">export default class Watcher &#123;</span><br><span class="line">  constructor (</span><br><span class="line">    vm: Component,</span><br><span class="line">    expOrFn: string | Function,</span><br><span class="line">    cb: Function,</span><br><span class="line">    options?: ?Object,</span><br><span class="line">    isRenderWatcher?: boolean</span><br><span class="line">  ) &#123;</span><br><span class="line">    this.vm = vm</span><br><span class="line">    if (isRenderWatcher) &#123;</span><br><span class="line">      vm._watcher = this</span><br><span class="line">    &#125;</span><br><span class="line">    vm._watchers.push(this)</span><br><span class="line">    // options</span><br><span class="line">    if (options) &#123;</span><br><span class="line">      this.deep = !!options.deep</span><br><span class="line">      this.user = !!options.user</span><br><span class="line">      this.computed = !!options.computed</span><br><span class="line">      this.sync = !!options.sync</span><br><span class="line">      this.before = options.before</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      this.deep = this.user = this.computed = this.sync = false</span><br><span class="line">    &#125;</span><br><span class="line">    this.cb = cb</span><br><span class="line">    this.id = ++uid // uid for batching</span><br><span class="line">    this.active = true</span><br><span class="line">    this.dirty = this.computed // for computed watchers</span><br><span class="line">    this.deps = []</span><br><span class="line">    this.newDeps = []</span><br><span class="line">    this.depIds = new Set()</span><br><span class="line">    this.newDepIds = new Set()</span><br><span class="line">    this.expression = process.env.NODE_ENV !== &#x27;production&#x27;</span><br><span class="line">      ? expOrFn.toString()</span><br><span class="line">      : &#x27;&#x27;</span><br><span class="line">    // parse expression for getter</span><br><span class="line">    if (typeof expOrFn === &#x27;function&#x27;) &#123;</span><br><span class="line">      this.getter = expOrFn</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      this.getter = parsePath(expOrFn)</span><br><span class="line">      if (!this.getter) &#123;</span><br><span class="line">        this.getter = function () &#123;&#125;</span><br><span class="line">        process.env.NODE_ENV !== &#x27;production&#x27; &amp;&amp; warn(</span><br><span class="line">          `Failed watching path: &quot;$&#123;expOrFn&#125;&quot; ` +</span><br><span class="line">          &#x27;Watcher only accepts simple dot-delimited paths. &#x27; +</span><br><span class="line">          &#x27;For full control, use a function instead.&#x27;,</span><br><span class="line">          vm</span><br><span class="line">        )</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if (this.computed) &#123;</span><br><span class="line">      this.value = undefined</span><br><span class="line">      this.dep = new Dep()</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      this.value = this.get()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * Evaluate the getter, and re-collect dependencies.</span><br><span class="line">   */</span><br><span class="line">  get () &#123;</span><br><span class="line">    pushTarget(this)</span><br><span class="line">    let value</span><br><span class="line">    const vm = this.vm</span><br><span class="line">    try &#123;</span><br><span class="line">      value = this.getter.call(vm, vm)</span><br><span class="line">    &#125; catch (e) &#123;</span><br><span class="line">      if (this.user) &#123;</span><br><span class="line">        handleError(e, vm, `getter for watcher &quot;$&#123;this.expression&#125;&quot;`)</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        throw e</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; finally &#123;</span><br><span class="line">      // &quot;touch&quot; every property so they are all tracked as</span><br><span class="line">      // dependencies for deep watching</span><br><span class="line">      if (this.deep) &#123;</span><br><span class="line">        traverse(value)</span><br><span class="line">      &#125;</span><br><span class="line">      popTarget()</span><br><span class="line">      this.cleanupDeps()</span><br><span class="line">    &#125;</span><br><span class="line">    return value</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * Add a dependency to this directive.</span><br><span class="line">   */</span><br><span class="line">  addDep (dep: Dep) &#123;</span><br><span class="line">    const id = dep.id</span><br><span class="line">    if (!this.newDepIds.has(id)) &#123;</span><br><span class="line">      this.newDepIds.add(id)</span><br><span class="line">      this.newDeps.push(dep)</span><br><span class="line">      if (!this.depIds.has(id)) &#123;</span><br><span class="line">        dep.addSub(this)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * Clean up for dependency collection.</span><br><span class="line">   */</span><br><span class="line">  cleanupDeps () &#123;</span><br><span class="line">    let i = this.deps.length</span><br><span class="line">    while (i--) &#123;</span><br><span class="line">      const dep = this.deps[i]</span><br><span class="line">      if (!this.newDepIds.has(dep.id)) &#123;</span><br><span class="line">        dep.removeSub(this)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    let tmp = this.depIds</span><br><span class="line">    this.depIds = this.newDepIds</span><br><span class="line">    this.newDepIds = tmp</span><br><span class="line">    this.newDepIds.clear()</span><br><span class="line">    tmp = this.deps</span><br><span class="line">    this.deps = this.newDeps</span><br><span class="line">    this.newDeps = tmp</span><br><span class="line">    this.newDeps.length = 0</span><br><span class="line">  &#125;</span><br><span class="line">  // ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">this.deps = [] </span><br><span class="line">this.newDeps = [] </span><br><span class="line">//表示Wather实例持有的Dep实例，也就是订阅了多少dep</span><br></pre></td></tr></table></figure></li>
 </ul>
 <ol>
-<li>组件挂载时会调用mountComponent函数，在mountComponent中实例化一个渲染Wathcer，而在实例化Wathcer时调用this.get() <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">get () &#123;</span><br><span class="line">  pushTarget(this)</span><br><span class="line">  let value</span><br><span class="line">  const vm &#x3D; this.vm</span><br><span class="line">  try &#123;</span><br><span class="line">    value &#x3D; this.getter.call(vm, vm)</span><br><span class="line">  &#125; catch (e) &#123;</span><br><span class="line">    &#x2F;&#x2F; ....</span><br><span class="line">  &#125; finally &#123;</span><br><span class="line">    if (this.deep) &#123;</span><br><span class="line">      traverse(value)</span><br><span class="line">    &#125;</span><br><span class="line">    popTarget()</span><br><span class="line">    this.cleanupDeps()</span><br><span class="line">  &#125;</span><br><span class="line">  return value</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>调用pushTarget(this)将要挂载的组件渲染Wather对象赋值给Dep.target -&gt; 执行this.getter.call(vm,vm)，实际上是执行new Wathcer时传入的回调函数-&gt;执行updateComponent() <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">new Watcher(vm, updateComponent, &#x2F;&#x2F;...)</span><br></pre></td></tr></table></figure></li>
-<li>updateComponent有对组件data数据的访问-&gt; 触发defineReactive的get方法 -&gt; 依赖收集dep.depen()-&gt;调用Dep.target.addDep(this)-&gt;实际是调用渲染Watcher实例中的addDep <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">addDep (dep: Dep) &#123;</span><br><span class="line">  const id &#x3D; dep.id</span><br><span class="line">  &#x2F;&#x2F; 保证同一数据不会被添加多次</span><br><span class="line">  if (!this.newDepIds.has(id)) &#123;</span><br><span class="line">    this.newDepIds.add(id)</span><br><span class="line">    this.newDeps.push(dep)</span><br><span class="line">    if (!this.depIds.has(id)) &#123;</span><br><span class="line">      dep.addSub(this)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>组件挂载时会调用mountComponent函数，在mountComponent中实例化一个渲染Wathcer，而在实例化Wathcer时调用this.get() <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">get () &#123;</span><br><span class="line">  pushTarget(this)</span><br><span class="line">  let value</span><br><span class="line">  const vm = this.vm</span><br><span class="line">  try &#123;</span><br><span class="line">    value = this.getter.call(vm, vm)</span><br><span class="line">  &#125; catch (e) &#123;</span><br><span class="line">    // ....</span><br><span class="line">  &#125; finally &#123;</span><br><span class="line">    if (this.deep) &#123;</span><br><span class="line">      traverse(value)</span><br><span class="line">    &#125;</span><br><span class="line">    popTarget()</span><br><span class="line">    this.cleanupDeps()</span><br><span class="line">  &#125;</span><br><span class="line">  return value</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>调用pushTarget(this)将要挂载的组件渲染Wather对象赋值给Dep.target -&gt; 执行this.getter.call(vm,vm)，实际上是执行new Wathcer时传入的回调函数-&gt;执行updateComponent() <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">new Watcher(vm, updateComponent, //...)</span><br></pre></td></tr></table></figure></li>
+<li>updateComponent有对组件data数据的访问-&gt; 触发defineReactive的get方法 -&gt; 依赖收集dep.depen()-&gt;调用Dep.target.addDep(this)-&gt;实际是调用渲染Watcher实例中的addDep <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">addDep (dep: Dep) &#123;</span><br><span class="line">  const id = dep.id</span><br><span class="line">  // 保证同一数据不会被添加多次</span><br><span class="line">  if (!this.newDepIds.has(id)) &#123;</span><br><span class="line">    this.newDepIds.add(id)</span><br><span class="line">    this.newDeps.push(dep)</span><br><span class="line">    if (!this.depIds.has(id)) &#123;</span><br><span class="line">      dep.addSub(this)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li>将这个渲染Wather添加到在defineReactive中实例化的dep中的subs中,这就是整个依赖收集过程。<h2 id="派发更新"><a href="#派发更新" class="headerlink" title="派发更新"></a>派发更新</h2></li>
 </ol>
 <ul>
-<li>set时，派发更新的主要流程如下:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">set: function reactiveSetter (newVal) &#123;</span><br><span class="line">    const value &#x3D; getter ? getter.call(obj) : val</span><br><span class="line">    &#x2F;&#x2F; ....</span><br><span class="line">    if (setter) &#123;</span><br><span class="line">      setter.call(obj, newVal)</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      val &#x3D; newVal</span><br><span class="line">    &#125;</span><br><span class="line">    childOb &#x3D; !shallow &amp;&amp; observe(newVal)</span><br><span class="line">    dep.notify()</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></li>
+<li>set时，派发更新的主要流程如下:<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">set: function reactiveSetter (newVal) &#123;</span><br><span class="line">    const value = getter ? getter.call(obj) : val</span><br><span class="line">    // ....</span><br><span class="line">    if (setter) &#123;</span><br><span class="line">      setter.call(obj, newVal)</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      val = newVal</span><br><span class="line">    &#125;</span><br><span class="line">    childOb = !shallow &amp;&amp; observe(newVal)</span><br><span class="line">    dep.notify()</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></li>
 <li>observe(newVal)使新设置的值变成响应式的</li>
-<li>dep.notify()通知所有订阅了这个dep的Wathcher对象-&gt; dep.notify()调用Watcher的update()方法<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">update () &#123;</span><br><span class="line">  if (this.computed) &#123;</span><br><span class="line">    if (this.dep.subs.length &#x3D;&#x3D;&#x3D; 0) &#123;</span><br><span class="line">      this.dirty &#x3D; true</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      this.getAndInvoke(() &#x3D;&gt; &#123;</span><br><span class="line">        this.dep.notify()</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; else if (this.sync) &#123;</span><br><span class="line">    this.run()</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    queueWatcher(this)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>dep.notify()通知所有订阅了这个dep的Wathcher对象-&gt; dep.notify()调用Watcher的update()方法<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">update () &#123;</span><br><span class="line">  if (this.computed) &#123;</span><br><span class="line">    if (this.dep.subs.length === 0) &#123;</span><br><span class="line">      this.dirty = true</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      this.getAndInvoke(() =&gt; &#123;</span><br><span class="line">        this.dep.notify()</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; else if (this.sync) &#123;</span><br><span class="line">    this.run()</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    queueWatcher(this)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li>一般组件数据更新会调用queueWatcher(this)</li>
-<li>queueWathcer使用了队列，先把Wather添加到队列queue，在下个nextTick执行flushSchedulerQueue() -&gt; 执行watcher.run()方法<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">run () &#123;</span><br><span class="line">  if (this.active) &#123;</span><br><span class="line">    this.getAndInvoke(this.cb)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>queueWathcer使用了队列，先把Wather添加到队列queue，在下个nextTick执行flushSchedulerQueue() -&gt; 执行watcher.run()方法<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">run () &#123;</span><br><span class="line">  if (this.active) &#123;</span><br><span class="line">    this.getAndInvoke(this.cb)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li>run()方法执行-&gt;getAndInvoke(this.cb)传入回调函数-&gt;getAndInvoke判断满足新旧值不等-&gt;执行this.cb回调函数</li>
-<li>在渲染watcher中，this.cb为<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">updateComponent &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">  vm._update(vm._render(), hydrating)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li>在渲染watcher中，this.cb为<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">updateComponent = () =&gt; &#123;</span><br><span class="line">  vm._update(vm._render(), hydrating)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 所以当修改组件相关的响应式数据时会触发组件重新渲染</li>
 </ul>
 <h1 id="computed实现"><a href="#computed实现" class="headerlink" title="computed实现"></a>computed实现</h1><ul>
-<li>Vue实例初始化时调用initComputed()<br>在initComputed()中为每一个计算属性getter创建<strong>computed Wather</strong>,<strong>computed Wathcer</strong>初始化时会持有一个dep实例,用来管理computed Wathcer. 当update()时，要更新订阅了这个dep的watcher。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if (this.computed) &#123;</span><br><span class="line">  this.value &#x3D; undefined</span><br><span class="line">  this.dep &#x3D; new Dep()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>最后调用defineComputed()<br>defineComputed()–&gt;调用Object.defineProperty为计算属性设置对应的key的getter和setter,一般setter为空，getter对应createComputedGetter(key)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function createComputedGetter (key) &#123;</span><br><span class="line">  return function computedGetter () &#123;</span><br><span class="line">    const watcher &#x3D; this._computedWatchers &amp;&amp; this._computedWatchers[key]</span><br><span class="line">    if (watcher) &#123;</span><br><span class="line">      watcher.depend()</span><br><span class="line">      return watcher.evaluate()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-当render 函数访问到计算属性时-&gt; 触发getter-&gt; 执行watcher.depend-&gt;将渲染Wather订阅上文实例化的dep-&gt;执行watcher.evaluate()<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">evaluate () &#123;</span><br><span class="line">  if (this.dirty) &#123;</span><br><span class="line">    this.value &#x3D; this.get()</span><br><span class="line">    this.dirty &#x3D; false</span><br><span class="line">  &#125;</span><br><span class="line">  return this.value</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li>Vue实例初始化时调用initComputed()<br>在initComputed()中为每一个计算属性getter创建<strong>computed Wather</strong>,<strong>computed Wathcer</strong>初始化时会持有一个dep实例,用来管理computed Wathcer. 当update()时，要更新订阅了这个dep的watcher。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if (this.computed) &#123;</span><br><span class="line">  this.value = undefined</span><br><span class="line">  this.dep = new Dep()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>最后调用defineComputed()<br>defineComputed()–&gt;调用Object.defineProperty为计算属性设置对应的key的getter和setter,一般setter为空，getter对应createComputedGetter(key)<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function createComputedGetter (key) &#123;</span><br><span class="line">  return function computedGetter () &#123;</span><br><span class="line">    const watcher = this._computedWatchers &amp;&amp; this._computedWatchers[key]</span><br><span class="line">    if (watcher) &#123;</span><br><span class="line">      watcher.depend()</span><br><span class="line">      return watcher.evaluate()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+当render 函数访问到计算属性时-&gt; 触发getter-&gt; 执行watcher.depend-&gt;将渲染Wather订阅上文实例化的dep-&gt;执行watcher.evaluate()<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">evaluate () &#123;</span><br><span class="line">  if (this.dirty) &#123;</span><br><span class="line">    this.value = this.get()</span><br><span class="line">    this.dirty = false</span><br><span class="line">  &#125;</span><br><span class="line">  return this.value</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 watcher.evaluate()执行this.get()-&gt; this.get()为计算属性定义的getter函数获取到this.value值<br>此时也会访问到计算属性所依赖的数据的getter,所以Dep.target为这个computed watcher,此时这个computed watcher订阅了所依赖数据持有的dep</li>
 </ul>
 <p>当对计算属性依赖的数据做修改时-&gt;触发数据setter-&gt;通知订阅它变化的computed watcher更新-&gt; 执行watcher.update()方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">if (this.computed) &#123;</span><br><span class="line">  if (this.dep.subs.length &#x3D;&#x3D;&#x3D; 0) &#123;</span><br><span class="line">    this.dirty &#x3D; true</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    this.getAndInvoke(() &#x3D;&gt; &#123;</span><br><span class="line">      this.dep.notify()</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">if (this.computed) &#123;</span><br><span class="line">  if (this.dep.subs.length === 0) &#123;</span><br><span class="line">    this.dirty = true</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    this.getAndInvoke(() =&gt; &#123;</span><br><span class="line">      this.dep.notify()</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在上文中渲染Wather订阅了this.dep, 所以渲染Wathcer通过this.getAndInvoke()的回调执行update()-&gt;重新渲染组件<br>this.getAndInvoke()主要是对比新旧值</p>
 <p>在computed Watcher中this.dirty的作用时在重新渲染组件后，通过evalute()获取计算属性的值时，因为在getAndInvoke()中将this.value设为新值并置this.dirty为false,所以直接返回this.value，不触发所依赖数据的getter</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 在 getAndInvoke()中</span><br><span class="line">const oldValue &#x3D; this.value</span><br><span class="line">this.value &#x3D; value</span><br><span class="line">this.dirty &#x3D; false</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 在 getAndInvoke()中</span><br><span class="line">const oldValue = this.value</span><br><span class="line">this.value = value</span><br><span class="line">this.dirty = false</span><br></pre></td></tr></table></figure>
 
 <h1 id="watch的实现"><a href="#watch的实现" class="headerlink" title="watch的实现"></a>watch的实现</h1><p>Vue实例初始化时-&gt;initWatch()-&gt;调用createWatcher(vm, key, handler[i])-&gt;返回vm.$watch(expOrFn, handler, options)<br>$watch在执行stateMixin时定义<br>实例化了Wathcer </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const watcher &#x3D; new Watcher(vm, expOrFn, cb, options)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const watcher = new Watcher(vm, expOrFn, cb, options)</span><br></pre></td></tr></table></figure>
 <p>是一个 user Wathcer, options.user = true,<br>在实例化 user Wathcer时，调用了watcher的this.get()方法，之后的依赖收集和更新与一般组件数据相同,不同是对options属性值不同时，进入不同的分支.</p>
-
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
-  <ul class="post-copyright list-unstyled">
-    
-    <li class="post-copyright-link hidden-xs">
-      <strong>本文链接：</strong>
-      <a href="http://lizehongss.github.io/newBlog/2021/10/24/vue-%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/" title="vue-响应式原理" target="_blank" rel="external">http://lizehongss.github.io/newBlog/2021/10/24/vue-响应式原理/</a>
-    </li>
-    
-    <li class="post-copyright-license">
-      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
-    </li>
-  </ul>
-</blockquote>
-
-
-<div class="panel panel-default panel-badger">
-  <div class="panel-body">
-    <figure class="media">
-      <div class="media-left">
-        <a href="https://github.com/lizehongss" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="/newBlog/images/avatar.jpg" class="img-rounded w-full" alt="">
-        </a>
-      </div>
-      <div class="media-body">
-        <h3 class="media-heading"><a href="https://github.com/lizehongss" target="_blank"><span class="text-dark">lzh</span><small class="ml-1x">前端工程师</small></a></h3>
-        <div>努力工作，简单生活</div>
-      </div>
-    </figure>
-  </div>
-</div>
-
-
-    </div>
-  </article>
-  
-    
-  <section id="comments">
-  	
-      <div id="vcomments"></div>
-    
-  </section>
-
-
-  
-</div>
-
-  <nav class="bar bar-footer clearfix" data-stick-bottom>
-  <div class="bar-inner">
-  
-  <ul class="pager pull-left">
-    
-    <li class="prev">
-      <a href="/newBlog/2021/11/07/vue3%20%E5%B7%A5%E5%85%B7%E5%87%BD%E6%95%B0%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/" title="vue3 工具函数源码学习"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
-    </li>
-    
-    
-    <li class="next">
-      <a href="/newBlog/2021/10/17/%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E7%AC%94%E8%AE%B0/" title="构造函数笔记"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
-    </li>
-    
-    
-  </ul>
-  
-  
-  
-  <div class="bar-right">
-    
-    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
-    
-  </div>
-  </div>
-</nav>
-  
-
-
-</main>
-
-  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
-	
-	
-    <ul class="social-links">
-    	
-        <li><a href="https://github.com/lizehongss" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
-        
-        <li><a href="https://juejin.cn/user/2348212566891831" target="_blank" title="Juejin" data-toggle=tooltip data-placement=top><i class="icon icon-juejin"></i></a></li>
-        
-    </ul>
-
-    <div class="copyright">
-    	
-        <div class="publishby">
-        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
-        </div>
-    </div>
-</footer>
-  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
-<script>
-window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
-</script>
-
-<script src="/newBlog/js/plugin.min.js"></script>
-
-
-<script src="/newBlog/js/application.js"></script>
-
-
-    <script>
-(function (window) {
-    var INSIGHT_CONFIG = {
-        TRANSLATION: {
-            POSTS: '文章',
-            PAGES: '页面',
-            CATEGORIES: '分类',
-            TAGS: '标签',
-            UNTITLED: '(未命名)',
-        },
-        ROOT_URL: '/newBlog/',
-        CONTENT_URL: '/newBlog/content.json',
-    };
-    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
-})(window);
-</script>
-
-<script src="/newBlog/js/insight.js"></script>
-
-
-
-
-
-
-   
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-
-
-   
-    
-  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/valine"></script>
-  <script type="text/javascript">
-  var GUEST = ['nick', 'mail', 'link'];
-  var meta = 'nick,mail,link';
-  meta = meta.split(',').filter(function(item) {
-    return GUEST.indexOf(item) > -1;
-  });
-  new Valine({
-    el: '#vcomments',
-    verify: false,
-    notify: false,
-    appId: '',
-    appKey: '',
-    placeholder: 'Just go go',
-    avatar: 'mm',
-    meta: meta,
-    pageSize: '10' || 10,
-    visitor: false
-  });
-  </script>
-
-     
-
-
-
-
-
-
-
-</body>
-</html>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/newBlog/tags/vue/">vue</a></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/newBlog/2021/11/07/vue3%20%E5%B7%A5%E5%85%B7%E5%87%BD%E6%95%B0%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/" title="vue3 工具函数源码学习"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">vue3 工具函数源码学习</div></div><div class="info-2"><div class="info-item-1">vue3工具函数目录结构vue3工具函数所在目录如下所示 1vue-nex/packages/shared/src src目录下有以下文件:​其中index.ts是入口文件，其它文件在index.ts中引入， index中定义了常用的工具函数 1234567891011121314import &#123; makeMap &#125; from &#...</div></div></div></a><a class="pagination-related" href="/newBlog/2021/10/17/%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E7%AC%94%E8%AE%B0/" title="构造函数笔记"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">构造函数笔记</div></div><div class="info-2"><div class="info-item-1">构造函数 构造函数主要作用是用于实例化类，类实例是由构造函数构造的，构造函数的主要任务是初始化实例需要的信息。(通常构造函数的首字母一般大写)。 构造函数使用new关键字调用  1234567function Animal () &#123;    this.type = &#x27;animal&#x27;&#125;let dog = new An...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/newBlog/2018/02/06/vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="vue学习笔记(一)————基础知识"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-02-06</div><div class="info-item-2">vue学习笔记(一)————基础知识</div></div><div class="info-2"><div class="info-item-1">前言学习vue的笔记，应该会试着写一个系列，目的还是加深印象，毕竟感觉自己的记忆力真的不ok,也是给自己的学习留下一点东西 创建vue实例和数据123456789var app = new Vue(&#123;	el:&#x27;#app&#x27;，//指定挂载vue实例的元素，一般为id	data:&#123;		//数据		a:1	&#125;	...</div></div></div></a><a class="pagination-related" href="/newBlog/2019/05/15/vue%E6%95%B0%E6%8D%AE%E9%A9%B1%E5%8A%A8/" title="vue数据驱动原理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2019-05-15</div><div class="info-item-2">vue数据驱动原理</div></div><div class="info-2"><div class="info-item-1">Vue的定义 123456new Vue(&#123;  el: &#x27;#app&#x27;,  data: &#123;    message: &#x27;Hello Vue!&#x27;  &#125;&#125;) 1234function Vue (options) &#123;  //...  this._init(options)&...</div></div></div></a><a class="pagination-related" href="/newBlog/2022/01/21/PDF%E5%B1%95%E7%A4%BA%E4%B8%8E%E5%90%88%E6%88%90Vue%E7%BB%84%E4%BB%B6(lz-pdf-merage)/" title="PDF展示与合成Vue组件(lz-pdf-merage)"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-21</div><div class="info-item-2">PDF展示与合成Vue组件(lz-pdf-merage)</div></div><div class="info-2"><div class="info-item-1">前言主要是介绍使用pdfjs和jsPdf在vue组件中对pdf文件进行展示和对原有pdf进行合成(包括文字，图片合成)。 体验demo地址 npm包引入 1npm install lz-pdf-merage pdf展示主要使用pdfjs(使用的版本是2.1.266)对pdf文件通过对canvas对其进行预览展示，主要原理如下: 123456789101...</div></div></div></a><a class="pagination-related" href="/newBlog/2019/08/04/vue-interview/" title="vue相关原理面试题整理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2019-08-04</div><div class="info-item-2">vue相关原理面试题整理</div></div><div class="info-2"><div class="info-item-1">vue响应式原理实现主要通过Object.defineProperty实现，通过它对对象的属性进行getter和setter,从而实现访问和修改这个属性时，通过getter和setter实现依赖注入和派发更新。依赖注入和派发更新通过订阅-观察者模式实现，具体如下, 在访问属性时，通过getter给dep添加watcher类，setter时触发dep.n...</div></div></div></a><a class="pagination-related" href="/newBlog/2022/02/01/vue-router%E6%BA%90%E7%A0%81%E7%AE%80%E8%A6%81%E5%88%86%E6%9E%90/" title="vue-router源码简要分析"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-01</div><div class="info-item-2">vue-router源码简要分析</div></div><div class="info-2"><div class="info-item-1">前言主要分析了vue-router的部分源码，从而帮助理解vue-router的相关原理。主要从三个方面分析:  vue-router插件初始化时所做的工作; 当路由发生改变时如何渲染router-view组件; 使用router-link是如何进行路由跳转的;   vue-router插件初始化一般在项目中引入vue-router插件时，所需代码如下...</div></div></div></a><a class="pagination-related" href="/newBlog/2018/02/10/vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%BB%84%E4%BB%B6%20/" title="vue学习笔记(二)————组件"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-02-10</div><div class="info-item-2">vue学习笔记(二)————组件</div></div><div class="info-2"><div class="info-item-1">前言主要是有关vue组件的笔记，然后也不想为了定blog而写blog,所以应该会写一些真的自己想记下来的东西，也希望可以尽量精简的写 组件用法需要注册才能使用组件，注册分为局部注册和全局注册，代码示例如下： 必须在实例注册，组件才可以使用 123456789101112//全局注册Vue.component(&quot;组件名&quot;,&#123;...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/newBlog/images/avatar.jpg" onerror="this.onerror=null;this.src='/newBlog/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">lizehong</div><div class="author-info-description">努力工作，简单生活</div><div class="site-data"><a href="/newBlog/archives/"><div class="headline">文章</div><div class="length-num">21</div></a><a href="/newBlog/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/newBlog/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/lizehongss"><i class="fab fa-github"></i><span>GitHub</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/lizehongss" target="_blank" title="GitHub"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎您的到来!</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%80%9A%E8%BF%87object-defineProperty%E8%AE%BE%E7%BD%AEgetter%E5%92%8Csetter"><span class="toc-number">1.</span> <span class="toc-text">通过object.defineProperty设置getter和setter</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96%E6%94%B6%E9%9B%86%E5%92%8C%E6%B4%BE%E5%8F%91%E6%9B%B4%E6%96%B0"><span class="toc-number">2.</span> <span class="toc-text">依赖收集和派发更新</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96%E6%94%B6%E9%9B%86"><span class="toc-number">2.1.</span> <span class="toc-text">依赖收集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B4%BE%E5%8F%91%E6%9B%B4%E6%96%B0"><span class="toc-number">2.2.</span> <span class="toc-text">派发更新</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#computed%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">computed实现</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#watch%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">4.</span> <span class="toc-text">watch的实现</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/newBlog/2022/02/01/vue-router%E6%BA%90%E7%A0%81%E7%AE%80%E8%A6%81%E5%88%86%E6%9E%90/" title="vue-router源码简要分析">vue-router源码简要分析</a><time datetime="2022-01-31T16:00:00.000Z" title="发表于 2022-02-01 00:00:00">2022-02-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/newBlog/2022/01/21/PDF%E5%B1%95%E7%A4%BA%E4%B8%8E%E5%90%88%E6%88%90Vue%E7%BB%84%E4%BB%B6(lz-pdf-merage)/" title="PDF展示与合成Vue组件(lz-pdf-merage)">PDF展示与合成Vue组件(lz-pdf-merage)</a><time datetime="2022-01-20T16:00:00.000Z" title="发表于 2022-01-21 00:00:00">2022-01-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/newBlog/2021/12/02/%E7%AC%AC%E4%B8%89%E6%9C%9F%20_%20vue%203.2%20%E6%98%AF%E6%80%8E%E4%B9%88%E5%8F%91%E5%B8%83%E7%9A%84%20vue-release/" title="vue3.2是怎么发布vue-release的">vue3.2是怎么发布vue-release的</a><time datetime="2021-12-01T16:00:00.000Z" title="发表于 2021-12-02 00:00:00">2021-12-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/newBlog/2021/11/07/vue3%20%E5%B7%A5%E5%85%B7%E5%87%BD%E6%95%B0%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/" title="vue3 工具函数源码学习">vue3 工具函数源码学习</a><time datetime="2021-11-06T16:00:00.000Z" title="发表于 2021-11-07 00:00:00">2021-11-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/newBlog/2021/10/24/vue-%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/" title="vue-响应式原理">vue-响应式原理</a><time datetime="2021-10-23T16:00:00.000Z" title="发表于 2021-10-24 00:00:00">2021-10-24</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2018 - 2026 By lizehong</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/newBlog/js/utils.js?v=5.5.4"></script><script src="/newBlog/js/main.js?v=5.5.4"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/newBlog/js/search/local-search.js?v=5.5.4"></script></div></div></body></html>
